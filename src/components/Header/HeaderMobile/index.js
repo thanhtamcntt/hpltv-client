@@ -3,9 +3,16 @@ import { ColLeft, ColRight, DivHeader, RowHeader } from './styles';
 import HeaderNavBar from './Navbar';
 import HeaderSearch from './Search';
 import HeaderMenu from './Menu';
+import { Drawer } from 'antd';
 
 function HeaderMobile() {
-  const [show, setShow] = useState(false);
+  const [open, setOpen] = useState(false);
+  const showDrawer = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
   return (
     <DivHeader>
       <RowHeader>
@@ -13,10 +20,17 @@ function HeaderMobile() {
           <HeaderNavBar />
         </ColLeft>
         <ColRight span={16}>
-          <HeaderSearch setShow={setShow} />
+          <HeaderSearch onclick={showDrawer} />
         </ColRight>
       </RowHeader>
-      {show && <HeaderMenu setShow={setShow} />}
+
+      <Drawer
+        placement="right"
+        onClose={onClose}
+        open={open}
+        className="drawerHeaderMenu">
+        <HeaderMenu />
+      </Drawer>
     </DivHeader>
   );
 }

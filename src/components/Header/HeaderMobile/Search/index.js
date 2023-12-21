@@ -5,7 +5,7 @@ import { UnorderedListOutlined } from '@ant-design/icons';
 
 function HeaderSearch(props) {
   const showMenu = () => {
-    props.setShow(true);
+    props.onclick();
   };
   return (
     <DivSearch>

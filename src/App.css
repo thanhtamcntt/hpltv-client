@@ -34,6 +34,16 @@ button {
   border: none;
 }
 
+/* header */
+
+.drawerHeaderMenu .ant-drawer-header-title {
+  justify-content: flex-end;
+}
+
+.drawerHeaderMenu .ant-drawer-header-title span {
+  font-size: 26px;
+}
+
 /* footer */
 
 .footer-top {

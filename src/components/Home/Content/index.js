@@ -14,7 +14,7 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 function Content(props) {
   const [films, setFirms] = useState([]);
-  const [width, setWidth] = useState(0);
+  const [width, setWidth] = useState(window.innerWidth);
   const [slide, setSlide] = useState(5);
   const refContent = useRef();
   useEffect(() => {
