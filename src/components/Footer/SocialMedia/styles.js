@@ -13,9 +13,10 @@ export const TextTitle = styled.h2`
   text-align: center;
 `;
 
-export const ListContact = styled.div``;
-
-export const DivIcon = styled.div``;
-export const DivLink = styled.div``;
-
-export const LinkContact = styled.a``;
+export const ListContact = styled.div`
+  @media (max-width: 575px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`;

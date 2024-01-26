@@ -9,6 +9,9 @@ export const DivItemSocial = styled.a`
   @media (max-width: 575px) {
     margin: 30px 0px 30px 32%;
   }
+  @media (max-width: 575px) {
+    margin: 10px 0;
+  }
 `;
 
 export const DivIcon = styled.div`

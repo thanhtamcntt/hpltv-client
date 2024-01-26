@@ -7,8 +7,8 @@ import {
   BannerContent,
   DivButtonBanner,
   ImageBanner,
+  ButtonLayout,
 } from './styles';
-import LayoutButton from '../../../layout/ButtonLayout';
 import bannerImage from '../../../assets/images/image-banner.png';
 
 function Banner() {
@@ -27,7 +27,7 @@ function Banner() {
             experiences, from cult blockbusters to artistic works of art.
           </BannerContent>
           <DivButtonBanner>
-            <LayoutButton text="Start now" />
+            <ButtonLayout>Start now</ButtonLayout>
           </DivButtonBanner>
         </ColBanner>
         <ColBanner span={10} md={10} sm={24} xs={24}>

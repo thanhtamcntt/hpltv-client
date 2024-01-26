@@ -5,6 +5,7 @@ export const DivSearch = styled.div``;
 
 export const RowSearch = styled(Row)``;
 export const ColLeft = styled(Col)`
+  margin: auto;
   & a {
     color: var(--black);
     font-weight: bold;
@@ -12,9 +13,9 @@ export const ColLeft = styled(Col)`
   }
 `;
 export const ColRight = styled(Col)`
-  display: flex;
-  align-items: center;
+  margin: auto;
 `;
+
 export const FormSearch = styled.form`
   background: var(--bg-search);
   border-radius: 25px;
@@ -48,20 +49,43 @@ export const ButtonSearch = styled.button`
     color: white;
   }
 `;
-export const ListNav = styled(Row)`
-  width: 100%;
-  display: flex;
-`;
 
-export const ItemNav = styled(Col)`
-  height: 100%;
-  text-align: right;
-  & a {
-    color: var(--black);
-    font-size: 20px;
-    font-weight: 400;
-    @media (min-width: 992px) and (max-width: 1199px) {
-      font-size: 18px;
-    }
+export const ProfileUser = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &:hover div {
+    display: block;
   }
 `;
+export const ImageAvatar = styled.img`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+`;
+
+export const NameUser = styled.p`
+  margin-right: 10px;
+  font-weight: 500;
+  font-size: 18px;
+`;
+
+export const ButtonProfile = styled.button`
+display: flex;
+align-items: center;
+justify-content: flex-end;
+width: 100%;
+padding: 0;
+background-color: transparent;
+cursor: pointer;
+}`;
+
+export const ButtonLogout = styled.button`
+text-align: left;
+width: 100%;
+padding: 0;
+background-color: transparent;
+cursor: pointer;
+}`;
