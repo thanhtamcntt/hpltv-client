@@ -19,10 +19,10 @@ function HeaderNavBar() {
         <ColRight span={17} lg={16} xl={17}>
           <ListNav>
             <ItemNav>
-              <Link to="/">Movies</Link>
+              <Link to="/movies">Movies</Link>
             </ItemNav>
             <ItemNav>
-              <Link to="/">Series</Link>
+              <Link to="/series">Series</Link>
             </ItemNav>
             <ItemNav>
               <Link to="/">Contact</Link>

@@ -7,7 +7,7 @@ import {
   DivSearch,
 } from './styles';
 import { Link } from 'react-router-dom';
-import InputSearchLayout from '../../../layout/InputSearch/InputSearch';
+import InputSearchLayout from '../../Common/InputSearch/InputSearch';
 
 function Company() {
   return (
@@ -15,10 +15,10 @@ function Company() {
       <TextTitle>Company</TextTitle>
       <RowCompany>
         <ColCompany span={12}>
-          <Link to="/">Register</Link>
+          <Link to="/auth/signup">Register</Link>
         </ColCompany>
         <ColCompany span={12}>
-          <Link to="/">Login</Link>
+          <Link to="/auth/login">Login</Link>
         </ColCompany>
       </RowCompany>
       <RowCompany>

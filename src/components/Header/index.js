@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { ColLeft, ColRight, DivHeader, RowHeader } from './styles';
+import {
+  ColLeft,
+  ColRight,
+  DivHeader,
+  RowHeader,
+  ContentHeader,
+} from './styles';
 import HeaderNavBar from './Navbar';
 import HeaderSearchLogin from './SearchAndLogin';
 import HeaderMobile from './HeaderMobile';
@@ -19,20 +25,22 @@ function Header() {
   }, [width]);
   return (
     <DivHeader>
-      {width >= 992 ? (
-        <RowHeader>
-          <ColLeft span={14}>
-            <HeaderNavBar />
-          </ColLeft>
-          <ColRight span={10}>
-            <HeaderSearchLogin />
-          </ColRight>
-        </RowHeader>
-      ) : (
-        <RowHeader>
-          <HeaderMobile />
-        </RowHeader>
-      )}
+      <ContentHeader>
+        {width >= 992 ? (
+          <RowHeader>
+            <ColLeft span={14}>
+              <HeaderNavBar />
+            </ColLeft>
+            <ColRight span={10}>
+              <HeaderSearchLogin />
+            </ColRight>
+          </RowHeader>
+        ) : (
+          <RowHeader>
+            <HeaderMobile />
+          </RowHeader>
+        )}
+      </ContentHeader>
     </DivHeader>
   );
 }
