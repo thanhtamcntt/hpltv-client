@@ -23,3 +23,44 @@ export const fetchMoviesFeature = createAsyncThunk(
     return data;
   },
 );
+
+export const handleLikeMovies = createAsyncThunk(
+  'handleLikeMovies',
+  async (dataPost, { rejectWithValue }) => {
+    const response = await fetch(process.env.REACT_APP_API_HANDLE_LIKE_MOVIES, {
+      method: 'POST',
+      body: JSON.stringify(dataPost),
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-type': 'application/json',
+      },
+    });
+    const data = await response.json();
+    if (!data.success) {
+      rejectWithValue(dataPost);
+    }
+    return data;
+  },
+);
+
+export const handleRatingMoviesAction = createAsyncThunk(
+  'HandleRatingMoviesAction',
+  async (dataPost, { rejectWithValue }) => {
+    const response = await fetch(
+      process.env.REACT_APP_API_HANDLE_RATING_MOVIES,
+      {
+        method: 'POST',
+        body: JSON.stringify(dataPost),
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+          'Content-type': 'application/json',
+        },
+      },
+    );
+    const data = await response.json();
+    if (!data.success) {
+      rejectWithValue(dataPost);
+    }
+    return data;
+  },
+);

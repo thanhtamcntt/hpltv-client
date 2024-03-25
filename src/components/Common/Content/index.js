@@ -66,7 +66,7 @@ function Content(props) {
                   title={film.title}
                   image={film.imageUrl.url}
                   idFilm={film._id}
-                  type="movies"
+                  type={props.type}
                 />
               );
             })}

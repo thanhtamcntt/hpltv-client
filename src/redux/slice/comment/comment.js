@@ -1,5 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchAllComment, createComment } from '../../action/comment/comment';
+import {
+  fetchAllComment,
+  createComment,
+  createCommentReply,
+  deleteComment,
+  updateComment,
+} from '../../action/comment/comment';
 
 const initialState = {
   data: [],
@@ -20,7 +26,6 @@ export const CommentSlice = createSlice({
       // console.log(action.payload.data);
       state.loading = false;
       state.data = [...action.payload.data];
-      console.log(state.data);
     });
     builder.addCase(fetchAllComment.rejected, (state, action) => {
       // console.log(action.payload);
@@ -34,55 +39,68 @@ export const CommentSlice = createSlice({
     });
     builder.addCase(createComment.fulfilled, (state, action) => {
       console.log('action: ', action.payload.data);
+      const user = JSON.parse(localStorage.getItem('userInfo'));
       state.loading = false;
-      state.data.push(action.payload.data);
+      const newComment = {
+        ...action.payload.data,
+        userId: user,
+      };
+      state.data.unshift(newComment);
     });
     builder.addCase(createComment.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload.message;
     });
 
-    // // delete movies
-    // builder.addCase(deleteMovies.pending, (state) => {
-    //   state.loading = true;
-    // });
-    // builder.addCase(deleteMovies.fulfilled, (state, action) => {
-    //   console.log('action: ', action.payload);
-    //   state.loading = false;
-    //   state.data = state.data.filter((data) => data._id !== action.payload);
-    // });
-    // builder.addCase(deleteMovies.rejected, (state, action) => {
-    //   state.loading = false;
-    //   state.error = action.payload.message;
-    // });
+    // create a new comment reply
+    builder.addCase(createCommentReply.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(createCommentReply.fulfilled, (state, action) => {
+      console.log('action: ', action.payload.data);
+      const user = JSON.parse(localStorage.getItem('userInfo'));
+      state.loading = false;
+      const newComment = {
+        ...action.payload.data,
+        userId: user,
+      };
+      state.data.unshift(newComment);
+    });
+    builder.addCase(createCommentReply.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    });
 
-    // // update a  movies
-    // builder.addCase(updateMovies.pending, (state) => {
-    //   state.loading = true;
-    // });
-    // builder.addCase(updateMovies.fulfilled, (state, action) => {
-    //   console.log('action: ', action.payload);
-    //   state.loading = false;
-    //   state.data.map((data) => {
-    //     if (data._id === action.payload.data._id) {
-    //       data.title = action.payload.data.title;
-    //       data.releaseDate = action.payload.data.releaseDate;
-    //       data.description = action.payload.data.description;
-    //       data.director = action.payload.data.director;
-    //       data.cast = action.payload.data.cast;
-    //       data.country = action.payload.data.country;
-    //       data.productCompany = action.payload.data.productCompany;
-    //       data.duration = action.payload.data.duration;
-    //       data.imageUrl = action.payload.data.imageUrl;
-    //       data.videoUrl = action.payload.data.videoUrl;
-    //       data.updateAt = action.payload.data.updateAt;
-    //       data.listCategoryId = action.payload.data.listCategoryId;
-    //     }
-    //   });
-    // });
-    // builder.addCase(updateMovies.rejected, (state, action) => {
-    //   state.loading = false;
-    //   state.error = action.payload.message;
-    // });
+    // delete comment
+    builder.addCase(deleteComment.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteComment.fulfilled, (state, action) => {
+      console.log('action: ', action.payload);
+      state.loading = false;
+      state.data = state.data.filter((data) => data._id !== action.payload);
+    });
+    builder.addCase(deleteComment.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    });
+
+    // update a comment
+    builder.addCase(updateComment.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(updateComment.fulfilled, (state, action) => {
+      console.log('action: ', action.payload);
+      state.loading = false;
+      state.data.map((data) => {
+        if (data._id === action.payload.data._id) {
+          data.content = action.payload.data.content;
+        }
+      });
+    });
+    builder.addCase(updateComment.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    });
   },
 });

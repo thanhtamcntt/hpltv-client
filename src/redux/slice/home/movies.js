@@ -1,5 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchAllMovies, fetchMoviesFeature } from '../../action/home/movies';
+import {
+  fetchAllMovies,
+  fetchMoviesFeature,
+  handleLikeMovies,
+  handleRatingMoviesAction,
+} from '../../action/home/movies';
 
 const initialState = {
   data: [],
@@ -37,6 +42,40 @@ export const MoviesSlice = createSlice({
       state.data = [...action.payload.data];
     });
     builder.addCase(fetchMoviesFeature.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    });
+
+    // handle user like movies
+    builder.addCase(handleLikeMovies.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(handleLikeMovies.fulfilled, (state, action) => {
+      console.log(action.payload);
+      state.loading = false;
+      const updatedData = action.payload.data;
+      state.data = state.data.map((item) =>
+        item._id === updatedData._id ? updatedData : item,
+      );
+    });
+    builder.addCase(handleLikeMovies.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    });
+
+    // handle user rating movies
+    builder.addCase(handleRatingMoviesAction.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(handleRatingMoviesAction.fulfilled, (state, action) => {
+      console.log(action.payload.data);
+      state.loading = false;
+      const updatedData = action.payload.data;
+      state.data = state.data.map((item) =>
+        item._id === updatedData._id ? updatedData : item,
+      );
+    });
+    builder.addCase(handleRatingMoviesAction.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload.message;
     });

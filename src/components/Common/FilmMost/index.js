@@ -45,12 +45,22 @@ function FilmMost(props) {
               <Item key={id}>
                 <RowItem>
                   <ColItem span={5}>
-                    <Link to={'/film/' + item._id}>
+                    <Link
+                      to={
+                        props.type === 'series'
+                          ? '/series/' + item._id
+                          : '/film/' + item._id
+                      }>
                       <ImageItem src={item.imageUrl.url} alt={item.title} />
                     </Link>
                   </ColItem>
                   <ColItem span={19}>
-                    <Link to={'/film/' + item._id}>
+                    <Link
+                      to={
+                        props.type === 'series'
+                          ? '/series/' + item._id
+                          : '/film/' + item._id
+                      }>
                       <TextFilm>{item.title}</TextFilm>
                     </Link>
                   </ColItem>

@@ -23,10 +23,12 @@ import { fetchAllMovies } from '../../../redux/action/home/movies';
 import { fetchAllSeries } from '../../../redux/action/home/series';
 import { useEffect, useState } from 'react';
 import Film from '../../Common/FilmComponent';
+import FilmMost from '../../Common/FilmMost';
 
 function FilmForSeriesPage() {
   const [data, setData] = useState();
   const [seriesData, setSeriesData] = useState();
+  const [mostSeriesData, setMostSeriesData] = useState();
 
   const { seriesId } = useParams();
 
@@ -34,10 +36,8 @@ function FilmForSeriesPage() {
   const movies = useSelector((state) => state.moviesSlice);
   const series = useSelector((state) => state.seriesSlice);
   useEffect(() => {
-    dispatch(fetchAllMovies());
-    dispatch(fetchAllSeries());
-  }, [dispatch]);
-  console.log(seriesId);
+    Promise.all([dispatch(fetchAllMovies()), dispatch(fetchAllSeries())]);
+  }, [dispatch, seriesId]);
 
   useEffect(() => {
     if (movies && series) {
@@ -51,11 +51,22 @@ function FilmForSeriesPage() {
           }
         }
       }
+
       setData(arrayData.reverse());
     }
   }, [movies, series]);
 
-  if (!series || !movies || !data || !seriesData) {
+  useEffect(() => {
+    if (series) {
+      let arrayData = [];
+      for (let itemSeries of series.data) {
+        arrayData.push(itemSeries);
+      }
+      setMostSeriesData(arrayData);
+    }
+  }, [series]);
+
+  if (!series || !movies || !data || !seriesData || !mostSeriesData) {
     return <LoadingComponent />;
   }
 
@@ -103,7 +114,14 @@ function FilmForSeriesPage() {
             </RowFilm>
           </DivFilmForMovies>
         </ColSeriesLeft>
-        <ColSeriesRight span={8}></ColSeriesRight>
+        <ColSeriesRight span={8}>
+          <FilmMost
+            title={'Recommended series'}
+            film={mostSeriesData}
+            filmId={seriesId}
+            type="series"
+          />
+        </ColSeriesRight>
       </RowSeries>
     </DivContainer>
   );

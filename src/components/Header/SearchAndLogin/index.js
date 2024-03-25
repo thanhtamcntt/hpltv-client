@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   ColLeft,
   ColRight,
@@ -10,7 +10,7 @@ import {
   NameUser,
   ButtonLogout,
 } from './styles';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import InputSearchLayout from '../../Common/InputSearch/InputSearch';
 import { jwtDecode } from 'jwt-decode';
 import { Dropdown } from 'antd';
@@ -22,12 +22,8 @@ function HeaderSearchLogin() {
 
   const handleLogout = async () => {
     if (localStorage.getItem('token')) {
-      setUser(undefined);
-      await localStorage.removeItem('token');
-      const tokenUser = await localStorage.getItem('token');
-      if (tokenUser === null) {
-        window.location.reload();
-      }
+      localStorage.removeItem('token');
+      window.location.reload();
     }
   };
 
@@ -35,6 +31,14 @@ function HeaderSearchLogin() {
     {
       key: 'profile',
       label: <Link to="/my-profile">My profile</Link>,
+    },
+    {
+      key: 'myFavoriteMovies',
+      label: <Link to="/my-favorite-movies">My Favorite Movies</Link>,
+    },
+    {
+      key: 'packageUpgrade',
+      label: <Link to="/package-upgrade">Package Upgrade</Link>,
     },
     {
       key: 'logout',

@@ -5,10 +5,23 @@ import {
   ButtonAction,
   DivServer,
   DivContentVideo,
+  RatingAction,
 } from './styles';
-import { Tag } from 'antd';
+import { Tag, Rate } from 'antd';
+import { FacebookShareButton } from 'react-share';
 
-function VideoActionMovies({ data }) {
+function VideoActionMovies({
+  data,
+  isLike,
+  handleClickLikeMovies,
+  handleRatingMovies,
+  isRating,
+  dataValueUserRating,
+}) {
+  const handleLikeMovies = () => {
+    handleClickLikeMovies();
+  };
+
   return (
     <>
       <TitleVideo>{data.film.title}</TitleVideo>
@@ -24,12 +37,29 @@ function VideoActionMovies({ data }) {
       </DivVideo>
       <DivContentVideo>
         <DivAction>
-          <ButtonAction>
-            <Tag color="#3b5999">Like</Tag>
+          <ButtonAction onClick={() => handleLikeMovies()}>
+            {isLike ? (
+              <Tag color="#FFD700">Liked</Tag>
+            ) : (
+              <Tag color="#3b5999">Like</Tag>
+            )}
           </ButtonAction>
           <ButtonAction>
-            <Tag color="#3b5999">Share</Tag>
+            <Tag color="#3b5999">
+              <FacebookShareButton url="facebook.com" hashtag="#showhub">
+                Share
+              </FacebookShareButton>
+            </Tag>
           </ButtonAction>
+          <RatingAction>
+            <label>Rating:</label>&nbsp;&nbsp;
+            <Rate
+              disabled={isRating ? true : false}
+              value={dataValueUserRating}
+              allowHalf
+              onChange={(value) => handleRatingMovies(value)}
+            />
+          </RatingAction>
         </DivAction>
         <DivServer>
           <label>Vietsub #1</label>: &nbsp;

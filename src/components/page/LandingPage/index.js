@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   DivLandingPage,
   DivActionAuth,
@@ -17,15 +17,17 @@ import {
   TextInformation,
   ImageInformation,
 } from './styles';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import banner1 from '../../../assets/images/img-login.jpg';
 import imageInfo1 from '../../../assets/images/laptop-landing.jpg';
 import imageInfo2 from '../../../assets/images/tv-landing.jpg';
 import { RightOutlined } from '@ant-design/icons';
 
 function LandingPage() {
-  const navigate = useNavigate();
-
+  useEffect(() => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userInfo');
+  });
   return (
     <DivLandingPage>
       <DivActionAuth backgroundImage={banner1}>

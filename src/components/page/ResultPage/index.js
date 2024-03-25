@@ -52,7 +52,7 @@ const ResultPage = () => {
   useEffect(() => {
     dispatch(fetchAllMovies());
   }, [dispatch]);
-
+  console.log(movies);
   useEffect(() => {
     if (movies) {
       let arrayData = [];
