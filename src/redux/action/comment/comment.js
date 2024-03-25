@@ -19,14 +19,40 @@ export const fetchAllComment = createAsyncThunk(
 export const createComment = createAsyncThunk(
   'createComment',
   async (data, { rejectWithValue }) => {
-    const response = await fetch(process.env.REACT_APP_API_ADD_COMMENT, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-        'Content-type': 'application/json',
+    const response = await fetch(
+      process.env.REACT_APP_API_ADD_COMMENT + '?reply=false',
+      {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+          'Content-type': 'application/json',
+        },
       },
-    });
+    );
+
+    const json = await response.json();
+    if (!json.success) {
+      rejectWithValue(json);
+    }
+    return json;
+  },
+);
+
+export const createCommentReply = createAsyncThunk(
+  'createCommentReply',
+  async (data, { rejectWithValue }) => {
+    const response = await fetch(
+      process.env.REACT_APP_API_ADD_COMMENT + '?reply=true',
+      {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+          'Content-type': 'application/json',
+        },
+      },
+    );
 
     const json = await response.json();
     if (!json.success) {
@@ -40,9 +66,13 @@ export const deleteComment = createAsyncThunk(
   'deleteComment',
   async (data, { rejectWithValue }) => {
     const response = await fetch(
-      process.env.REACT_APP_API_UPDATE_COMMENT + '/' + data,
+      process.env.REACT_APP_API_DELETE_COMMENT + '/' + data,
       {
         method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token'),
+          'Content-type': 'application/json',
+        },
       },
     );
     const json = await response.json();
@@ -57,13 +87,14 @@ export const updateComment = createAsyncThunk(
   'updateComment',
   async (data, { rejectWithValue }) => {
     console.log(data);
-    const response = await fetch(
-      process.env.REACT_APP_API_DELETE_COMMENT + '/' + data.Id,
-      {
-        method: 'POST',
-        body: data.formData,
+    const response = await fetch(process.env.REACT_APP_API_UPDATE_COMMENT, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-type': 'application/json',
       },
-    );
+    });
     const json = await response.json();
     if (!json.success) {
       rejectWithValue(json);

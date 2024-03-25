@@ -3,18 +3,22 @@ import styled from 'styled-components';
 
 export const DivListComment = styled.div`
   width: 100%;
-
-  margin-top: 50px;
+  background-color: #fefdfd;
+  margin: 50px 0;
+  height: 700px;
+  overflow: auto;
 `;
 
 export const DivDetailComment = styled.div`
   width: 100%;
   background-color: #fefdfd;
-  padding: 20px 0;
+  padding: 25px 0 10px;
 `;
 
 export const RowComment = styled(Row)``;
-export const ColLeftComment = styled(Col)``;
+export const ColLeftComment = styled(Col)`
+  text-align: left;
+`;
 export const ColRightComment = styled(Col)``;
 
 export const DivContent = styled.div`
@@ -23,8 +27,8 @@ export const DivContent = styled.div`
 `;
 
 export const AvatarUserComment = styled.img`
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
 `;
 export const NameUser = styled.h3`
@@ -51,4 +55,36 @@ export const ReplyButton = styled.button`
   & p {
     margin-left: 6px;
   }
+`;
+
+// action comment
+export const DivContainerAction = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const DivDetailCommentReply = styled.div`
+  padding-bottom: 14px;
+`;
+
+export const NoCommentTitle = styled.h3`
+  margin: 150px 0;
+`;
+
+export const DivActionComment = styled.div`
+  margin-left: 4px;
+  cursor: pointer;
+  & span {
+    font-size: 30px;
+    color: #3f94d5;
+  }
+`;
+
+export const ButtonComment = styled.button`
+  border: none;
+  background: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  padding: 5px 10px;
 `;

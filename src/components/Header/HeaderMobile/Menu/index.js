@@ -51,16 +51,6 @@ function HeaderMenu(props) {
           </ItemNav>
         </ListNav>
       </DivPage>
-      <DivAction>
-        <ListNavAction>
-          <ItemNavAction span={12}>
-            <Link to="/">Sign in</Link>
-          </ItemNavAction>
-          <ItemNavAction span={12}>
-            <Link to="/">Sign up</Link>
-          </ItemNavAction>
-        </ListNavAction>
-      </DivAction>
     </DivMenu>
   );
 }

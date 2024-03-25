@@ -17,6 +17,7 @@ export const DivVideo = styled.div`
 export const DivContentVideo = styled.div`
   display: flex;
   flex-direction: column;
+  text-align: left;
 `;
 
 export const DivAction = styled.div`
@@ -52,6 +53,13 @@ export const DivServer = styled.div`
 
   & span {
     padding: 5px 20px;
+    font-size: 16px;
+  }
+`;
+
+export const RatingAction = styled.div`
+  margin-top: 20px;
+  & label {
     font-size: 16px;
   }
 `;

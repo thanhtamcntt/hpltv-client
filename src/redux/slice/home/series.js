@@ -16,7 +16,7 @@ export const SeriesSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchAllSeries.fulfilled, (state, action) => {
-      // console.log(action.payload);
+      console.log(action.payload);
       state.loading = false;
       state.data = [...action.payload.data];
     });

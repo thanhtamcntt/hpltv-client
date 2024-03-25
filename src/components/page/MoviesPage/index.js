@@ -45,7 +45,6 @@ const MoviesPage = () => {
         }
         arrayData.push(objectData);
       }
-      console.log(arrayData);
 
       setData(arrayData);
     }
@@ -87,7 +86,14 @@ const MoviesPage = () => {
       {data &&
         data.map((item, id) => {
           if (item.film.length > 4) {
-            return <Content title={item.title} listFilm={item.film} key={id} />;
+            return (
+              <Content
+                title={item.title}
+                listFilm={item.film}
+                key={id}
+                type="movies"
+              />
+            );
           }
         })}
     </DivFilm>

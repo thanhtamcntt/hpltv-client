@@ -68,6 +68,7 @@ export const DivFilmSame = styled.div`
 export const DivComment = styled.div`
   width: 100%;
   background-color: #f9f9f9;
+  max-height: 950px;
 `;
 export const DivContentComment = styled.div`
   margin: 0 20px;
