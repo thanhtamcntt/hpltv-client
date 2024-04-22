@@ -1,6 +1,5 @@
 import { Title, TextFilm } from './styles';
 import dayjs from 'dayjs';
-import { Rate } from 'antd';
 
 function InfoMovies({ data }) {
   return (
@@ -12,9 +11,12 @@ function InfoMovies({ data }) {
       </TextFilm>
       <TextFilm>Director: {data.film.director}</TextFilm>
       <TextFilm>Cast: {data.film.cast}</TextFilm>
-      <TextFilm>Duration: {data.film.duration}</TextFilm>
+      <TextFilm>Duration: {data.film.duration} minute</TextFilm>
       <TextFilm>
-        Rating: &nbsp; <Rate /> / {data.film.rating}
+        <span>Rating:&nbsp;</span>
+        <span>
+          {data.film.rating}/5 ({data.film.totalRating} evaluate)
+        </span>
       </TextFilm>
       <TextFilm>Category: {data.category}</TextFilm>
       <TextFilm>Country: {data.film.country}</TextFilm>

@@ -10,9 +10,6 @@ export const TitleComment = styled.h2``;
 
 export const DivInput = styled.div`
   text-align: left;
-  & textarea {
-    height: 80px;
-  }
 `;
 
 export const ButtonSend = styled.button`

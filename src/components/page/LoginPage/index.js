@@ -13,7 +13,6 @@ import {
 } from './styles';
 import ItemForm from '../../Common/ItemForm';
 import { Link, useNavigate } from 'react-router-dom';
-import bgImage from '../../../assets/images/login-backgorund.jpg';
 import { Button, Form, Input } from 'antd';
 import Footer from '../../Footer';
 
@@ -36,10 +35,10 @@ function LoginPage() {
     const responseJson = await response.json();
     console.log(responseJson);
     if (responseJson.success) {
-      localStorage.setItem('token', responseJson.token);
-      localStorage.setItem('userInfo', JSON.stringify(responseJson.user));
+      await localStorage.setItem('token', responseJson.token);
+      await localStorage.setItem('userInfo', JSON.stringify(responseJson.user));
       if (localStorage.getItem('token')) {
-        navigate('/');
+        navigate('/choose-payment');
       }
     }
   };
