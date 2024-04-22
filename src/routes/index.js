@@ -1,23 +1,22 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import HomePage from '../components/Home';
+import HomePage from '../page/HomePage';
 
-import MoviesPage from '../components/page/MoviesPage';
-import SeriesPage from '../components/page/SeriesPage';
-import ResultPage from '../components/page/ResultPage';
-import DetailFilmPage from '../components/page/DetailFilmPage';
-import ProfilePage from '../components/page/ProfilePage';
-import FilmForSeriesPage from '../components/page/FilmForSeriesPage';
-import MyFavoritePage from '../components/page/MyFavoritePage';
-import PaymentPage from '../components/page/PaymentPage';
-import OptionCheckoutPage from '../components/page/OptionCheckoutPage';
-import PaySuccessPage from '../components/page/PaySuccessPage';
-import CheckoutFormComponent from '../components/Common/CheckoutFormComponent';
+import MoviesPage from '../page/MoviesPage';
+import SeriesPage from '../page/SeriesPage';
+import ResultPage from '../page/ResultPage';
+import DetailFilmPage from '../page/DetailFilmPage';
+import ProfilePage from '../page/ProfilePage';
+import FilmForSeriesPage from '../page/FilmForSeriesPage';
+import MyFavoritePage from '../page/MyFavoritePage';
+import PaymentPage from '../page/PaymentPage';
+import OptionCheckoutPage from '../page/OptionCheckoutPage';
+import PaySuccessPage from '../page/PaySuccessPage';
+import CheckoutFormPage from '../page/CheckoutFormPage';
 
 function Router() {
   return (
     <Routes>
-      <Route path="*" element={<Navigate to="/" replace={true} />} />
       <Route path="/" element={<HomePage />} />
       <Route path="/movies" element={<MoviesPage />} />
       <Route path="/my-favorite-movies" element={<MyFavoritePage />} />
@@ -32,7 +31,7 @@ function Router() {
       />
       <Route
         path="/checkout"
-        element={<CheckoutFormComponent login={true} />}
+        element={<CheckoutFormPage login={true} />}
       />
       <Route path="/search" element={<ResultPage />} />
       <Route path="/series" element={<SeriesPage />} />
@@ -46,6 +45,8 @@ function Router() {
         path="/film/watching-movies/:filmId"
         element={<DetailFilmPage watching={true} />}
       />
+      <Route path="*" element={<Navigate to="/" replace={true} />} />
+
     </Routes>
   );
 }

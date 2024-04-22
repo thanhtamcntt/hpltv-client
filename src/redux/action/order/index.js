@@ -5,7 +5,7 @@ export const fetchAllOrder = createAsyncThunk(
   async (args, { rejectWithValue }) => {
     const response = await fetch(process.env.REACT_APP_API_GET_ALL_ORDER, {
       headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
       },
     });
     const data = await response.json();
