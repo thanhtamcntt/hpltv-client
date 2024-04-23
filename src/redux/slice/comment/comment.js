@@ -6,12 +6,16 @@ import {
   deleteComment,
   updateComment,
 } from '../../action/comment/comment';
+import { useContext } from 'react';
+import { CheckLoginContext } from '../../../contexts/LoginContext';
 
 const initialState = {
   data: [],
   loading: false,
   error: null,
 };
+
+
 
 export const CommentSlice = createSlice({
   name: 'CommentSlice',
@@ -38,13 +42,13 @@ export const CommentSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(createComment.fulfilled, (state, action) => {
-      console.log('action: ', action.payload.data);
-      const user = JSON.parse(localStorage.getItem('userInfo'));
+      
       state.loading = false;
       const newComment = {
-        ...action.payload.data,
-        userId: user,
+        ...action.payload.data.data,
+        userId: action.payload.userInfo
       };
+      console.log(newComment)
       state.data.unshift(newComment);
     });
     builder.addCase(createComment.rejected, (state, action) => {
@@ -58,11 +62,10 @@ export const CommentSlice = createSlice({
     });
     builder.addCase(createCommentReply.fulfilled, (state, action) => {
       console.log('action: ', action.payload.data);
-      const user = JSON.parse(localStorage.getItem('userInfo'));
       state.loading = false;
       const newComment = {
-        ...action.payload.data,
-        userId: user,
+        ...action.payload.data.data,
+        userId: action.payload.userInfo,
       };
       state.data.unshift(newComment);
     });

@@ -10,20 +10,27 @@ import {
   NameUser,
   ButtonLogout,
 } from './styles';
-import { Link } from 'react-router-dom';
-import InputSearchLayout from '../../Common/InputSearch/InputSearch';
-import { jwtDecode } from 'jwt-decode';
+import { Link, useNavigate } from 'react-router-dom';
+import InputSearchLayout from '../../InputSearch/InputSearch';
 import { Dropdown } from 'antd';
+import { CheckLoginContext } from '../../../contexts/LoginContext';
 
 function HeaderSearchLogin() {
+  const { userInfo } = useContext(CheckLoginContext);
+
   const [user, setUser] = useState(
-    jwtDecode(localStorage.getItem('token')).user || undefined,
   );
 
+  useEffect(() => {
+    setUser(userInfo)
+  }, [userInfo])
+
+  const navigate = useNavigate()
+
   const handleLogout = async () => {
-    if (localStorage.getItem('token')) {
-      localStorage.removeItem('token');
-      window.location.reload();
+    if (localStorage.getItem('tokenUser')) {
+      localStorage.removeItem('tokenUser');
+      navigate('/landing-page')
     }
   };
 
@@ -46,11 +53,7 @@ function HeaderSearchLogin() {
     },
   ];
 
-  useEffect(() => {
-    if (localStorage.getItem('userInfo')) {
-      setUser(JSON.parse(localStorage.getItem('userInfo')));
-    }
-  }, []);
+
 
   return (
     <DivSearch>
@@ -68,9 +71,9 @@ function HeaderSearchLogin() {
               arrow>
               <ButtonProfile>
                 <NameUser>
-                  {user.lastName} {user.firstName}
+                  {user && user.lastName} {user && user.firstName}
                 </NameUser>
-                <ImageAvatar src={user.avatarUser.url} alt="image user" />
+                <ImageAvatar src={user && user.avatarUser.url} alt="image user" />
               </ButtonProfile>
             </Dropdown>
           </ProfileUser>

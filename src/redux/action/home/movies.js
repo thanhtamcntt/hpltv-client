@@ -31,7 +31,7 @@ export const handleLikeMovies = createAsyncThunk(
       method: 'POST',
       body: JSON.stringify(dataPost),
       headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
         'Content-type': 'application/json',
       },
     });
@@ -52,7 +52,7 @@ export const handleRatingMoviesAction = createAsyncThunk(
         method: 'POST',
         body: JSON.stringify(dataPost),
         headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
+          Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
           'Content-type': 'application/json',
         },
       },

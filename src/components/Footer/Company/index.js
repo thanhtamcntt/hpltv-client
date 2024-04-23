@@ -7,7 +7,7 @@ import {
   DivSearch,
 } from './styles';
 import { Link } from 'react-router-dom';
-import InputSearchLayout from '../../Common/InputSearch/InputSearch';
+import InputSearchLayout from '../../InputSearch/InputSearch';
 
 function Company() {
   return (

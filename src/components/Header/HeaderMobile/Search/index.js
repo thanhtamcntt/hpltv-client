@@ -1,6 +1,6 @@
 import React from 'react';
 import { DivSearch, RowSearch, ColLeft, ColRight, ButtonMenu } from './styles';
-import InputSearchLayout from '../../../Common/InputSearch/InputSearch';
+import InputSearchLayout from '../../../InputSearch/InputSearch';
 import { UnorderedListOutlined } from '@ant-design/icons';
 
 function HeaderSearch(props) {

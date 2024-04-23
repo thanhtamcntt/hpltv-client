@@ -5,7 +5,7 @@ export const fetchAllComment = createAsyncThunk(
   async (args, { rejectWithValue }) => {
     const response = await fetch(process.env.REACT_APP_API_FETCH_COMMENT, {
       headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
       },
     });
     const data = await response.json();
@@ -23,9 +23,9 @@ export const createComment = createAsyncThunk(
       process.env.REACT_APP_API_ADD_COMMENT + '?reply=false',
       {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: JSON.stringify(data.data),
         headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
+          Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
           'Content-type': 'application/json',
         },
       },
@@ -35,7 +35,9 @@ export const createComment = createAsyncThunk(
     if (!json.success) {
       rejectWithValue(json);
     }
-    return json;
+    return {
+      data: json,userInfo : data.userInfo
+    };
   },
 );
 
@@ -46,9 +48,9 @@ export const createCommentReply = createAsyncThunk(
       process.env.REACT_APP_API_ADD_COMMENT + '?reply=true',
       {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: JSON.stringify(data.data),
         headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
+          Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
           'Content-type': 'application/json',
         },
       },
@@ -58,7 +60,10 @@ export const createCommentReply = createAsyncThunk(
     if (!json.success) {
       rejectWithValue(json);
     }
-    return json;
+    return {
+      data: json,
+      userInfo: data.userInfo
+    };
   },
 );
 
@@ -70,7 +75,7 @@ export const deleteComment = createAsyncThunk(
       {
         method: 'POST',
         headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('token'),
+          Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
           'Content-type': 'application/json',
         },
       },
@@ -91,7 +96,7 @@ export const updateComment = createAsyncThunk(
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
         'Content-type': 'application/json',
       },
     });

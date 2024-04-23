@@ -1,67 +1,73 @@
 import Router from './routes';
 import './App.css';
 import Layout from './layout/index';
-import { React, useEffect, useState } from 'react';
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { React, useContext, useEffect } from 'react';
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import { Spin } from 'antd';
-
-import LandingPage from './components/page/LandingPage';
-import LoginPage from './components/page/LoginPage';
-import SignupPage from './components/page/SignupPage';
+import LandingPage from './page/LandingPage';
+import LoginPage from './page/LoginPage';
+import SignupPage from './page/SignupPage';
 import { jwtDecode } from 'jwt-decode';
-import PaymentPage from './components/page/PaymentPage';
-import OptionCheckoutPage from './components/page/OptionCheckoutPage';
-import PaySuccessPage from './components/page/PaySuccessPage';
-import CheckoutFormComponent from './components/Common/CheckoutFormComponent';
+import PaymentPage from './page/PaymentPage';
+import OptionCheckoutPage from './page/OptionCheckoutPage';
+import PaySuccessPage from './page/PaySuccessPage';
+import CheckoutFormPage from './page/CheckoutFormPage';
+import { CheckLoginContext } from './contexts/LoginContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllMovies } from './redux/action/home/movies';
+import { fetchAllSeries } from './redux/action/home/series';
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
-  const [isPayment, setIsPayment] = useState(false);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { userInfo, isLogin } = useContext(CheckLoginContext);
+
+  const movies = useSelector((state) => state.moviesSlice);
+  const series = useSelector((state) => state.seriesSlice);
+
+  useEffect(() => {
+    Promise.all([dispatch(fetchAllMovies()), dispatch(fetchAllSeries())]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log(window.location.pathname);
+    let check = false;
+    const arr = window.location.pathname.split('/');
+    const idFilm = arr[arr.length - 1];
+    if (window.location.pathname.startsWith('/film/')) {
+      for (let item of movies.data) {
+        if (item._id === idFilm) {
+          check = true;
+          break;
+        }
+      }
+      if (!check) {
+        navigate('/');
+      }
+    } else if (window.location.pathname.startsWith('/series/')) {
+      const idFilm = arr[arr.length - 1];
+      for (let item of series.data) {
+        if (item._id === idFilm) {
+          check = true;
+          break;
+        }
+      }
+      if (!check) {
+        navigate('/');
+      }
+    }
+  }, [window.location.pathname]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname]);
-
-  useEffect(() => {
-    const getOrder = async () => {
-      const user = await JSON.parse(localStorage.getItem('userInfo'));
-      const data = {
-        userId: user._id,
-      };
-      const response = await fetch(
-        process.env.REACT_APP_API_GET_PACKAGE_PAYMENT,
-        {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + localStorage.getItem('token'),
-          },
-        },
-      );
-      const responseJson = await response.json();
-      console.log('json-appjs', responseJson);
-      if (responseJson.success === true) {
-        console.log('json-appjs true');
-        setIsPayment(true);
-      } else {
-        setIsPayment(false);
-        console.log('json-appjs false');
-      }
-    };
-    if (localStorage.getItem('token')) {
-      getOrder();
-    }
-  }, [pathname]);
-
-  useEffect(() => {
-    setIsLogin(undefined);
-    if (localStorage.getItem('token')) {
-      setIsLogin(true);
-    } else {
-      setIsLogin(false);
-    }
   }, [pathname]);
 
   useEffect(() => {
@@ -79,7 +85,7 @@ function App() {
     }
   }, [new Date() + 60 * 1000]);
 
-  if (isLogin === undefined) {
+  if (isLogin === undefined || userInfo === undefined) {
     return (
       <div className="loading-component">
         <div>
@@ -90,13 +96,14 @@ function App() {
       </div>
     );
   }
+  console.log(isLogin);
   return (
     <div className="App">
-      {isPayment ? (
+      {isLogin === 2 ? (
         <Layout>
           <Router />
         </Layout>
-      ) : isLogin ? (
+      ) : isLogin === 1 ? (
         <Routes>
           <Route
             path="/choose-payment"
@@ -112,7 +119,7 @@ function App() {
           />
           <Route
             path="/checkout"
-            element={<CheckoutFormComponent login={false} />}
+            element={<CheckoutFormPage login={false} />}
           />
           <Route
             path="*"
@@ -121,13 +128,13 @@ function App() {
         </Routes>
       ) : (
         <Routes>
+          <Route path="/auth/signup" element={<SignupPage />} />
+          <Route path="/auth/login" element={<LoginPage />} />
+          <Route path="/landing-page" element={<LandingPage />} />
           <Route
             path="*"
             element={<Navigate to={'/landing-page'} replace={true} />}
           />
-          <Route path="/auth/signup" element={<SignupPage />} />
-          <Route path="/auth/login" element={<LoginPage />} />
-          <Route path="/landing-page" element={<LandingPage />} />
         </Routes>
       )}
     </div>
