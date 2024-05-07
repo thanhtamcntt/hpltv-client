@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import Banner from '../../components/Home/Banner';
 import Content from '../../components/Content';
-import Pay from '../../components/Home/Pay';
 import { DivHomePage, DivLoading } from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMoviesFeature } from '../../redux/action/home/movies';
@@ -36,7 +35,6 @@ function HomePage() {
           </div>
         </DivLoading>
       )}
-      <Pay />
     </DivHomePage>
   );
 }

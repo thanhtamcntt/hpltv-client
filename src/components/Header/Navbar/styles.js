@@ -35,3 +35,8 @@ export const ItemNav = styled.li`
     padding: 10px 10px;
   }
 `;
+
+export const ImageLogo = styled.img`
+  width: 90%;
+  cursor: pointer;
+`;

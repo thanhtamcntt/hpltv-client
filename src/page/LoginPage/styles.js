@@ -74,7 +74,7 @@ export const TextBanner = styled.h2`
 
 export const DivLink = styled.div`
   display: flex;
-  margin-top: 40px;
+  margin-top: 14px;
   justify-content: space-between;
   @media (max-width: 575px) {
     flex-direction: column !important;
@@ -96,4 +96,10 @@ export const Text = styled.p`
       color: var(--hover-text-action);
     }
   }
+`;
+
+export const DivError = styled.div`
+  margin-top: 10px;
+  font-size: 16px;
+  color: var(--error-text);
 `;

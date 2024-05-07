@@ -1,3 +1,4 @@
+import LogoImage from '../Common/ImageBanner';
 import { ContentPaymentHeader, LogoHeader, BtnActionLogout } from './styles';
 
 function HeaderPaymentComponent() {
@@ -13,7 +14,9 @@ function HeaderPaymentComponent() {
   return (
     <ContentPaymentHeader>
       <LogoHeader>
-        <h2>SHOWHUB</h2>
+        <h2>
+          <LogoImage height="40" width="200" />
+        </h2>
       </LogoHeader>
       <BtnActionLogout onClick={handleLogout}>Log out</BtnActionLogout>
     </ContentPaymentHeader>

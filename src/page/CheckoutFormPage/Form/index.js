@@ -24,8 +24,6 @@ const CheckoutForm = (props) => {
 
     const { error: submitError } = await elements.submit();
     if (submitError) {
-      console.log('vô đây');
-
       setErrorMessage(submitError.message);
       return;
     }
