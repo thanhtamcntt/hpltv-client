@@ -13,7 +13,7 @@ import {
   DivRedirect,
   ButtonRedirect,
 } from './styles.js';
-import { useEffect, useState,useContext} from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Spin } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { CheckLoginContext } from '../../contexts/LoginContext/index.js';
@@ -22,7 +22,7 @@ function PaySuccessPage(props) {
   const [dataPaymentSuccess, setDataPaymentSuccess] = useState();
   const [count, setCount] = useState(5);
 
-  const { userInfo} = useContext(CheckLoginContext);
+  const { userInfo, isLogin } = useContext(CheckLoginContext);
 
   const navigate = useNavigate();
 
@@ -35,7 +35,7 @@ function PaySuccessPage(props) {
         userId: userInfo.userId,
       };
       let response;
-      if (props.login) {
+      if (isLogin === 2) {
         response = await fetch(
           process.env.REACT_APP_API_ADD_DATA_PACKAGE_PAYMENT + '?login=true',
           {
@@ -54,8 +54,8 @@ function PaySuccessPage(props) {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
-              Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
               'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
             },
           },
         );

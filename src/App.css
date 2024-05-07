@@ -24,6 +24,8 @@
   --text-action: rgba(112, 109, 255, 1);
   --hover-text-action: rgb(34, 30, 228);
   --color-most-film: #fbc50c;
+  --error-text: #ff4d4f;
+  --border-color-sp: #e19840;
 }
 
 @font-face {
@@ -251,4 +253,10 @@ button {
     width: 80vw;
     min-width: initial;
   }
+}
+
+/* login */
+
+.btn-login {
+  margin-bottom: 0 !important;
 }

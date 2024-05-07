@@ -22,6 +22,7 @@ import banner1 from '../../assets/images/img-login.jpg';
 import imageInfo1 from '../../assets/images/laptop-landing.jpg';
 import imageInfo2 from '../../assets/images/tv-landing.jpg';
 import { RightOutlined } from '@ant-design/icons';
+import LogoImage from '../../components/Common/ImageBanner';
 
 function LandingPage() {
   useEffect(() => {
@@ -33,7 +34,9 @@ function LandingPage() {
       <DivActionAuth backgroundImage={banner1}>
         <DivContentAuth>
           <DivBanner>
-            <TextBanner>ShowHub</TextBanner>
+            <TextBanner>
+              <LogoImage height="100" width="400" />
+            </TextBanner>
           </DivBanner>
           <DivContent>
             <TextTitle>

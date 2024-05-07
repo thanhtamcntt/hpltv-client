@@ -26,11 +26,12 @@ function LoginContext({ children }) {
       },
     );
     const responseJson = await response.json();
-    console.log(responseJson.success);
+    console.log(responseJson);
     if (responseJson.success === true) {
-      return true;
+      console.log('vào đây nè');
+      setIsLogin(2);
     } else {
-      return false;
+      setIsLogin(1);
     }
   };
 
@@ -42,13 +43,12 @@ function LoginContext({ children }) {
         },
       });
       const json = await response.json();
-      if (json.success) {
+
+      if (json.success === true) {
         setUserInfo(json.userInfo);
-        if (getOrder(json.userInfo._id) === true) {
-          setIsLogin(2);
-        } else {
-          setIsLogin(1);
-        }
+        getOrder(json.userInfo.userId);
+
+        // }
       } else {
         setUserInfo('');
         setIsLogin(0);
