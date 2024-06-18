@@ -5,9 +5,12 @@ export const DivFilm = styled.div`
   width: 100%;
   max-width: 1200px;
   margin: 40px 0;
+  min-height: 500px;
 `;
 
-export const Title = styled.h2``;
+export const Title = styled.h2`
+  text-align: left;
+`;
 
 export const DivContent = styled.div`
   display: flex;
@@ -26,4 +29,10 @@ export const ColPage = styled(Col)`
   & div {
     padding: 0 !important;
   }
+`;
+
+export const DivNull = styled.div`
+  margin-top: 150px;
+  font-size: 24px;
+  font-weight: 500;
 `;

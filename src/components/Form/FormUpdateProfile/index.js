@@ -5,9 +5,9 @@ import validator from 'validator';
 import { CheckLoginContext } from '../../../contexts/LoginContext';
 import { useContext, useState } from 'react';
 import LoadingComponent from '../../Common/LoadingComponent';
+import { API_UPDATE_PROFILE, API_CHANGE_PASSWORD } from '../../../configs/apis';
 
 function FormUpdateProfile(props) {
-
   const { updateUserInfo } = useContext(CheckLoginContext);
   const [loading, setLoading] = useState(false);
 
@@ -18,7 +18,7 @@ function FormUpdateProfile(props) {
         validator.isMobilePhone(values.phoneNumber)
       ) {
         setLoading(true);
-        const response = await fetch(process.env.REACT_APP_API_UPDATE_PROFILE, {
+        const response = await fetch(API_UPDATE_PROFILE, {
           method: 'PATCH',
           body: JSON.stringify(values),
           headers: {
@@ -30,13 +30,13 @@ function FormUpdateProfile(props) {
         console.log(json);
         if (json.success) {
           updateUserInfo(json.token);
-          setLoading(false)
+          setLoading(false);
         }
       }
     } else {
-      setLoading(true)
+      setLoading(true);
       console.log('Success:', values);
-      const response = await fetch(process.env.REACT_APP_API_CHANGE_PASSWORD, {
+      const response = await fetch(API_CHANGE_PASSWORD, {
         method: 'PATCH',
         body: JSON.stringify(values),
         headers: {
@@ -47,10 +47,8 @@ function FormUpdateProfile(props) {
       const json = await response.json();
       console.log(json);
       if (json.success) {
-      updateUserInfo(json.token);
-      setLoading(false)
-
-
+        updateUserInfo(json.token);
+        setLoading(false);
       }
     }
   };
@@ -58,14 +56,13 @@ function FormUpdateProfile(props) {
     console.log('Failed:', errorInfo);
   };
 
-
-  if(loading) {
-    return <DivForm>
-      <LoadingComponent/>
-    </DivForm>
+  if (loading) {
+    return (
+      <DivForm>
+        <LoadingComponent />
+      </DivForm>
+    );
   }
-
-  
 
   return (
     <>

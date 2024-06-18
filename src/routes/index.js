@@ -13,6 +13,7 @@ import PaymentPage from '../page/PaymentPage';
 import OptionCheckoutPage from '../page/OptionCheckoutPage';
 import PaySuccessPage from '../page/PaySuccessPage';
 import CheckoutFormPage from '../page/CheckoutFormPage';
+import ContactPage from '../page/ContactPage';
 
 function Router() {
   return (
@@ -29,10 +30,7 @@ function Router() {
         path="/option-checkout"
         element={<OptionCheckoutPage login={true} />}
       />
-      <Route
-        path="/checkout"
-        element={<CheckoutFormPage login={true} />}
-      />
+      <Route path="/checkout" element={<CheckoutFormPage login={true} />} />
       <Route path="/search" element={<ResultPage />} />
       <Route path="/series" element={<SeriesPage />} />
       <Route path="/my-profile" element={<ProfilePage />} />
@@ -45,8 +43,8 @@ function Router() {
         path="/film/watching-movies/:filmId"
         element={<DetailFilmPage watching={true} />}
       />
+      <Route path="/contact" element={<ContactPage />} />
       <Route path="*" element={<Navigate to="/" replace={true} />} />
-
     </Routes>
   );
 }

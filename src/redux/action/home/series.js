@@ -1,9 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { API_SERIES, API_SERIES_FEATURE } from '../../../configs/apis';
 
 export const fetchAllSeries = createAsyncThunk(
   'fetchAllSeries',
   async (args, { rejectWithValue }) => {
-    const response = await fetch(process.env.REACT_APP_API_SERIES);
+    const response = await fetch(API_SERIES);
     const data = await response.json();
 
     if (!data.success) {
@@ -16,7 +17,7 @@ export const fetchAllSeries = createAsyncThunk(
 export const fetchSeriesFeature = createAsyncThunk(
   'fetchSeriesFeature',
   async (args, { rejectWithValue }) => {
-    const response = await fetch(process.env.REACT_APP_API_SERIES_FEATURE);
+    const response = await fetch(API_SERIES_FEATURE);
     const data = await response.json();
 
     if (!data.success) {

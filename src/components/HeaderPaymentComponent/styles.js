@@ -14,6 +14,7 @@ export const LogoHeader = styled.div`
 export const BtnActionLogout = styled.button`
   background: none;
   cursor: pointer;
+  color: var(--white-bg);
   font-size: 20px;
   font-weight: 500;
 

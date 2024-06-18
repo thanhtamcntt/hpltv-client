@@ -28,7 +28,7 @@ function HeaderNavBar() {
               <Link to="/series">Series</Link>
             </ItemNav>
             <ItemNav>
-              <Link to="/">Contact</Link>
+              <Link to="/contact">Contact</Link>
             </ItemNav>
             <ItemNav>
               <Link to="/">About Us</Link>

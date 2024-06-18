@@ -53,12 +53,14 @@ function VideoActionMovies({
           </ButtonAction>
           <RatingAction>
             <label>Rating:</label>&nbsp;&nbsp;
-            <Rate
-              disabled={isRating ? true : false}
-              value={dataValueUserRating}
-              allowHalf
-              onChange={(value) => handleRatingMovies(value)}
-            />
+            <div>
+              <Rate
+                disabled={isRating ? true : false}
+                value={dataValueUserRating}
+                allowHalf
+                onChange={(value) => handleRatingMovies(value)}
+              />
+            </div>
           </RatingAction>
         </DivAction>
         <DivServer>

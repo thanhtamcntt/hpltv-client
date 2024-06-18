@@ -1,25 +1,30 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { ButtonSearch, FormSearch, InputSearch } from './styles';
 import { SearchOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 
 function InputSearchLayout() {
-  const keyRef = useRef();
+  const [searchKey, setSearchKey] = useState('');
   const navigate = useNavigate();
 
   const handleSearchFilm = (e) => {
     e.preventDefault();
-    navigate(`/search?result=${keyRef.current.value}`, {
+    navigate(`/search?result=${searchKey}`, {
       state: {
-        searchKey: keyRef.current.value,
+        searchKey: searchKey,
       },
     });
-    console.log('ref', keyRef.current.value);
+    setSearchKey('');
   };
 
   return (
     <FormSearch onSubmit={handleSearchFilm}>
-      <InputSearch name="search" placeholder="Search" ref={keyRef} />
+      <InputSearch
+        name="search"
+        placeholder="Search"
+        value={searchKey}
+        onChange={(e) => setSearchKey(e.target.value)}
+      />
       <ButtonSearch type="submit">
         <SearchOutlined />
       </ButtonSearch>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const ContentPack = styled.div`
   border: 1px solid rgba(128, 128, 128, 0.4);
   border-radius: 20px;
-  background: #fff;
+  background: var(--bg-package);
   min-height: 650px;
   height: 100%;
   cursor: pointer;
@@ -76,7 +76,7 @@ export const DivItemInfo = styled.div`
   & div {
     line-height: 1.5;
     font-size: 14px;
-    color: rgb(118, 118, 118);
+    color: #333333;
     font-weight: 500;
   }
 `;

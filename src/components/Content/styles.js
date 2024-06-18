@@ -2,21 +2,23 @@ import styled from 'styled-components';
 
 export const DivContent = styled.div`
   max-width: 1200px;
-  margin: 100px auto;
+  margin: 70px auto;
   position: relative;
+  min-height: 300px;
 `;
 
 export const DivTitle = styled.div`
   text-align: left;
-  margin-left: 40px;
+  margin-left: 20px;
   position: relative;
   z-index: 100;
+  color: var(--white);
 `;
 
 export const TextTitle = styled.h2`
-  text-align: center;
-  max-width: 15%;
-  background-color: white;
+  text-align: left;
+  display: flex;
+  align-items: center;
   @media (max-width: 991px) {
     font-size: 18px;
   }
@@ -33,17 +35,15 @@ export const TextTitle = styled.h2`
 `;
 
 export const BorderText = styled.div`
-  width: 100%;
-  border: 1px solid var(--black);
-  position: absolute;
-  top: 18px;
-  @media (max-width: 992px) {
-    top: 12px;
-  }
+  height: 2px;
+  background: var(--white);
+  flex: 1;
+  margin-left: 1rem;
 `;
 
 export const DivContentFilm = styled.div`
   overflow: hidden;
+  margin-top: 12px;
 `;
 
 export const ButtonSlick = styled.button`
@@ -55,8 +55,8 @@ export const ButtonSlick = styled.button`
   right: ${(props) => props.next && '0'};
   z-index: 100;
   border: none;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: rgba(0, 0, 0, 0.6);
   text-align: center;
   & span svg {

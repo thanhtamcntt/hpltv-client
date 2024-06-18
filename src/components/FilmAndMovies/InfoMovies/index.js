@@ -1,13 +1,14 @@
-import { Title, TextFilm } from './styles';
-import dayjs from 'dayjs';
+import { Tag } from 'antd';
+import { Title, TextFilm, TagCategory } from './styles';
 
 function InfoMovies({ data }) {
+  console.log(data);
   return (
     <>
       <Title>{data.film.title}</Title>
       <TextFilm>
         Release date:&nbsp;
-        {dayjs(data.film.releaseDate).format('YYYY-MM-DD')}
+        {data.film.releaseDate}
       </TextFilm>
       <TextFilm>Director: {data.film.director}</TextFilm>
       <TextFilm>Cast: {data.film.cast}</TextFilm>
@@ -18,9 +19,18 @@ function InfoMovies({ data }) {
           {data.film.rating}/5 ({data.film.totalRating} evaluate)
         </span>
       </TextFilm>
-      <TextFilm>Category: {data.category}</TextFilm>
-      <TextFilm>Country: {data.film.country}</TextFilm>
-      <TextFilm>Product company: {data.film.productCompany}</TextFilm>
+      <TextFilm>
+        Country:{' '}
+        {data.film.country.map((item, id) => {
+          return <TagCategory key={id}>{item}</TagCategory>;
+        })}
+      </TextFilm>
+      <TextFilm>
+        Category:{' '}
+        {data.category.map((item, id) => {
+          return <TagCategory key={id}>{item}</TagCategory>;
+        })}
+      </TextFilm>
     </>
   );
 }

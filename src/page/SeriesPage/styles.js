@@ -4,6 +4,7 @@ import styled from 'styled-components';
 export const DivFilm = styled.div`
   margin-top: 20px;
   width: 100%;
+  min-height: 500px;
 `;
 export const BannerPage = styled.div``;
 export const BannerContent = styled.div``;

@@ -17,6 +17,7 @@ import {
 import { Spin } from 'antd';
 import HeaderPaymentComponent from '../../components/HeaderPaymentComponent';
 import Footer from '../../components/Footer';
+import { API_POST_PAYMENT } from '../../configs/apis';
 
 const stripePromise = loadStripe(process.env.REACT_APP_API_PUBLIC_KEY_STRIPE);
 
@@ -35,7 +36,7 @@ const CheckoutFormPage = (() => {
 
     useEffect(() => {
       const postPayment = async () => {
-        const response = await fetch(process.env.REACT_APP_API_POST_PAYMENT, {
+        const response = await fetch(API_POST_PAYMENT, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(JSON.parse(localStorage.getItem('dataPayment'))),

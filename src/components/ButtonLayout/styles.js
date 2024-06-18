@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const ButtonLayout = styled.button`
-  width: 180px;
-  height: 50px;
+  width: 160px;
+  height: 45px;
   border-radius: 35px;
   font-size: 22px;
   font-weight: 700;

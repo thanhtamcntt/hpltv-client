@@ -5,12 +5,14 @@ import {
   ColPage,
   RowPage,
   DivContent,
+  DivNull,
 } from './styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllMovies } from '../../redux/action/home/movies';
 import Film from '../../components/FilmAndMovies/FilmComponent';
 import { useLocation } from 'react-router-dom';
 import LoadingPage from '../LoadingPage';
+import { InfoCircleOutlined } from '@ant-design/icons';
 
 const ResultPage = () => {
   const [data, setData] = useState();
@@ -74,18 +76,29 @@ const ResultPage = () => {
 
   return (
     <DivFilm>
-      <Title>Kết quả tìm kiếm từ khóa {location.state.searchKey}</Title>
+      <Title>Keyword search results: {location.state.searchKey}</Title>
       <DivContent>
-        <RowPage justify="start">
-          {data &&
-            data.map((item, id) => {
-              return (
-                <ColPage key={id} span={slide}>
-                  <Film title={item.title} image={item.imageUrl.url} />
-                </ColPage>
-              );
-            })}
-        </RowPage>
+        {data && data.length > 0 ? (
+          <RowPage justify="start">
+            {data &&
+              data.map((item, id) => {
+                return (
+                  <ColPage key={id} span={slide}>
+                    <Film
+                      title={item.title}
+                      image={item.imageUrl.url}
+                      idFilm={item._id}
+                      type={'movies'}
+                    />
+                  </ColPage>
+                );
+              })}
+          </RowPage>
+        ) : (
+          <DivNull>
+            <InfoCircleOutlined /> No results were found
+          </DivNull>
+        )}
       </DivContent>
     </DivFilm>
   );

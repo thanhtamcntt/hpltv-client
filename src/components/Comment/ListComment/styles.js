@@ -69,6 +69,7 @@ export const DivDetailCommentReply = styled.div`
 
 export const NoCommentTitle = styled.h3`
   margin: 150px 0;
+  color: var(--black);
 `;
 
 export const DivActionComment = styled.div`

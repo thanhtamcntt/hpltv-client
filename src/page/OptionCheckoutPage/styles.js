@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const PaymentContainer = styled.div`
   width: 100%;
+  color: var(--white-bg);
 `;
 export const PaymentHeader = styled.div`
   border-bottom: 1px solid #e6e6e6;

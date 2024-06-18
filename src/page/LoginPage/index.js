@@ -14,18 +14,27 @@ import {
 } from './styles';
 import ItemForm from '../../components/Common/ItemForm';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message, notification } from 'antd';
 import Footer from '../../components/Footer';
 import LogoImage from '../../components/Common/ImageBanner';
+import { API_LOGIN } from '../../configs/apis';
 
 function LoginPage() {
   const [textError, setTextError] = useState();
   const navigate = useNavigate();
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'Login success.',
+    });
+  };
 
   const onFinish = async (values) => {
     setTextError();
     console.log('Success:', values.email);
-    const response = await fetch(process.env.REACT_APP_API_LOGIN, {
+    const response = await fetch(API_LOGIN, {
       method: 'POST',
       body: JSON.stringify({
         email: values.email,
@@ -35,13 +44,15 @@ function LoginPage() {
         'Content-Type': 'application/json',
       },
     });
-    console.log(response);
     const responseJson = await response.json();
     console.log(responseJson);
     if (responseJson.success) {
       await localStorage.setItem('tokenUser', responseJson.token);
       if (localStorage.getItem('tokenUser')) {
-        navigate('/choose-payment');
+        success();
+        setTimeout(() => {
+          navigate('/choose-payment');
+        }, 1000);
       }
     } else {
       setTextError(responseJson.message);
@@ -57,6 +68,7 @@ function LoginPage() {
 
   return (
     <DivAuth>
+      {contextHolder}
       <DivContainer>
         <DivBanner>
           <TextBanner>

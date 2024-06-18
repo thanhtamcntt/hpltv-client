@@ -5,6 +5,8 @@ export const DivComment = styled.div`
 `;
 export const DivTitle = styled.div`
   text-align: left;
+  margin: 1rem 0;
+  color: var(--black);
 `;
 export const TitleComment = styled.h2``;
 

@@ -8,6 +8,7 @@ import {
   ColItem,
   ImageItem,
   TextFilm,
+  TextCountry,
 } from './styles';
 import { Link } from 'react-router-dom';
 
@@ -63,6 +64,9 @@ function FilmMost(props) {
                       }>
                       <TextFilm>{item.title}</TextFilm>
                     </Link>
+                    <TextCountry>
+                      {item.country.join('-')}-{item.releaseDate}
+                    </TextCountry>
                   </ColItem>
                 </RowItem>
               </Item>

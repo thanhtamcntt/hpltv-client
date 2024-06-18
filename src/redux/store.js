@@ -8,6 +8,7 @@ import { MoviesMostViewSlice } from './slice/film/MostView';
 import { SameMoviesSlice } from './slice/film/SameMovies';
 import { CommentSlice } from './slice/comment/comment';
 import { OrderSlice } from './slice/order';
+import { PackageSlice } from './slice/package';
 export const store = configureStore({
   reducer: {
     seriesSlice: SeriesSlice.reducer,
@@ -19,5 +20,6 @@ export const store = configureStore({
     sameMoviesSlice: SameMoviesSlice.reducer,
     commentSlice: CommentSlice.reducer,
     orderSlice: OrderSlice.reducer,
+    packageSlice: PackageSlice.reducer,
   },
 });

@@ -22,20 +22,23 @@ export const AvatarUserComment = styled.img`
   width: 45px;
   height: 45px;
   border-radius: 50%;
+  color: var(--black);
 `;
 export const NameUser = styled.h3`
   margin: 0 10px;
   padding: 5px 0;
   text-align: left;
   border-bottom: 1px solid #ccc;
+  color: var(--black);
 `;
 export const ContentUser = styled.p`
   text-align: left;
   padding: 15px 10px;
+  color: var(--black);
 `;
 
 export const DivAction = styled.div`
-  margin-top: 10px;
+  margin-top: 4px;
 `;
 export const ReplyButton = styled.button`
   display: flex;
@@ -46,6 +49,7 @@ export const ReplyButton = styled.button`
   padding: 5px 10px 5px 0;
   & p {
     margin-left: 6px;
+    font-weight: 500;
   }
 `;
 

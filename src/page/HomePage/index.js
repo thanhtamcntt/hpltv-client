@@ -17,14 +17,16 @@ function HomePage() {
     dispatch(fetchSeriesFeature());
   }, []);
 
-  useEffect(() => {}, []);
-
   return (
     <DivHomePage>
       <Banner />
       {movies && series ? (
         <>
-          <Content title="Top in 2023" listFilm={movies.data} type="movies" />
+          <Content
+            title={'Latest movies'}
+            listFilm={movies.data}
+            type="movies"
+          />
           <Content title="Movies" listFilm={movies.data} type="movies" />
           <Content title="Series" listFilm={series.data} type="series" />
         </>

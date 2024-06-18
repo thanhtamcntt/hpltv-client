@@ -30,6 +30,7 @@ import {
 import FilmMost from '../../components/FilmAndMovies/FilmMost';
 import { fetchMoviesSameMovies } from '../../redux/action/film/SameMovies';
 import { fetchAllOrder } from '../../redux/action/order';
+import { fetchAllPackage } from '../../redux/action/package';
 import FilmSameComponent from '../../components/FilmAndMovies/FilmSameComponent';
 import CommentComponent from '../../components/Comment/CommentComponent';
 import InfoMovies from '../../components/FilmAndMovies/InfoMovies';
@@ -48,12 +49,10 @@ const DetailFilmPage = (props) => {
   const [isWatching, setIsWatching] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { userInfo} = useContext(CheckLoginContext);
+  const { userInfo } = useContext(CheckLoginContext);
 
   const navigate = useNavigate();
-  const {pathname} = useLocation()
-
-
+  const { pathname } = useLocation();
 
   const { filmId } = useParams();
   const dispatch = useDispatch();
@@ -64,6 +63,7 @@ const DetailFilmPage = (props) => {
   const mostRating = useSelector((state) => state.moviesMostRatingSlice);
   const sameMovies = useSelector((state) => state.sameMoviesSlice);
   const order = useSelector((state) => state.orderSlice);
+  const packageData = useSelector((state) => state.packageSlice);
 
   useEffect(() => {
     Promise.all([
@@ -74,18 +74,19 @@ const DetailFilmPage = (props) => {
       dispatch(fetchMoviesSameMovies(filmId)),
       dispatch(fetchAllCategory()),
       dispatch(fetchAllOrder()),
+      dispatch(fetchAllPackage()),
     ]);
   }, [dispatch, filmId]);
 
   useEffect(() => {
     if (movies && category) {
-      let objectData = { category: '', film: null };
+      let objectData = { category: [], film: null };
       for (let item of movies.data) {
         if (item._id === filmId) {
           objectData.film = item;
           for (let cate of category.data) {
             if (item.listCategoryId.includes(cate._id))
-              objectData.category = objectData.category + ', ' + cate.name;
+              objectData.category.push(cate.name);
           }
         }
       }
@@ -95,8 +96,11 @@ const DetailFilmPage = (props) => {
   }, [movies, category, filmId]);
 
   useEffect(() => {
-  
-    if (data && data.film && data.film.listUserIdLike.includes(userInfo._id)) {
+    if (
+      data &&
+      data.film &&
+      data.film.listUserIdLike.includes(userInfo.userId)
+    ) {
       setIsLike(true);
     }
   }, [data]);
@@ -106,22 +110,20 @@ const DetailFilmPage = (props) => {
     setDataValueUserRating(0);
     if (data && data.film) {
       data.film.listUserIdRating.some((item) => {
+        console.log(item.toString(), userInfo.userId.toString());
         if (item.userId.toString() === userInfo.userId.toString()) {
           setDataValueUserRating(item.valueRating);
           setIsRating(true);
-          return true;
         }
-        return false;
       });
     }
   }, [data]);
-
   useEffect(() => {
     setIsWatching(true);
     if (data && data.film) {
       order.data.some((item) => {
         if (item.userId.toString() === userInfo.userId.toString()) {
-          if (data.film.listPackageIdBand.includes(item.information._id)) {
+          if (data.film.listPackageIdBand.includes(item.packageId._id)) {
             setIsWatching(false);
             return true;
           }
@@ -130,7 +132,6 @@ const DetailFilmPage = (props) => {
       });
     }
   }, [data, order]);
-
 
   const handleWatchingMovies = () => {
     if (isWatching) {
@@ -153,7 +154,7 @@ const DetailFilmPage = (props) => {
 
   const handleClickLikeMovies = async () => {
     const data = {
-      userId: userInfo._id,
+      userId: userInfo.userId,
       isLike: isLike,
       filmId: filmId,
     };
@@ -165,7 +166,7 @@ const DetailFilmPage = (props) => {
     console.log('rating: ', value);
     const data = {
       filmId: filmId,
-      userId: userInfo._id,
+      userId: userInfo.userId,
       valueRating: value,
     };
     await dispatch(handleRatingMoviesAction(data));
@@ -188,7 +189,7 @@ const DetailFilmPage = (props) => {
     !order ||
     !order.data
   ) {
-    return LoadingPage;
+    return <LoadingPage />;
   }
 
   return (

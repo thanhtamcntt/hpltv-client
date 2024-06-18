@@ -1,11 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { API_MOVIES_CAN_TO_MATCH } from '../../../../configs/apis';
 
 export const fetchMoviesSameMovies = createAsyncThunk(
   'fetchMoviesSameMovies',
   async (filmId, { rejectWithValue }) => {
-    const response = await fetch(
-      process.env.REACT_APP_API_MOVIES_CAN_TO_MATCH + '/' + filmId,
-    );
+    const response = await fetch(API_MOVIES_CAN_TO_MATCH + '/' + filmId);
     const data = await response.json();
     if (!data.success) {
       rejectWithValue(data);

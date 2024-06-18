@@ -43,4 +43,5 @@ export const NameFilm = styled.h3`
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
+  color: var(--white);
 `;
