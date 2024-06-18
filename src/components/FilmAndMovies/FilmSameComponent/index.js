@@ -64,8 +64,10 @@ function FilmSameComponent(props) {
       <DivTitle>
         <TextTitle>You might want to check it out</TextTitle>
       </DivTitle>
-      <DivContentFilm>
-        <ButtonSlick onClick={() => refContent.current.prev()}>
+      <DivContentFilm className="container-data-slider">
+        <ButtonSlick
+          onClick={() => refContent.current.prev()}
+          className="btn-slider-left">
           <LeftOutlined />
         </ButtonSlick>
         <Carousel
@@ -86,7 +88,10 @@ function FilmSameComponent(props) {
               );
             })}
         </Carousel>
-        <ButtonSlick next="next" onClick={() => refContent.current.next()}>
+        <ButtonSlick
+          next="next"
+          onClick={() => refContent.current.next()}
+          className="btn-slider-right">
           <RightOutlined />
         </ButtonSlick>
       </DivContentFilm>

@@ -28,6 +28,7 @@ export const ButtonAction = styled.button`
   width: 70px;
   cursor: pointer;
   padding: 0;
+  background: transparent;
   margin-right: 10px;
   &:hover {
     color: rgba(255, 255, 255, 0.7);
@@ -59,6 +60,8 @@ export const DivServer = styled.div`
 
 export const RatingAction = styled.div`
   margin-top: 20px;
+  display: flex;
+  align-items: center;
   & label {
     font-size: 16px;
   }

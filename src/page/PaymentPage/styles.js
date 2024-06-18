@@ -19,6 +19,7 @@ export const TitleService = styled.h2`
   text-align: left;
   font-size: 28px;
   margin: 0 0 1.4rem;
+  color: var(--white-bg);
 `;
 
 export const DivPackage = styled.div``;
@@ -29,6 +30,7 @@ export const ColPack = styled(Col)``;
 
 export const DivNotification = styled(Col)`
   margin: 24px 10px;
+  color: var(--white-bg);
   & p {
     text-align: left;
     font-size: 14px;

@@ -5,10 +5,12 @@ export const DivFilm = styled.div`
   width: 100%;
   max-width: 1200px;
   margin: 40px 0;
+  min-height: 500px;
 `;
 
 export const Title = styled.h2`
   text-align: left;
+  color: var(--white);
 `;
 
 export const DivContent = styled.div`

@@ -7,7 +7,7 @@ export const RowNavbar = styled(Row)``;
 export const ColLeft = styled(Col)`
   text-align: left;
   & a {
-    color: var(--black);
+    color: var(--white);
     font-weight: bold;
     font-size: 36px;
   }
@@ -24,7 +24,7 @@ export const ListNav = styled.ul`
 export const ItemNav = styled.li`
   padding: 10px 14px;
   & a {
-    color: var(--black);
+    color: var(--white);
     font-size: 20px;
     font-weight: 400;
     @media (min-width: 992px) and (max-width: 1199px) {

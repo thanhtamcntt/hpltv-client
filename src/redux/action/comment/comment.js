@@ -1,9 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  API_FETCH_COMMENT,
+  API_ADD_COMMENT,
+  API_DELETE_COMMENT,
+  API_UPDATE_COMMENT,
+} from '../../../configs/apis';
 
 export const fetchAllComment = createAsyncThunk(
   'fetchAllComment',
   async (args, { rejectWithValue }) => {
-    const response = await fetch(process.env.REACT_APP_API_FETCH_COMMENT, {
+    const response = await fetch(API_FETCH_COMMENT, {
       headers: {
         Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
       },
@@ -19,42 +25,14 @@ export const fetchAllComment = createAsyncThunk(
 export const createComment = createAsyncThunk(
   'createComment',
   async (data, { rejectWithValue }) => {
-    const response = await fetch(
-      process.env.REACT_APP_API_ADD_COMMENT + '?reply=false',
-      {
-        method: 'POST',
-        body: JSON.stringify(data.data),
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
-          'Content-type': 'application/json',
-        },
+    const response = await fetch(API_ADD_COMMENT + '?reply=false', {
+      method: 'POST',
+      body: JSON.stringify(data.data),
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
+        'Content-type': 'application/json',
       },
-    );
-
-    const json = await response.json();
-    if (!json.success) {
-      rejectWithValue(json);
-    }
-    return {
-      data: json,userInfo : data.userInfo
-    };
-  },
-);
-
-export const createCommentReply = createAsyncThunk(
-  'createCommentReply',
-  async (data, { rejectWithValue }) => {
-    const response = await fetch(
-      process.env.REACT_APP_API_ADD_COMMENT + '?reply=true',
-      {
-        method: 'POST',
-        body: JSON.stringify(data.data),
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
-          'Content-type': 'application/json',
-        },
-      },
-    );
+    });
 
     const json = await response.json();
     if (!json.success) {
@@ -62,7 +40,30 @@ export const createCommentReply = createAsyncThunk(
     }
     return {
       data: json,
-      userInfo: data.userInfo
+      userInfo: data.userInfo,
+    };
+  },
+);
+
+export const createCommentReply = createAsyncThunk(
+  'createCommentReply',
+  async (data, { rejectWithValue }) => {
+    const response = await fetch(API_ADD_COMMENT + '?reply=true', {
+      method: 'POST',
+      body: JSON.stringify(data.data),
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
+        'Content-type': 'application/json',
+      },
+    });
+
+    const json = await response.json();
+    if (!json.success) {
+      rejectWithValue(json);
+    }
+    return {
+      data: json,
+      userInfo: data.userInfo,
     };
   },
 );
@@ -70,16 +71,13 @@ export const createCommentReply = createAsyncThunk(
 export const deleteComment = createAsyncThunk(
   'deleteComment',
   async (data, { rejectWithValue }) => {
-    const response = await fetch(
-      process.env.REACT_APP_API_DELETE_COMMENT + '/' + data,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
-          'Content-type': 'application/json',
-        },
+    const response = await fetch(API_DELETE_COMMENT + '/' + data, {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
+        'Content-type': 'application/json',
       },
-    );
+    });
     const json = await response.json();
     if (!json.success) {
       rejectWithValue(json);
@@ -92,7 +90,7 @@ export const updateComment = createAsyncThunk(
   'updateComment',
   async (data, { rejectWithValue }) => {
     console.log(data);
-    const response = await fetch(process.env.REACT_APP_API_UPDATE_COMMENT, {
+    const response = await fetch(API_UPDATE_COMMENT, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {

@@ -2,8 +2,9 @@ import { Col, Row } from 'antd';
 import styled from 'styled-components';
 
 export const DivFooter = styled.div`
+  border-top: 2px solid var(--border-color-sp);
   width: 100%;
-  background: var(--bg-footer);
+  background: var(--bg-app);
   padding: 50px 0 20px;
   text-align: center;
   @media (max-width: 575px) {
@@ -55,7 +56,7 @@ export const Text = styled.p`
 
   & span {
     text-decoration: underline;
-    color: blue;
+    color: var(--border-color-sp);
   }
 `;
 

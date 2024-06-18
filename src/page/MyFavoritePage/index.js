@@ -1,4 +1,4 @@
-import { useEffect, useState,useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { DivFilm, Title, ColPage, RowPage, DivContent } from './styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchAllMovies } from '../../redux/action/home/movies';
@@ -51,7 +51,8 @@ const MyFavoritePage = () => {
       if (movies) {
         let arrayData = [];
         for (let item of movies.data) {
-          if (item.listUserIdLike.includes(userInfo.userId)) arrayData.push(item);
+          if (item.listUserIdLike.includes(userInfo.userId))
+            arrayData.push(item);
         }
 
         setData(arrayData);
@@ -66,7 +67,7 @@ const MyFavoritePage = () => {
 
   return (
     <DivFilm>
-      <Title>Your favorite movie list</Title>
+      <Title>Your favorite movie and series list</Title>
       <DivContent>
         <RowPage justify="start">
           {data &&

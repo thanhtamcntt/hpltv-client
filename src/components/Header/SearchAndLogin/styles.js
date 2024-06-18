@@ -1,7 +1,9 @@
 import { Col, Row } from 'antd';
 import styled from 'styled-components';
 
-export const DivSearch = styled.div``;
+export const DivSearch = styled.div`
+  width: 100%;
+`;
 
 export const RowSearch = styled(Row)``;
 export const ColLeft = styled(Col)`
@@ -70,6 +72,7 @@ export const NameUser = styled.p`
   margin-right: 10px;
   font-weight: 500;
   font-size: 18px;
+  color: var(--white);
 `;
 
 export const ButtonProfile = styled.button`

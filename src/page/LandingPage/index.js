@@ -40,7 +40,7 @@ function LandingPage() {
           </DivBanner>
           <DivContent>
             <TextTitle>
-              Enjoy hit movies, featured TV shows and more from only 70,000 VND.
+              Enjoy hit movies, featured TV shows and more from only 30 dollars.
             </TextTitle>
             <TextContent>Join today, cancel anytime.</TextContent>
             <TextContent2>

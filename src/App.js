@@ -9,7 +9,6 @@ import {
   useLocation,
   useNavigate,
 } from 'react-router-dom';
-import { Spin } from 'antd';
 import LandingPage from './page/LandingPage';
 import LoginPage from './page/LoginPage';
 import SignupPage from './page/SignupPage';
@@ -22,6 +21,8 @@ import { CheckLoginContext } from './contexts/LoginContext';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllMovies } from './redux/action/home/movies';
 import { fetchAllSeries } from './redux/action/home/series';
+import LoadingPage from './page/LoadingPage';
+import LoadingPaymentContext from './contexts/LoadingPaymentContext';
 
 function App() {
   const { pathname } = useLocation();
@@ -29,7 +30,6 @@ function App() {
   const dispatch = useDispatch();
 
   const { userInfo, isLogin } = useContext(CheckLoginContext);
-
   const movies = useSelector((state) => state.moviesSlice);
   const series = useSelector((state) => state.seriesSlice);
 
@@ -38,7 +38,6 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    console.log(window.location.pathname);
     let check = false;
     const arr = window.location.pathname.split('/');
     const idFilm = arr[arr.length - 1];
@@ -84,19 +83,14 @@ function App() {
       }
     }
   }, [new Date() + 60 * 1000]);
-
+  console.log(isLogin);
   if (isLogin === undefined || userInfo === undefined) {
     return (
       <div className="loading-component">
-        <div>
-          <Spin tip="Loading" size="large">
-            <div className="content" />
-          </Spin>
-        </div>
+        <LoadingPage />
       </div>
     );
   }
-  console.log(isLogin);
   return (
     <div className="App">
       {isLogin === 2 ? (

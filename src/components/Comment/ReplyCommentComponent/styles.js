@@ -22,10 +22,12 @@ export const NameUser = styled.h3`
   padding: 5px 0;
   text-align: left;
   border-bottom: 1px solid #ccc;
+  color: var(--black);
 `;
 export const ContentUser = styled.p`
   text-align: left;
   padding: 15px 10px;
+  color: var(--black);
 `;
 
 export const DivAction = styled.div`

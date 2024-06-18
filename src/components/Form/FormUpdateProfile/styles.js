@@ -6,8 +6,12 @@ export const DivContentRight = styled.div`
 `;
 
 export const DivForm = styled.div`
+  color: var(--white-bg);
   & button {
     width: 36%;
     margin-top: 16px;
+  }
+  & label {
+    color: var(--white-bg) !important;
   }
 `;

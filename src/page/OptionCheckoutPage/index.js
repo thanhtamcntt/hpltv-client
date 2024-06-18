@@ -54,7 +54,10 @@ function OptionCheckoutPage(props) {
           <ButtonCheckout onClick={handleClickCheckout}>
             <span>
               Credit
-              <img src="https://res.cloudinary.com/dzxupp48t/image/upload/v1709902109/image-webFilm/di2u3ywiwhwubo7xjqt4.png" />
+              <img
+                src="https://res.cloudinary.com/dzxupp48t/image/upload/v1709902109/image-webFilm/di2u3ywiwhwubo7xjqt4.png"
+                alt="credit"
+              />
             </span>
             <span>
               <RightOutlined />

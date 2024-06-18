@@ -21,12 +21,13 @@ import { CameraOutlined, DeleteOutlined } from '@ant-design/icons';
 import FormUpdateProfile from '../../components/Form/FormUpdateProfile';
 import LoadingPage from '../LoadingPage';
 import { CheckLoginContext } from '../../contexts/LoginContext';
+import { API_CHANGE_AVATAR, API_DELETE_AVATAR } from '../../configs/apis';
 
 function ProfilePage() {
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(false);
 
-  const { userInfo,updateUserInfo } = useContext(CheckLoginContext);
+  const { userInfo, updateUserInfo } = useContext(CheckLoginContext);
 
   const openNotification = (placement, message) => {
     notification.error({
@@ -94,7 +95,7 @@ function ProfilePage() {
 
     const formData = new FormData();
     formData.append('imageAvatar', info.file);
-    const response = await fetch(process.env.REACT_APP_API_CHANGE_AVATAR, {
+    const response = await fetch(API_CHANGE_AVATAR, {
       method: 'PATCH',
       body: formData,
       headers: {
@@ -102,7 +103,7 @@ function ProfilePage() {
       },
     });
     const json = await response.json();
-    console.log('avatar',json);
+    console.log('avatar', json);
     if (json.success) {
       updateUserInfo(json.token);
       setLoading(false);
@@ -114,11 +115,11 @@ function ProfilePage() {
       userInfo &&
       userInfo.avatarUser.imageId !== 'image-avatar/wxcqrfpkhef33f2rxlfp'
     ) {
-    setLoading(true);
+      setLoading(true);
       const data = {
         imageUser: userInfo.avatarUser,
       };
-      const response = await fetch(process.env.REACT_APP_API_DELETE_AVATAR, {
+      const response = await fetch(API_DELETE_AVATAR, {
         method: 'PATCH',
         body: JSON.stringify(data),
         headers: {
@@ -129,8 +130,8 @@ function ProfilePage() {
       const json = await response.json();
       console.log(json);
       if (json.success) {
-      updateUserInfo(json.token);
-        setLoading(false)
+        updateUserInfo(json.token);
+        setLoading(false);
       }
     } else {
       openNotification('topRight', 'Default images cannot be deleted!!');

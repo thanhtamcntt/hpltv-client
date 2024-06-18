@@ -17,12 +17,14 @@ import { useEffect, useState, useContext } from 'react';
 import { Spin } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { CheckLoginContext } from '../../contexts/LoginContext/index.js';
+import dayjs from 'dayjs';
+import { API_ADD_DATA_PACKAGE_PAYMENT } from '../../configs/apis.js';
 
 function PaySuccessPage(props) {
   const [dataPaymentSuccess, setDataPaymentSuccess] = useState();
   const [count, setCount] = useState(5);
 
-  const { userInfo, isLogin } = useContext(CheckLoginContext);
+  const { userInfo, isLogin, setIsLogin } = useContext(CheckLoginContext);
 
   const navigate = useNavigate();
 
@@ -31,34 +33,28 @@ function PaySuccessPage(props) {
       const dataPayment = await JSON.parse(localStorage.getItem('dataPayment'));
 
       const data = {
-        dataPayment: dataPayment,
+        packageId: dataPayment._id,
         userId: userInfo.userId,
       };
       let response;
       if (isLogin === 2) {
-        response = await fetch(
-          process.env.REACT_APP_API_ADD_DATA_PACKAGE_PAYMENT + '?login=true',
-          {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-              Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
-              'Content-Type': 'application/json',
-            },
+        response = await fetch(API_ADD_DATA_PACKAGE_PAYMENT + '?login=true', {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
+            'Content-Type': 'application/json',
           },
-        );
+        });
       } else {
-        response = await fetch(
-          process.env.REACT_APP_API_ADD_DATA_PACKAGE_PAYMENT + '?login=false',
-          {
-            method: 'POST',
-            body: JSON.stringify(data),
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
-            },
+        response = await fetch(API_ADD_DATA_PACKAGE_PAYMENT + '?login=false', {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
           },
-        );
+        });
       }
 
       const responseJson = await response.json();
@@ -77,6 +73,7 @@ function PaySuccessPage(props) {
         setCount((prevCount) => prevCount - 1);
       }, 1000);
     } else {
+      setIsLogin(2);
       navigate('/');
     }
 
@@ -84,6 +81,7 @@ function PaySuccessPage(props) {
   }, [count]);
 
   const handleClickHomePage = () => {
+    setIsLogin(2);
     navigate('/');
   };
 
@@ -113,13 +111,17 @@ function PaySuccessPage(props) {
                   Name package: {dataPaymentSuccess.typePack}
                 </ItemDetail>
                 <ItemDetail>
-                  Price: {dataPaymentSuccess.information.monthlyPrice} USD/month
+                  Price: {dataPaymentSuccess.packageId.monthlyPrice} USD/month
                 </ItemDetail>
                 <ItemDetail>
-                  Time order: {dataPaymentSuccess.createAt}
+                  Time order:{' '}
+                  {dayjs(dataPaymentSuccess.createAt).format('DD-MM-YYYY')}
                 </ItemDetail>
                 <ItemDetail>
-                  Expired time: {dataPaymentSuccess.expirationDate}
+                  Expired time:{' '}
+                  {dayjs(dataPaymentSuccess.expirationDate).format(
+                    'DD-MM-YYYY',
+                  )}
                 </ItemDetail>
               </ListInfoDetail>
             </DivDetail>

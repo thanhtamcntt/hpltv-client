@@ -73,7 +73,7 @@ const MoviesPage = () => {
                     src={item}
                     alt="image-banner"
                     width="100%"
-                    height="750"
+                    height="500"
                   />
                 </BannerContent>
               );

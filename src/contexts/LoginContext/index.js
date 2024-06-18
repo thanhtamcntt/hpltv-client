@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { API_GET_PACKAGE_PAYMENT, API_VERIFY_TOKEN } from '../../configs/apis';
 
 export const CheckLoginContext = createContext();
 
@@ -14,21 +15,16 @@ function LoginContext({ children }) {
     const data = {
       userId: userId,
     };
-    const response = await fetch(
-      process.env.REACT_APP_API_GET_PACKAGE_PAYMENT,
-      {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
-        },
+    const response = await fetch(API_GET_PACKAGE_PAYMENT, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
       },
-    );
+    });
     const responseJson = await response.json();
-    console.log(responseJson);
     if (responseJson.success === true) {
-      console.log('vào đây nè');
       setIsLogin(2);
     } else {
       setIsLogin(1);
@@ -36,8 +32,10 @@ function LoginContext({ children }) {
   };
 
   useEffect(() => {
+    setUserInfo(undefined);
+    setIsLogin(undefined);
     const fetchUserInfo = async () => {
-      const response = await fetch(process.env.REACT_APP_API_VERIFY_TOKEN, {
+      const response = await fetch(API_VERIFY_TOKEN, {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
         },
@@ -47,8 +45,6 @@ function LoginContext({ children }) {
       if (json.success === true) {
         setUserInfo(json.userInfo);
         getOrder(json.userInfo.userId);
-
-        // }
       } else {
         setUserInfo('');
         setIsLogin(0);
@@ -65,7 +61,7 @@ function LoginContext({ children }) {
   useEffect(() => {
     setIsUpdateUser(false);
     const fetchUserInfo = async () => {
-      const response = await fetch(process.env.REACT_APP_API_VERIFY_TOKEN, {
+      const response = await fetch(API_VERIFY_TOKEN, {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
         },
@@ -94,7 +90,13 @@ function LoginContext({ children }) {
   };
 
   return (
-    <CheckLoginContext.Provider value={{ userInfo, isLogin, updateUserInfo }}>
+    <CheckLoginContext.Provider
+      value={{
+        userInfo,
+        isLogin,
+        updateUserInfo,
+        setIsLogin,
+      }}>
       {children}
     </CheckLoginContext.Provider>
   );

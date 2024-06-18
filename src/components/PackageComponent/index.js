@@ -20,15 +20,19 @@ function PackageComponent({
   const handleChoosePackService = () => {
     setDataChoosePayment(item);
   };
-
   return (
     <ContentPack
       onClick={handleChoosePackService}
       className={
-        (dataChoosePayment._id === item._id
-          ? 'choose-service-package-shadow'
-          : '') +
-        (dataDisabled && dataDisabled.includes(item._id) ? ' disabled' : '')
+        `${
+          dataChoosePayment._id === item._id
+            ? 'choose-service-package-shadow '
+            : ''
+        }` +
+        'disabled' +
+        `${
+          dataDisabled && !dataDisabled.includes(item._id) ? 'non-disabled' : ''
+        }`
       }>
       <TypePack
         className={

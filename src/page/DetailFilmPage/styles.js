@@ -5,6 +5,8 @@ export const DivContainer = styled.div`
   width: 100%;
   max-width: 1200px;
   margin: 40px 0;
+  background-color: var(--bg-app);
+  color: var(--white);
 `;
 export const RowDetail = styled(Row)``;
 export const ColDetail = styled(Col)`
@@ -67,7 +69,7 @@ export const DivFilmSame = styled.div`
 
 export const DivComment = styled.div`
   width: 100%;
-  background-color: #f9f9f9;
+  background-color: var(--white-bg);
   max-height: 950px;
 `;
 export const DivContentComment = styled.div`

@@ -13,29 +13,29 @@ import {
   DivActionContinue,
   ButtonContinue,
 } from './styles';
-import { Spin } from 'antd';
 import HeaderPaymentComponent from '../../components/HeaderPaymentComponent';
 import PackageComponent from '../../components/PackageComponent';
 import { useNavigate } from 'react-router-dom';
 import { CheckLoginContext } from '../../contexts/LoginContext';
+import LoadingPage from '../LoadingPage';
+import {
+  API_GET_ALL_PAYMENT_DATA,
+  API_GET_ALL_ORDER,
+} from '../../configs/apis';
 
 function PaymentPage(props) {
   const [dataChoosePayment, setDataChoosePayment] = useState();
   const [data, setData] = useState();
   const [dataDisabled, setDataDisabled] = useState();
 
-  
   const { userInfo } = useContext(CheckLoginContext);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchAllPayment = async () => {
-      const response = await fetch(
-        process.env.REACT_APP_API_GET_ALL_PAYMENT_DATA,
-      );
+      const response = await fetch(API_GET_ALL_PAYMENT_DATA);
       const dataJson = await response.json();
-      console.log(dataJson.data[0]);
       setDataChoosePayment(dataJson.data[0]);
       setData(dataJson.data);
     };
@@ -45,27 +45,20 @@ function PaymentPage(props) {
   useEffect(() => {
     if (props.login) {
       const fetchPaymentDisabled = async () => {
-        const response = await fetch(
-          process.env.REACT_APP_API_GET_ALL_PAYMENT_DATA,
-        );
+        const response = await fetch(API_GET_ALL_PAYMENT_DATA);
         const dataJson = await response.json();
 
-        const responseOrder = await fetch(
-          process.env.REACT_APP_API_GET_ALL_ORDER,
-          {
-            headers: {
-              Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
-            },
+        const responseOrder = await fetch(API_GET_ALL_ORDER, {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
           },
-        );
+        });
         const dataJsonOrder = await responseOrder.json();
-        console.log(dataJsonOrder.data);
-        console.log(dataJson.data);
         let dataDisabledObj = [];
         dataJsonOrder.data.map((order, id) => {
           if (order.userId === userInfo.userId) {
             dataJson.data.map((item, id) => {
-              if (item._id.toString() >= order.information._id.toString()) {
+              if (item._id.toString() >= order.packageId._id.toString()) {
                 dataDisabledObj.push(item._id);
               }
             });
@@ -86,15 +79,7 @@ function PaymentPage(props) {
   };
 
   if (!dataChoosePayment) {
-    return (
-      <div className="loading-component">
-        <div>
-          <Spin tip="Loading" size="large">
-            <div className="content" />
-          </Spin>
-        </div>
-      </div>
-    );
+    return <LoadingPage />;
   }
   return (
     <PaymentContainer>

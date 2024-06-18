@@ -14,9 +14,10 @@ import {
 } from './styles';
 import ItemForm from '../../components/Common/ItemForm';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Form, Input, Select } from 'antd';
+import { Button, Form, Input, Select, message, notification } from 'antd';
 import Footer from '../../components/Footer';
 import LogoImage from '../../components/Common/ImageBanner';
+import { API_SIGNUP } from '../../configs/apis';
 
 function SignupPage() {
   const [textError, setTextError] = useState();
@@ -36,10 +37,19 @@ function SignupPage() {
       label: 'Other',
     },
   ]);
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const openNotification = (placement, message) => {
+    notification.success({
+      description: message,
+      placement,
+      duration: 1,
+    });
+  };
 
   const onFinish = async (values) => {
     console.log('Success:', values);
-    const response = await fetch(process.env.REACT_APP_API_SIGNUP, {
+    const response = await fetch(API_SIGNUP, {
       method: 'POST',
       body: JSON.stringify({
         firstName: values.firstName,
@@ -59,7 +69,10 @@ function SignupPage() {
     console.log(response.status);
     console.log(responseJson);
     if (responseJson.success) {
-      navigate('/auth/login');
+      openNotification('top', 'Signup success');
+      setTimeout(() => {
+        navigate('/auth/login');
+      }, 1000);
     } else {
       setTextError(responseJson.message);
     }
@@ -81,6 +94,7 @@ function SignupPage() {
 
   return (
     <DivAuth>
+      {contextHolder}
       <DivContainer>
         <DivBanner>
           <TextBanner>

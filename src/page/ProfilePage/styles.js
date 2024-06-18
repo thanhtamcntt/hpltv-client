@@ -30,26 +30,31 @@ export const ColRight = styled(Col)`
 `;
 
 export const DivContentLeft = styled.div`
-  background-color: var(--white);
+  background-color: var(--bg-profile);
   width: 90%;
   padding: 20px 10px 40px;
+  color: var(--white);
 `;
 
-export const DivNameUser = styled.div``;
+export const DivNameUser = styled.div`
+  color: var(--white-bg);
+`;
 
 export const NameUser = styled.h2`
   margin-bottom: 20px;
+  color: var(--white-bg);
 `;
 
 export const DivInfo = styled.div`
   margin-top: 30px;
+  color: var(--white-bg);
 `;
 
 export const Text = styled.p`
   text-align: left;
   margin: 16px 40px 0;
   font-size: 16px;
-  color: #727171;
+  color: var(--white-bg);
 `;
 
 export const DivImage = styled.div`
@@ -85,7 +90,7 @@ export const DivUpload = styled.div`
 `;
 
 export const DivContentRight = styled.div`
-  background-color: var(--white);
+  background-color: var(--bg-profile);
   padding: 30px 20px;
   width: 90%;
 `;

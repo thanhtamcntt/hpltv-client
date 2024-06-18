@@ -51,6 +51,7 @@ export const TextContent2 = styled.p`
   color: var(--white);
   margin-top: 30px;
   font-size: 18px;
+  font-weight: 400;
 `;
 
 export const ButtonLogin = styled.button`
@@ -100,7 +101,9 @@ export const TitleInformation = styled.h1`
 export const TextInformation = styled.p`
   text-align: left;
   color: var(--white);
-  font-size: 24px;
+  font-size: 18px;
+  margin: 10px 20px 0 0;
+  font-weight: 400;
 `;
 export const ImageInformation = styled.img`
   width: 100%;
