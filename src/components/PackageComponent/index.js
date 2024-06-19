@@ -16,6 +16,7 @@ function PackageComponent({
   dataChoosePayment,
   setDataChoosePayment,
   dataDisabled,
+  login,
 }) {
   const handleChoosePackService = () => {
     setDataChoosePayment(item);
@@ -29,7 +30,7 @@ function PackageComponent({
             ? 'choose-service-package-shadow '
             : ''
         }` +
-        'disabled' +
+        `${login ? 'disabled' : ''}` +
         `${
           dataDisabled && !dataDisabled.includes(item._id) ? 'non-disabled' : ''
         }`
