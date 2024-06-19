@@ -27,7 +27,7 @@ function PaymentPage(props) {
   const [dataChoosePayment, setDataChoosePayment] = useState();
   const [data, setData] = useState();
   const [dataDisabled, setDataDisabled] = useState();
-
+  console.log(props.login);
   const { userInfo } = useContext(CheckLoginContext);
 
   const navigate = useNavigate();
@@ -43,29 +43,30 @@ function PaymentPage(props) {
   }, []);
 
   useEffect(() => {
-    if (props.login) {
-      const fetchPaymentDisabled = async () => {
-        const response = await fetch(API_GET_ALL_PAYMENT_DATA);
-        const dataJson = await response.json();
+    const fetchPaymentDisabled = async () => {
+      const response = await fetch(API_GET_ALL_PAYMENT_DATA);
+      const dataJson = await response.json();
 
-        const responseOrder = await fetch(API_GET_ALL_ORDER, {
-          headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
-          },
-        });
-        const dataJsonOrder = await responseOrder.json();
-        let dataDisabledObj = [];
-        dataJsonOrder.data.map((order, id) => {
-          if (order.userId === userInfo.userId) {
-            dataJson.data.map((item, id) => {
-              if (item._id.toString() >= order.packageId._id.toString()) {
-                dataDisabledObj.push(item._id);
-              }
-            });
-          }
-        });
-        setDataDisabled(dataDisabledObj);
-      };
+      const responseOrder = await fetch(API_GET_ALL_ORDER, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
+        },
+      });
+      const dataJsonOrder = await responseOrder.json();
+      let dataDisabledObj = [];
+      dataJsonOrder.data.map((order, id) => {
+        if (order.userId === userInfo.userId) {
+          dataJson.data.map((item, id) => {
+            if (item._id.toString() >= order.packageId._id.toString()) {
+              dataDisabledObj.push(item._id);
+            }
+          });
+        }
+      });
+      setDataDisabled(dataDisabledObj);
+    };
+    if (props.login) {
+      console.log('vaof day');
       fetchPaymentDisabled();
     }
   }, [props.login]);
@@ -103,6 +104,7 @@ function PaymentPage(props) {
                       dataChoosePayment={dataChoosePayment}
                       setDataChoosePayment={setDataChoosePayment}
                       dataDisabled={dataDisabled}
+                      login={props.login}
                     />
                   </ColPack>
                 );
