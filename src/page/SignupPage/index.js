@@ -5,7 +5,6 @@ import {
   DivContainer,
   DivBanner,
   DivForm,
-  DivFooter,
   TextBanner,
   Text,
   DivLink,
@@ -14,8 +13,7 @@ import {
 } from './styles';
 import ItemForm from '../../components/Common/ItemForm';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Form, Input, Select, message, notification } from 'antd';
-import Footer from '../../components/Footer';
+import { Button, Form, Input, Select, message } from 'antd';
 import LogoImage from '../../components/Common/ImageBanner';
 import { API_SIGNUP } from '../../configs/apis';
 
@@ -38,12 +36,11 @@ function SignupPage() {
     },
   ]);
   const [messageApi, contextHolder] = message.useMessage();
-
-  const openNotification = (placement, message) => {
-    notification.success({
-      description: message,
-      placement,
-      duration: 1,
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'Successful registration, password will be sent to your email.',
+      duration: 2,
     });
   };
 
@@ -57,19 +54,17 @@ function SignupPage() {
         email: values.email,
         phoneNumber: values.phoneNumber,
         sex: values.sex,
-        password: values.password,
-        confirmPassword: values.confirmPassword,
+        // password: values.password,
+        // confirmPassword: values.confirmPassword,
       }),
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    console.log(response);
     const responseJson = await response.json();
-    console.log(response.status);
-    console.log(responseJson);
+
     if (responseJson.success) {
-      openNotification('top', 'Signup success');
+      success();
       setTimeout(() => {
         navigate('/auth/login');
       }, 1000);
@@ -81,12 +76,6 @@ function SignupPage() {
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
-
-  useEffect(() => {
-    form.setFieldsValue({
-      sex: 'female',
-    });
-  }, [form]);
 
   const handleFocus = () => {
     setTextError();
@@ -141,7 +130,7 @@ function SignupPage() {
                 input={<Input onFocus={handleFocus} />}
               />
               <ItemForm
-                label="Sex"
+                label="Gender"
                 name="sex"
                 message="Please input your sex!"
                 input={
@@ -156,7 +145,7 @@ function SignupPage() {
                   />
                 }
               />
-              <ItemForm
+              {/* <ItemForm
                 label="Password"
                 name="password"
                 message="Please input your password!"
@@ -167,7 +156,7 @@ function SignupPage() {
                 name="confirmPassword"
                 message="Please input your confirm password!"
                 input={<Input.Password onFocus={handleFocus} />}
-              />
+              /> */}
               <Form.Item
                 className="btn-login"
                 wrapperCol={{
@@ -185,9 +174,6 @@ function SignupPage() {
           </DivForm>
         </DivContent>
       </DivContainer>
-      <DivFooter>
-        <Footer />
-      </DivFooter>
     </DivAuth>
   );
 }

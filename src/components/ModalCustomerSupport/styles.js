@@ -39,8 +39,8 @@ export const DivContainer = styled.div`
 `;
 
 export const Title = styled.h2`
-  margin-bottom: 10px;
   font-size: 36px;
+  margin: 0 !important;
 `;
 
 export const DivChat = styled.div`
@@ -121,6 +121,10 @@ export const DivForm = styled.div`
 
 export const DivContainerChat = styled.div`
   height: 100%;
+
+  & > h2 {
+    margin: 20px 0 10px;
+  }
 `;
 export const DivContentChat = styled.div`
   background: var(--white-bg);
@@ -134,6 +138,124 @@ export const TitleChat = styled.h3`
 
 export const ChatContent = styled.div`
   min-height: 400px;
+  max-height: 400px;
+  margin: 6px 10px 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  display: flex;
+  flex-direction: column;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+export const DivItemChat = styled.div`
+  width: 100%;
+  display: flex;
+  margin-bottom: 12px;
+  justify-content: flex-end;
+`;
+
+export const DivItemChatRes = styled.div`
+  width: 100%;
+  display: flex;
+  margin-bottom: 12px;
+`;
+
+export const TextWelcome = styled.p`
+  text-align: center;
+  color: #f00;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+`;
+
+export const DivAvatarUser = styled.div`
+  margin-left: 6px;
+  width: 25px;
+  height: 25px;
+  & img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+`;
+
+export const DivAvatar = styled.div`
+  margin-right: 6px;
+  width: 25px;
+  height: 25px;
+  & img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+`;
+
+export const DivText = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+  align-items: flex-start;
+  & > p:nth-child(2) {
+    color: var(--black);
+    font-size: 10px;
+    font-weight: 700;
+    margin-top: 4px;
+  }
+`;
+
+export const DivTextUser = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+  align-items: flex-end;
+  & > p:nth-child(2) {
+    color: var(--black);
+    float: right;
+    font-size: 10px;
+    font-weight: 700;
+    margin-top: 4px;
+  }
+`;
+
+export const TextUser = styled.p`
+  background-color: #4c77f6;
+  padding: 0.2rem 0.4rem;
+  text-align: right;
+  border-radius: 10px;
+  color: var(--white-bg) !important;
+  text-align: right;
+  max-width: 100%;
+  float: right;
+  font-size: 16px;
+  font-weight: 500;
+  & > p {
+    font-size: 10px;
+  }
+
+  & > span {
+    text-align: left;
+  }
+`;
+
+export const TextUserResponse = styled.p`
+  background-color: #10a829;
+  padding: 0.2rem 0.4rem;
+  border-radius: 10px;
+  text-align: left;
+  color: var(--white-bg) !important;
+  text-align: left;
+  max-width: 100%;
+
+  float: left;
+  font-size: 16px;
+  font-weight: 500;
+  & > p {
+    font-size: 10px;
+  }
 `;
 
 export const FormChat = styled.form`
@@ -158,4 +280,45 @@ export const ButtonChat = styled.button`
   & svg {
     color: var(--black);
   }
+`;
+
+export const DivInfo = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10003;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & > div {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--white-bg);
+    width: 60%;
+    border-radius: 10px;
+
+    & > p {
+      color: var(--black);
+    }
+  }
+`;
+
+export const ButtonInfo = styled.button`
+  width: 100px;
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 0;
+  border-radius: 5px;
+  color: var(--white-bg);
+  background-color: #00ac0b;
+  cursor: pointer;
 `;

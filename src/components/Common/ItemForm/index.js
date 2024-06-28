@@ -4,6 +4,7 @@ import { Form } from 'antd';
 function ItemForm(props) {
   return (
     <Form.Item
+      className="item-form-input"
       label={props.label}
       name={props.name}
       rules={[

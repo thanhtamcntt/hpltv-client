@@ -22,6 +22,7 @@ import FormUpdateProfile from '../../components/Form/FormUpdateProfile';
 import LoadingPage from '../LoadingPage';
 import { CheckLoginContext } from '../../contexts/LoginContext';
 import { API_CHANGE_AVATAR, API_DELETE_AVATAR } from '../../configs/apis';
+import InfoPackage from '../../components/InfoPackage';
 
 function ProfilePage() {
   const [user, setUser] = useState();
@@ -66,6 +67,11 @@ function ProfilePage() {
         <FormUpdateProfile form={form} options={options} type="change" />
       ),
     },
+    {
+      key: 'package',
+      label: 'Package ',
+      children: <InfoPackage />,
+    },
   ]);
 
   useEffect(() => {
@@ -79,7 +85,7 @@ function ProfilePage() {
         sex: userInfo.sex,
       });
     }
-  }, [userInfo]);
+  }, [userInfo, form]);
 
   const handleChangeAvatarUser = async (info) => {
     setLoading(true);
@@ -181,7 +187,7 @@ function ProfilePage() {
                 <DivInfo>
                   <Text>Email: {user.email}</Text>
                   <Text>Phone Number: {user.phoneNumber}</Text>
-                  <Text>Sex: {user.sex}</Text>
+                  <Text>Gender: {user.sex}</Text>
                 </DivInfo>
               </DivContentLeft>
             </ColLeft>

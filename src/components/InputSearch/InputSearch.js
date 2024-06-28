@@ -21,7 +21,7 @@ function InputSearchLayout() {
     <FormSearch onSubmit={handleSearchFilm}>
       <InputSearch
         name="search"
-        placeholder="Search"
+        placeholder="Search name film"
         value={searchKey}
         onChange={(e) => setSearchKey(e.target.value)}
       />

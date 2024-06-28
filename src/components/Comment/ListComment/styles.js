@@ -2,16 +2,11 @@ import { Col, Row } from 'antd';
 import styled from 'styled-components';
 
 export const DivListComment = styled.div`
-  width: 100%;
-  background-color: #fefdfd;
+  background-color: transparent;
   margin: 50px 0;
-  height: 700px;
-  overflow: auto;
 `;
 
 export const DivDetailComment = styled.div`
-  width: 100%;
-  background-color: #fefdfd;
   padding: 25px 0 10px;
 `;
 
@@ -69,7 +64,7 @@ export const DivDetailCommentReply = styled.div`
 
 export const NoCommentTitle = styled.h3`
   margin: 150px 0;
-  color: var(--black);
+  color: var(--white-bg);
 `;
 
 export const DivActionComment = styled.div`
@@ -85,7 +80,6 @@ export const ButtonComment = styled.button`
   border: none;
   background: none;
   cursor: pointer;
-  width: 100%;
   text-align: left;
   padding: 5px 10px;
 `;

@@ -6,6 +6,7 @@ export const DivFilm = styled.div`
   max-width: 1200px;
   margin: 40px 0;
   min-height: 500px;
+  color: var(--white-bg);
 `;
 
 export const Title = styled.h2`

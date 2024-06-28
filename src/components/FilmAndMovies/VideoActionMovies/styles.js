@@ -62,7 +62,11 @@ export const RatingAction = styled.div`
   margin-top: 20px;
   display: flex;
   align-items: center;
+  background-color: var(--white-bg);
+  padding: 8px;
+  border-radius: 5px;
   & label {
     font-size: 16px;
+    color: var(--black);
   }
 `;

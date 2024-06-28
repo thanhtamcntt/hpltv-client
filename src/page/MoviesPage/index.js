@@ -12,11 +12,15 @@ import { fetchAllCategory } from '../../redux/action/category/category';
 import { Carousel } from 'antd';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import Content from '../../components/Content';
-import LoadingComponent from '../../components/Common/LoadingComponent';
+import { API_GET_NEW_MOVIES } from '../../configs/apis';
+import LoadingPage from '../LoadingPage';
+import Banner from '../../components/Banner';
 
 const MoviesPage = () => {
   const [data, setData] = useState();
-  const [banner, setBanner] = useState();
+  const [dataVideo, setDataVideo] = useState();
+  const [dataBanner, setDataBanner] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const refContent = useRef();
 
@@ -24,17 +28,23 @@ const MoviesPage = () => {
   const movies = useSelector((state) => state.moviesSlice);
   const category = useSelector((state) => state.categorySlice);
   useEffect(() => {
-    dispatch(fetchAllMovies());
-    dispatch(fetchAllCategory());
+    const fetchMovies = async () => {
+      const response = await fetch(API_GET_NEW_MOVIES);
+      const data = await response.json();
+      setDataVideo(data.data);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 300);
+    };
+    Promise.all([
+      dispatch(fetchAllMovies()),
+      dispatch(fetchAllCategory()),
+      fetchMovies(),
+    ]);
   }, [dispatch]);
 
   useEffect(() => {
     if (movies && category) {
-      let arrayBanner = [];
-      for (let item in movies.data) {
-        if (item < 3) arrayBanner.push(movies.data[item].imageUrl.url);
-      }
-      setBanner(arrayBanner);
       let arrayData = [];
       for (let cate of category.data) {
         let objectData = { title: null, film: [] };
@@ -50,39 +60,34 @@ const MoviesPage = () => {
     }
   }, [movies, category]);
 
-  if (!movies || !category || !data) {
-    return <LoadingComponent />;
+  useEffect(() => {
+    if (dataVideo && category) {
+      let arrData = [];
+      for (let item of dataVideo) {
+        let arrayCategory = [];
+        for (let cate of category.data) {
+          if (item.listCategoryId.includes(cate._id))
+            arrayCategory.push(cate.name);
+        }
+
+        arrData.push({
+          name: item.title,
+          category: arrayCategory,
+          description: item.description,
+          filmId: item._id,
+        });
+      }
+      setDataBanner(arrData);
+    }
+  }, [dataVideo, category]);
+
+  if (!movies || !category || !data || !dataVideo) {
+    return <LoadingPage />;
   }
 
   return (
     <DivFilm>
-      <BannerPage>
-        <ButtonSlick onClick={() => refContent.current.prev()}>
-          <LeftOutlined />
-        </ButtonSlick>
-        <Carousel
-          dots={false}
-          autoplay={true}
-          ref={refContent}
-          slidesToShow={1}>
-          {banner &&
-            banner.map((item, id) => {
-              return (
-                <BannerContent key={id}>
-                  <ImageBanner
-                    src={item}
-                    alt="image-banner"
-                    width="100%"
-                    height="500"
-                  />
-                </BannerContent>
-              );
-            })}
-        </Carousel>
-        <ButtonSlick next="next" onClick={() => refContent.current.next()}>
-          <RightOutlined />
-        </ButtonSlick>
-      </BannerPage>
+      <Banner dataVideo={dataVideo} isLoading={isLoading} data={dataBanner} />
       {data &&
         data.map((item, id) => {
           if (item.film.length > 4) {

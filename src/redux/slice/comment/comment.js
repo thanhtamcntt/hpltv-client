@@ -15,8 +15,6 @@ const initialState = {
   error: null,
 };
 
-
-
 export const CommentSlice = createSlice({
   name: 'CommentSlice',
   initialState,
@@ -27,12 +25,9 @@ export const CommentSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchAllComment.fulfilled, (state, action) => {
-      // console.log(action.payload.data);
-      state.loading = false;
       state.data = [...action.payload.data];
     });
     builder.addCase(fetchAllComment.rejected, (state, action) => {
-      // console.log(action.payload);
       state.loading = false;
       state.error = action.payload.message;
     });
@@ -42,13 +37,15 @@ export const CommentSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(createComment.fulfilled, (state, action) => {
-      
       state.loading = false;
+      console.log(action.payload);
       const newComment = {
         ...action.payload.data.data,
-        userId: action.payload.userInfo
+        userId: {
+          ...action.payload.userInfo,
+          _id: action.payload.userInfo.userId,
+        },
       };
-      console.log(newComment)
       state.data.unshift(newComment);
     });
     builder.addCase(createComment.rejected, (state, action) => {
@@ -61,11 +58,15 @@ export const CommentSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(createCommentReply.fulfilled, (state, action) => {
-      console.log('action: ', action.payload.data);
+      console.log('action: ', action.payload);
       state.loading = false;
       const newComment = {
         ...action.payload.data.data,
-        userId: action.payload.userInfo,
+        userId: {
+          ...action.payload.userInfo,
+          _id: action.payload.userInfo.userId,
+        },
+        parentUserId: action.payload.parentUserId,
       };
       state.data.unshift(newComment);
     });

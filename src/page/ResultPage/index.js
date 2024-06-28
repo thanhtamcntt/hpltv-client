@@ -76,7 +76,7 @@ const ResultPage = () => {
 
   return (
     <DivFilm>
-      <Title>Keyword search results: {location.state.searchKey}</Title>
+      <Title>Keyword search results: "{location.state.searchKey}"</Title>
       <DivContent>
         {data && data.length > 0 ? (
           <RowPage justify="start">

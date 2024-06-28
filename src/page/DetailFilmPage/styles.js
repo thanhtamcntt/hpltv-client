@@ -6,7 +6,7 @@ export const DivContainer = styled.div`
   max-width: 1200px;
   margin: 40px 0;
   background-color: var(--bg-app);
-  color: var(--white);
+  color: var(--white-bg);
 `;
 export const RowDetail = styled(Row)``;
 export const ColDetail = styled(Col)`
@@ -27,6 +27,7 @@ export const ImageFilm = styled.img`
 
 export const DivContent = styled.div`
   text-align: left;
+  color: var(--white-bg);
 `;
 export const TitleContent = styled.h2`
   font-size: 26px;
@@ -69,8 +70,6 @@ export const DivFilmSame = styled.div`
 
 export const DivComment = styled.div`
   width: 100%;
-  background-color: var(--white-bg);
-  max-height: 950px;
 `;
 export const DivContentComment = styled.div`
   margin: 0 20px;

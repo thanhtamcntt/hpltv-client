@@ -12,10 +12,8 @@ import LoadingComponent from '../../Common/LoadingComponent';
 
 function ListComment({ dataComment }) {
   const [data, setData] = useState();
-  const [length, setLength] = useState(5);
   const [dataReverse, setDataReverse] = useState();
   const [open, setOpen] = useState({});
-  const [hasMore, setHasMore] = useState(true);
   const [input, setInput] = useState({});
 
   const dispatch = useDispatch();
@@ -23,11 +21,11 @@ function ListComment({ dataComment }) {
   useEffect(() => {
     if (dataComment) {
       const reversedData = [...dataComment].reverse();
-      const newData = dataComment.slice(0, length);
+      const newData = dataComment.slice(0);
       setData(newData);
       setDataReverse(reversedData);
     }
-  }, [length, dataComment]);
+  }, [dataComment]);
 
   const handleOpenReply = (commentId) => {
     if (commentId) {
@@ -41,6 +39,9 @@ function ListComment({ dataComment }) {
       dispatch(deleteComment(id));
     } else {
       setInput((prev) => ({ ...prev, [id]: !prev[id] }));
+      if (open[id]) {
+        setOpen((prev) => ({ ...prev, [id]: !prev[id] }));
+      }
     }
   };
 
@@ -53,10 +54,6 @@ function ListComment({ dataComment }) {
     setInput((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const fetchMoreData = () => {
-    setLength((prevLength) => prevLength + 5);
-  };
-
   if (!dataComment) {
     return <LoadingComponent />;
   }
@@ -65,59 +62,52 @@ function ListComment({ dataComment }) {
     <>
       {data && data.length > 0 ? (
         <DivListComment id="listComment">
-          <InfiniteScroll
-            dataLength={data.length}
-            next={fetchMoreData}
-            hasMore={hasMore}
-            endMessage={<p>All comments displayed</p>}
-            scrollableTarget="listComment">
-            {data &&
-              data.length &&
-              data.map((item, id) => {
-                if (!item.parentCommentId) {
-                  return (
-                    <>
-                      <ListCommentComponent
-                        key={id}
-                        item={item}
-                        open={open}
-                        setOpen={setOpen}
-                        handleOpenReply={handleOpenReply}
-                        handleClickAction={handleClickAction}
-                        input={input}
-                        setInput={setInput}
-                        updateCommentClick={updateCommentClick}
-                      />
+          {data &&
+            data.length &&
+            data.map((item, id) => {
+              if (!item.parentCommentId) {
+                return (
+                  <>
+                    <ListCommentComponent
+                      key={id}
+                      item={item}
+                      open={open}
+                      setOpen={setOpen}
+                      handleOpenReply={handleOpenReply}
+                      handleClickAction={handleClickAction}
+                      input={input}
+                      setInput={setInput}
+                      updateCommentClick={updateCommentClick}
+                    />
 
-                      {dataReverse.map((itemChild, index) => {
-                        if (
-                          itemChild.rootCommentId &&
-                          itemChild.rootCommentId === item._id
-                        ) {
-                          return (
-                            <ReplyComment
-                              key={index}
-                              item={item}
-                              itemChild={itemChild}
-                              open={open}
-                              setOpen={setOpen}
-                              handleOpenReply={handleOpenReply}
-                              handleClickAction={handleClickAction}
-                              input={input}
-                              setInput={setInput}
-                              updateCommentClick={updateCommentClick}
-                            />
-                          );
-                        }
-                      })}
-                    </>
-                  );
-                }
-              })}
-          </InfiniteScroll>
+                    {dataReverse.map((itemChild, index) => {
+                      if (
+                        itemChild.rootCommentId &&
+                        itemChild.rootCommentId === item._id
+                      ) {
+                        return (
+                          <ReplyComment
+                            key={index}
+                            item={item}
+                            itemChild={itemChild}
+                            open={open}
+                            setOpen={setOpen}
+                            handleOpenReply={handleOpenReply}
+                            handleClickAction={handleClickAction}
+                            input={input}
+                            setInput={setInput}
+                            updateCommentClick={updateCommentClick}
+                          />
+                        );
+                      }
+                    })}
+                  </>
+                );
+              }
+            })}
         </DivListComment>
       ) : (
-        <NoCommentTitle>No comments here yet</NoCommentTitle>
+        <NoCommentTitle>Be the first to comment!!</NoCommentTitle>
       )}
     </>
   );

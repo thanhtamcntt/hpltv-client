@@ -66,7 +66,6 @@ function PaymentPage(props) {
       setDataDisabled(dataDisabledObj);
     };
     if (props.login) {
-      console.log('vaof day');
       fetchPaymentDisabled();
     }
   }, [props.login]);
