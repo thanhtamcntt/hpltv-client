@@ -1,13 +1,16 @@
 import styled from 'styled-components';
+import bgLogin from '../../assets/images/background-login.jpg';
 
 export const DivAuth = styled.div`
   width: 100%;
+  height: 100vh;
+  background-image: url(${bgLogin});
 `;
 
 export const DivContainer = styled.div`
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 3% auto 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,6 +22,8 @@ export const DivContent = styled.div`
 
 export const TextContent = styled.p`
   font-size: 22px;
+  font-weight: 500;
+  color: var(--white-bg);
 `;
 export const DivForm = styled.div`
   background: var(--bg-form);
@@ -30,7 +35,7 @@ export const DivForm = styled.div`
     margin: 0 auto;
 
     & label {
-      color: var(--white) !important;
+      color: var(--white-bg) !important;
     }
 
     & .ant-form-item-control-input-content {

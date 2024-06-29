@@ -13,7 +13,7 @@ export const TextFilm = styled.p`
   text-align: left;
   font-weight: 400;
   font-size: 16px;
-  color: var(--white);
+  color: var(--white-bg);
   & ul {
     position: relative;
     top: 2px;
@@ -26,5 +26,5 @@ export const TagCategory = styled(Tag)`
   font-size: 14px;
   border-radius: 6px;
   font-weight: 500;
-  color: var(--white);
+  color: var(--white-bg);
 `;

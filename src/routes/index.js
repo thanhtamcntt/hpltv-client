@@ -14,6 +14,7 @@ import OptionCheckoutPage from '../page/OptionCheckoutPage';
 import PaySuccessPage from '../page/PaySuccessPage';
 import CheckoutFormPage from '../page/CheckoutFormPage';
 import ContactPage from '../page/ContactPage';
+import TermAndConditionPage from '../page/TermAndConditionPage';
 
 function Router() {
   return (
@@ -44,6 +45,7 @@ function Router() {
         element={<DetailFilmPage watching={true} />}
       />
       <Route path="/contact" element={<ContactPage />} />
+      <Route path="/terms-and-conditions" element={<TermAndConditionPage />} />
       <Route path="*" element={<Navigate to="/" replace={true} />} />
     </Routes>
   );

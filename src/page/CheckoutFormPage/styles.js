@@ -32,7 +32,7 @@ export const DivInfo = styled.div`
     0px 2px 5px 0px rgba(50, 50, 93, 0.1), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
   border-radius: 7px;
   padding: 40px;
-  background-color: var(--white);
+  background-color: var(--white-bg);
   flex: 1;
   margin-right: 20px;
   height: 100%;

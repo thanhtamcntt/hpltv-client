@@ -1,7 +1,7 @@
 import Router from './routes';
 import './App.css';
 import Layout from './layout/index';
-import { React, useContext, useEffect } from 'react';
+import { React, useContext, useEffect, useState } from 'react';
 import {
   Navigate,
   Route,
@@ -22,9 +22,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllMovies } from './redux/action/home/movies';
 import { fetchAllSeries } from './redux/action/home/series';
 import LoadingPage from './page/LoadingPage';
-import LoadingPaymentContext from './contexts/LoadingPaymentContext';
+import { CustomerServiceOutlined } from '@ant-design/icons';
+import { ButtonCustomerSupport } from './styles';
+import ModalCustomerSupport from './components/ModalCustomerSupport';
+import { io } from 'socket.io-client';
+import { v4 as uuidv4 } from 'uuid';
+import ForgotPasswordPage from './page/ForgotPasswordPage';
+import ResetPasswordPage from './page/ResetPasswordPage';
+
+const newSocket = io('http://localhost:4000/user');
 
 function App() {
+  const [isModal, setIsModal] = useState(false);
+  const [socket, setSocket] = useState();
+  const [isState, setIsState] = useState(0);
+  const [message, setMessage] = useState([]);
+  const [roomId, setRoomId] = useState();
+  const [visible, setVisible] = useState(false);
+
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -63,7 +78,7 @@ function App() {
         navigate('/');
       }
     }
-  }, [window.location.pathname]);
+  }, [pathname, series, movies, navigate]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -83,7 +98,64 @@ function App() {
       }
     }
   }, [new Date() + 60 * 1000]);
-  console.log(isLogin);
+
+  // socket chat
+  const handleOpenCustomerSupport = () => {
+    setIsModal((prev) => !prev);
+  };
+
+  const handleOk = () => {
+    setIsModal(false);
+  };
+  const handleCancel = () => {
+    setIsModal(false);
+  };
+
+  const handleOutRoom = () => {
+    setVisible(false);
+    setIsState(0);
+  };
+
+  const handleChatCustomer = async (values) => {
+    setIsState(2);
+    setTimeout(() => {
+      const id = uuidv4();
+      setRoomId(id);
+      const data = {
+        roomId: id,
+        userId: userInfo.userId,
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
+        issues: values.issues,
+        userInfo: userInfo,
+      };
+      newSocket.emit('joinRoom', data);
+      newSocket.emit('receiveRoom', data);
+    }, 300);
+  };
+
+  useEffect(() => {
+    if (isState === 2) {
+      setSocket(newSocket);
+
+      newSocket.on('chatCustomer', (data) => {
+        console.log(data);
+        setMessage((prev) => [...prev, data]);
+      });
+
+      newSocket.on('forceLeave', (roomId) => {
+        newSocket.emit('leaveRoom', roomId);
+        setVisible(true);
+        setMessage([]);
+        setRoomId();
+      });
+      return () => {
+        newSocket.off('chatCustomer');
+        // newSocket.disconnect();
+      };
+    }
+  }, [isState, message]);
+
   if (isLogin === undefined || userInfo === undefined) {
     return (
       <div className="loading-component">
@@ -93,6 +165,28 @@ function App() {
   }
   return (
     <div className="App">
+      {isLogin !== 0 && (
+        <>
+          <ModalCustomerSupport
+            isModal={isModal}
+            handleCancel={handleCancel}
+            handleOk={handleOk}
+            isState={isState}
+            setIsState={setIsState}
+            socket={socket}
+            handleChatCustomer={handleChatCustomer}
+            setMessage={setMessage}
+            message={message}
+            roomId={roomId}
+            setRoomId={setRoomId}
+            visible={visible}
+            handleOutRoom={handleOutRoom}
+          />
+          <ButtonCustomerSupport onClick={handleOpenCustomerSupport}>
+            <CustomerServiceOutlined />
+          </ButtonCustomerSupport>
+        </>
+      )}
       {isLogin === 2 ? (
         <Layout>
           <Router />
@@ -124,6 +218,14 @@ function App() {
         <Routes>
           <Route path="/auth/signup" element={<SignupPage />} />
           <Route path="/auth/login" element={<LoginPage />} />
+          <Route
+            path="/auth/reset-password/:token"
+            element={<ResetPasswordPage />}
+          />
+          <Route
+            path="/auth/forgot-password"
+            element={<ForgotPasswordPage />}
+          />
           <Route path="/landing-page" element={<LandingPage />} />
           <Route
             path="*"

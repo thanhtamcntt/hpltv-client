@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 export const DivContainer = styled.div`
   width: 100%;
+  background: var(--bg-app);
 `;
 
 export const DivProfile = styled.div`
@@ -52,7 +53,7 @@ export const DivInfo = styled.div`
 
 export const Text = styled.p`
   text-align: left;
-  margin: 16px 40px 0;
+  margin: 16px 20px 0;
   font-size: 16px;
   color: var(--white-bg);
 `;

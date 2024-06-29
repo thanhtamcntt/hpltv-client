@@ -8,7 +8,7 @@ export const ButtonLayout = styled.button`
   font-weight: 700;
   line-height: 33px;
   letter-spacing: 0.015em;
-  color: rgba(255, 204, 253, 1);
-  background: rgba(0, 0, 0, 1);
+  color: var(--white-bg);
+  background: #008bd7;
   cursor: pointer;
 `;

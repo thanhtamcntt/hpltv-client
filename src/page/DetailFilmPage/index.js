@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   DivContainer,
   RowDetail,
@@ -52,7 +52,6 @@ const DetailFilmPage = (props) => {
   const { userInfo } = useContext(CheckLoginContext);
 
   const navigate = useNavigate();
-  const { pathname } = useLocation();
 
   const { filmId } = useParams();
   const dispatch = useDispatch();
@@ -63,7 +62,6 @@ const DetailFilmPage = (props) => {
   const mostRating = useSelector((state) => state.moviesMostRatingSlice);
   const sameMovies = useSelector((state) => state.sameMoviesSlice);
   const order = useSelector((state) => state.orderSlice);
-  const packageData = useSelector((state) => state.packageSlice);
 
   useEffect(() => {
     Promise.all([
@@ -78,6 +76,7 @@ const DetailFilmPage = (props) => {
     ]);
   }, [dispatch, filmId]);
 
+  //get name category
   useEffect(() => {
     if (movies && category) {
       let objectData = { category: [], film: null };
@@ -95,6 +94,7 @@ const DetailFilmPage = (props) => {
     }
   }, [movies, category, filmId]);
 
+  //set like user
   useEffect(() => {
     if (
       data &&
@@ -105,6 +105,7 @@ const DetailFilmPage = (props) => {
     }
   }, [data]);
 
+  //set rating user
   useEffect(() => {
     setIsRating(false);
     setDataValueUserRating(0);
@@ -118,6 +119,8 @@ const DetailFilmPage = (props) => {
       });
     }
   }, [data]);
+
+  // check package user
   useEffect(() => {
     setIsWatching(true);
     if (data && data.film) {

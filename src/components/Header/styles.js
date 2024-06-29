@@ -2,12 +2,12 @@ import { Col, Row } from 'antd';
 import styled from 'styled-components';
 export const ContainerHeader = styled.div`
   background-color: transparent;
-  margin-bottom: calc(var(--height) + var(--pd) * 2);
+  margin-bottom: calc(var(--height-header) + var(--pd) * 2);
 `;
 
 export const DivHeader = styled.div`
   width: 100%;
-  background-color: #0a0a0a;
+  background-color: var(--bg-header-2);
   opacity: 0.9;
   padding: var(--pd) 0;
   position: fixed;
@@ -15,7 +15,7 @@ export const DivHeader = styled.div`
   right: 0;
   left: 0;
   z-index: 1000;
-  height: var(--height);
+  height: var(--height-header);
   display: flex;
   align-items: center;
 `;
@@ -45,4 +45,38 @@ export const ColLeft = styled(Col)`
 export const ColRight = styled(Col)`
   display: flex;
   align-items: center;
+`;
+
+export const Navbar = styled.div`
+  display: flex;
+  align-items: center;
+  height: 30px;
+  margin-top: 10px;
+`;
+
+export const ListNav = styled.ul`
+  display: flex;
+`;
+
+export const ItemNav = styled.li`
+  padding: 10px 14px;
+  & a {
+    color: var(--white-bg);
+    font-size: 16px;
+    font-weight: 400;
+    text-decoration: none;
+    text-transform: uppercase;
+    @media (min-width: 992px) and (max-width: 1199px) {
+      font-size: 18px;
+    }
+  }
+
+  &:hover {
+    & a {
+      color: var(--bg-header-navbar);
+    }
+  }
+  @media (max-width: 1200px) {
+    padding: 10px 10px;
+  }
 `;

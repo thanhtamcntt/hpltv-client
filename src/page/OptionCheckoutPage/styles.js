@@ -18,6 +18,11 @@ export const TitleOption = styled.h2`
 `;
 
 export const DivIconOption = styled.div`
+  & > span {
+    background-color: var(--white-bg);
+    padding: 10px;
+    border-radius: 50%;
+  }
   & svg {
     font-size: 45px;
     color: #c63731;
@@ -46,9 +51,8 @@ export const DivActionCheckout = styled.div`
 `;
 
 export const ButtonCheckout = styled.button`
-  border: 2px solid #ccc;
   border-radius: 5px;
-  background: var(--white);
+  background: var(--white-bg);
   color: var(--black);
   font-size: 1rem;
   font-weight: 500;
@@ -71,6 +75,10 @@ export const ButtonCheckout = styled.button`
     right: 20px;
     bottom: 50%;
     transform: translateY(50%);
+
+    & > svg {
+      font-size: 20px;
+    }
   }
 
   & img {

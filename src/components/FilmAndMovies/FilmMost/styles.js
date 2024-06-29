@@ -18,7 +18,7 @@ export const TitleList = styled.h2`
 export const ListFilm = styled.ul`
   border-top: 2px solid var(--color-most-film);
   & li:nth-child(2n) {
-    background-color: #3c3a3a;
+    background-color: #1f367e;
   }
 `;
 export const Item = styled.li`
@@ -44,14 +44,14 @@ export const TextFilm = styled.p`
   text-align: left;
 
   &:hover {
-    color: var(--white);
+    color: var(--white-bg);
   }
 `;
 
 export const TextCountry = styled.p`
   font-size: 14px;
   font-weight: 400;
-  color: var(--white);
+  color: var(--white-bg);
   text-align: left;
   margin-top: 10px;
 `;

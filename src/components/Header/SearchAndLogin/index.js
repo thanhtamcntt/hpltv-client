@@ -18,19 +18,18 @@ import { CheckLoginContext } from '../../../contexts/LoginContext';
 function HeaderSearchLogin() {
   const { userInfo } = useContext(CheckLoginContext);
 
-  const [user, setUser] = useState(
-  );
+  const [user, setUser] = useState();
 
   useEffect(() => {
-    setUser(userInfo)
-  }, [userInfo])
+    setUser(userInfo);
+  }, [userInfo]);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     if (localStorage.getItem('tokenUser')) {
       localStorage.removeItem('tokenUser');
-      navigate('/landing-page')
+      navigate('/landing-page');
     }
   };
 
@@ -43,17 +42,15 @@ function HeaderSearchLogin() {
       key: 'myFavoriteMovies',
       label: <Link to="/my-favorite-movies">My Favorite Movies</Link>,
     },
-    {
-      key: 'packageUpgrade',
-      label: <Link to="/package-upgrade">Package Upgrade</Link>,
-    },
+    // {
+    //   key: 'packageUpgrade',
+    //   label: <Link to="/package-upgrade">Package Upgrade</Link>,
+    // },
     {
       key: 'logout',
       label: <ButtonLogout onClick={handleLogout}>Log out</ButtonLogout>,
     },
   ];
-
-
 
   return (
     <DivSearch>
@@ -73,7 +70,10 @@ function HeaderSearchLogin() {
                 <NameUser>
                   {user && user.lastName} {user && user.firstName}
                 </NameUser>
-                <ImageAvatar src={user && user.avatarUser.url} alt="image user" />
+                <ImageAvatar
+                  src={user && user.avatarUser.url}
+                  alt="image user"
+                />
               </ButtonProfile>
             </Dropdown>
           </ProfileUser>

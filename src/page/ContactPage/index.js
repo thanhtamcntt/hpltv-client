@@ -111,7 +111,6 @@ function ContactPage() {
         <DivContent>
           <DivTitle>
             <Title>Let’s Start a Conversation</Title>
-            <button onClick={handleSocket}>Test socket</button>
           </DivTitle>
           <RowContent>
             <ColContent span={12}>

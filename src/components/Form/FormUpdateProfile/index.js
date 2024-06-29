@@ -109,7 +109,7 @@ function FormUpdateProfile(props) {
               input={<Input />}
             />
             <InputItem
-              label="Sex"
+              label="Gender"
               name="sex"
               input={
                 <Select

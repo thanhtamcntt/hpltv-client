@@ -1,7 +1,9 @@
 import styled from 'styled-components';
+import bgLogin from '../../assets/images/background-login.jpg';
 
 export const DivAuth = styled.div`
   width: 100%;
+  background-image: url(${bgLogin});
 `;
 
 export const DivContainer = styled.div`
@@ -19,6 +21,8 @@ export const DivContent = styled.div`
 
 export const TextContent = styled.p`
   font-size: 22px;
+  font-weight: 500;
+  color: var(--white-bg);
 `;
 
 export const DivForm = styled.div`
@@ -31,7 +35,7 @@ export const DivForm = styled.div`
     margin: 0 auto;
 
     & label {
-      color: var(--white) !important;
+      color: var(--white-bg) !important;
     }
 
     & .ant-form-item-control-input-content {

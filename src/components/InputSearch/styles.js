@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 export const FormSearch = styled.form`
-  background: var(--bg-search);
-  border-radius: 25px;
+  border-radius: 5px;
   overflow: hidden;
   width: 100%;
   height: 42px;

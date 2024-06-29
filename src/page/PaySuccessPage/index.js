@@ -18,49 +18,35 @@ import { Spin } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { CheckLoginContext } from '../../contexts/LoginContext/index.js';
 import dayjs from 'dayjs';
-import { API_ADD_DATA_PACKAGE_PAYMENT } from '../../configs/apis.js';
+import {
+  API_ADD_DATA_PACKAGE_PAYMENT,
+  API_GET_PACKAGE_PAYMENT,
+} from '../../configs/apis.js';
 
 function PaySuccessPage(props) {
   const [dataPaymentSuccess, setDataPaymentSuccess] = useState();
-  const [count, setCount] = useState(5);
+  const [count, setCount] = useState(10);
 
-  const { userInfo, isLogin, setIsLogin } = useContext(CheckLoginContext);
+  const { userInfo, setIsLogin } = useContext(CheckLoginContext);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const addPayment = async () => {
-      const dataPayment = await JSON.parse(localStorage.getItem('dataPayment'));
-
       const data = {
-        packageId: dataPayment._id,
         userId: userInfo.userId,
       };
-      let response;
-      if (isLogin === 2) {
-        response = await fetch(API_ADD_DATA_PACKAGE_PAYMENT + '?login=true', {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
-            'Content-Type': 'application/json',
-          },
-        });
-      } else {
-        response = await fetch(API_ADD_DATA_PACKAGE_PAYMENT + '?login=false', {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
-          },
-        });
-      }
-
+      const response = await fetch(API_GET_PACKAGE_PAYMENT, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
+        },
+      });
       const responseJson = await response.json();
-      if (responseJson.success) {
-        setDataPaymentSuccess(responseJson.order);
-        localStorage.removeItem('dataPayment');
+      if (responseJson.success === true) {
+        setDataPaymentSuccess(responseJson.data);
       }
     };
     addPayment();
@@ -74,14 +60,15 @@ function PaySuccessPage(props) {
       }, 1000);
     } else {
       setIsLogin(2);
+      localStorage.removeItem('login');
       navigate('/');
     }
-
     return () => clearTimeout(timer);
   }, [count]);
 
   const handleClickHomePage = () => {
     setIsLogin(2);
+    localStorage.removeItem('login');
     navigate('/');
   };
 
@@ -104,24 +91,35 @@ function PaySuccessPage(props) {
             <CheckCircleFilled />
           </DivIcon>
           <DivInformation>
-            <Title>Payment success</Title>
+            <Title>Payment successful</Title>
             <DivDetail>
               <ListInfoDetail>
                 <ItemDetail>
-                  Name package: {dataPaymentSuccess.typePack}
+                  <p>Transaction id:</p>
+                  <p>{dataPaymentSuccess._id}</p>
                 </ItemDetail>
                 <ItemDetail>
-                  Price: {dataPaymentSuccess.packageId.monthlyPrice} USD/month
+                  <p>Name package:</p>{' '}
+                  <p>{dataPaymentSuccess.packageId.typePack}</p>
+                </ItemDetail>
+
+                <ItemDetail>
+                  <p>Time order:</p>
+                  <p>
+                    {dayjs(dataPaymentSuccess.createAt).format('DD-MM-YYYY')}
+                  </p>
                 </ItemDetail>
                 <ItemDetail>
-                  Time order:{' '}
-                  {dayjs(dataPaymentSuccess.createAt).format('DD-MM-YYYY')}
+                  <p>Expired time:</p>
+                  <p>
+                    {dayjs(dataPaymentSuccess.expirationDate).format(
+                      'DD-MM-YYYY',
+                    )}
+                  </p>
                 </ItemDetail>
                 <ItemDetail>
-                  Expired time:{' '}
-                  {dayjs(dataPaymentSuccess.expirationDate).format(
-                    'DD-MM-YYYY',
-                  )}
+                  <p>Price:</p>
+                  <p>{dataPaymentSuccess.packageId.monthlyPrice} USD/month</p>
                 </ItemDetail>
               </ListInfoDetail>
             </DivDetail>

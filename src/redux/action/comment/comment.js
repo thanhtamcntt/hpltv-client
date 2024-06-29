@@ -25,6 +25,7 @@ export const fetchAllComment = createAsyncThunk(
 export const createComment = createAsyncThunk(
   'createComment',
   async (data, { rejectWithValue }) => {
+    console.log(data);
     const response = await fetch(API_ADD_COMMENT + '?reply=false', {
       method: 'POST',
       body: JSON.stringify(data.data),
@@ -64,6 +65,7 @@ export const createCommentReply = createAsyncThunk(
     return {
       data: json,
       userInfo: data.userInfo,
+      parentUserId: data.parentUserId,
     };
   },
 );
@@ -99,6 +101,7 @@ export const updateComment = createAsyncThunk(
       },
     });
     const json = await response.json();
+    console.log(json);
     if (!json.success) {
       rejectWithValue(json);
     }

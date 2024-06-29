@@ -10,7 +10,7 @@ export const DivFilm = styled.div`
 
 export const Title = styled.h2`
   text-align: left;
-  color: var(--white);
+  color: var(--white-bg);
 `;
 
 export const DivContent = styled.div`

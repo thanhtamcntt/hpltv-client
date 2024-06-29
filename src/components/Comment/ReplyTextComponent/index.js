@@ -16,8 +16,6 @@ function ReplyTextComponent(props) {
   const dispatch = useDispatch();
 
   const handleSendComment = async () => {
- 
-
     if (text) {
       const data = {
         data: {
@@ -25,10 +23,11 @@ function ReplyTextComponent(props) {
           content: text,
           moviesId: filmId,
           parentCommentId: props.item._id,
-          parentUserId: props.item.userId._id,
+          parentUserId: props.item.userId,
           rootCommentId: props.rootId,
         },
-        userInfo:userInfo,
+        userInfo: userInfo,
+        parentUserId: props.item.userId,
       };
       await dispatch(createCommentReply(data));
       props.setOpen((prev) => ({
@@ -40,7 +39,11 @@ function ReplyTextComponent(props) {
 
   return (
     <DivInput>
-      <TextArea value={text} onChange={(e) => setText(e.target.value)} />
+      <TextArea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Write feedback"
+      />
       <ButtonSend onClick={handleSendComment}>Send</ButtonSend>
     </DivInput>
   );

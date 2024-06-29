@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   PaymentElement,
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
-import { FormCheckout, ButtonCheckout } from './styles';
+import { FormCheckout, ButtonCheckout, DivError } from './styles';
 import { useNavigate } from 'react-router-dom';
+import { API_ADD_DATA_PACKAGE_PAYMENT } from '../../../configs/apis';
+import { CheckLoginContext } from '../../../contexts/LoginContext';
 
 const CheckoutForm = (props) => {
   console.log(props);
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
+
+  const { userInfo, isLogin } = useContext(CheckLoginContext);
 
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -43,7 +47,47 @@ const CheckoutForm = (props) => {
       console.log(error);
       setErrorMessage(error.message);
     } else {
-      navigate('/payment-success');
+      const addPayment = async () => {
+        const dataPayment = await JSON.parse(
+          localStorage.getItem('dataPayment'),
+        );
+
+        const data = {
+          packageId: dataPayment._id,
+          userId: userInfo.userId,
+        };
+        let response;
+        if (isLogin === 2) {
+          response = await fetch(API_ADD_DATA_PACKAGE_PAYMENT + '?login=true', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+              Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
+              'Content-Type': 'application/json',
+            },
+          });
+        } else {
+          response = await fetch(
+            API_ADD_DATA_PACKAGE_PAYMENT + '?login=false',
+            {
+              method: 'POST',
+              body: JSON.stringify(data),
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
+              },
+            },
+          );
+        }
+
+        const responseJson = await response.json();
+        if (responseJson.success) {
+          await localStorage.setItem('login', true);
+          navigate('/payment-success');
+          localStorage.removeItem('dataPayment');
+        }
+      };
+      addPayment();
     }
   };
 
@@ -53,7 +97,7 @@ const CheckoutForm = (props) => {
       <ButtonCheckout type="submit" disabled={!stripe || !elements}>
         Pay
       </ButtonCheckout>
-      {errorMessage && <div>{errorMessage}</div>}
+      {errorMessage && <DivError>{errorMessage}</DivError>}
     </FormCheckout>
   );
 };

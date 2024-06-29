@@ -19,7 +19,9 @@ import HeaderPaymentComponent from '../../components/HeaderPaymentComponent';
 import Footer from '../../components/Footer';
 import { API_POST_PAYMENT } from '../../configs/apis';
 
-const stripePromise = loadStripe(process.env.REACT_APP_API_PUBLIC_KEY_STRIPE);
+const stripePromise = loadStripe(process.env.REACT_APP_API_PUBLIC_KEY_STRIPE, {
+  locale: 'en',
+});
 
 const CheckoutFormPage = (() => {
   const Component = (props) => {

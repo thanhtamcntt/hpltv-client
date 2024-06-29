@@ -20,10 +20,27 @@ import {
   DivContentChat,
   TitleChat,
   ChatContent,
+  TextUser,
+  TextUserResponse,
+  TextWelcome,
+  DivItemChat,
+  DivItemChatRes,
+  DivTextUser,
+  DivAvatarUser,
+  DivText,
+  DivAvatar,
+  DivInfo,
+  ButtonInfo,
 } from './styles';
-import { useState } from 'react';
-import { Form, Input } from 'antd';
+import { useContext, useEffect, useState } from 'react';
+import { Form, Input, Popconfirm } from 'antd';
 import ItemForm from '../Common/ItemForm';
+import { CheckLoginContext } from '../../contexts/LoginContext';
+import {
+  API_GET_ON_MESSAGE_USER,
+  API_UPDATE_MESSAGE,
+  API_UPDATE_OFF_MESSAGE,
+} from '../../configs/apis';
 
 function ModalCustomerSupport({
   isModal,
@@ -35,9 +52,39 @@ function ModalCustomerSupport({
   handleChatCustomer,
   setMessage,
   message,
+  roomId,
+  setRoomId,
+  visible,
+  handleOutRoom,
 }) {
-  const [roomId, setRoomId] = useState();
   const [input, setInput] = useState();
+
+  const { userInfo } = useContext(CheckLoginContext);
+
+  useEffect(() => {
+    setIsState(undefined);
+    const fetchListChat = async () => {
+      const response = await fetch(
+        API_GET_ON_MESSAGE_USER + '/' + userInfo.userId,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      const json = await response.json();
+      if (json.data) {
+        setMessage(json.data.messages);
+        setRoomId(json.data.roomId);
+        setIsState(2);
+      } else {
+        setIsState(0);
+        setMessage([]);
+        setRoomId();
+      }
+    };
+    fetchListChat();
+  }, []);
 
   const handleChat = () => {
     setIsState(1);
@@ -55,14 +102,51 @@ function ModalCustomerSupport({
     console.log('Failed:', errorInfo);
   };
 
-  const handleSubmitChat = (e) => {
+  const handleSubmitChat = async (e) => {
     console.log('Submit');
     e.preventDefault();
-    setMessage((prev) => [...prev, input]);
+    const data = {
+      input: input,
+      userId: userInfo.userId,
+      firstName: userInfo.firstName,
+      lastName: userInfo.lastName,
+      time:
+        new Date(Date.now()).getHours() +
+        ':' +
+        new Date(Date.now()).getMinutes(),
+      avatar: userInfo.avatarUser,
+    };
+    setMessage((prev) => [...prev, data]);
     setInput('');
-    socket.emit('chatCustomer', input);
+    socket.emit('chatCustomer', { roomId: roomId, data: data });
     socket.off('chatCustomer');
+    await fetch(API_UPDATE_MESSAGE + '/' + roomId, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   };
+
+  const onConfirm = async () => {
+    socket.emit('leaveRoom', roomId);
+    socket.off('leaveRoom');
+    socket.emit('receiveLeaveRoom', roomId);
+    socket.off('receiveLeaveRoom');
+    setIsState(0);
+    setMessage([]);
+    setRoomId();
+
+    await fetch(API_UPDATE_OFF_MESSAGE + '/' + roomId, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  };
+
+  const onCancel = (e) => {};
 
   return (
     <ModalCustomer
@@ -72,9 +156,17 @@ function ModalCustomerSupport({
       onOk={handleOk}
       onCancel={handleCancel}
       footer={null}>
+      {visible && (
+        <DivInfo>
+          <div>
+            <p>This chat session has been ended</p>
+            <ButtonInfo onClick={handleOutRoom}>Oke</ButtonInfo>
+          </div>
+        </DivInfo>
+      )}
       {isState !== 2 ? (
         <DivContainer>
-          {isState !== 0 && (
+          {isState === 1 && (
             <BtnLog onClick={handleHome}>
               <ArrowLeftOutlined />
             </BtnLog>
@@ -103,12 +195,6 @@ function ModalCustomerSupport({
                   onFinish={onFinish}
                   onFinishFailed={onFinishFailed}
                   autoComplete="off">
-                  <ItemForm
-                    label="Name:"
-                    name="name"
-                    message="Please input your name!"
-                    input={<Input />}
-                  />
                   <ItemForm
                     label="Issues needing support:"
                     name="issues"
@@ -142,20 +228,59 @@ function ModalCustomerSupport({
         </DivContainer>
       ) : (
         <DivContainerChat>
-          <BtnLog onClick={handleChat}>
-            <ArrowLeftOutlined />
-          </BtnLog>
+          <Popconfirm
+            title="Out room chat"
+            description="Are you sure to leave this room?"
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+            okText="Yes"
+            cancelText="No">
+            <BtnLog>
+              <ArrowLeftOutlined />
+            </BtnLog>
+          </Popconfirm>
+
           <Title>SHOWHUB</Title>
           <DivContentChat>
             <TitleChat>Live chat</TitleChat>
             <ChatContent>
+              <TextWelcome>Welcome to the chat.</TextWelcome>
               {message &&
                 message.length > 0 &&
-                message.map((item, id) => {
-                  return (
-                    <p key={id} style={{ color: '#000' }}>
-                      {item}
-                    </p>
+                message.map((itemMes, id) => {
+                  return itemMes.userId === userInfo.userId ? (
+                    <DivItemChat>
+                      <DivTextUser>
+                        <TextUser key={id} style={{ color: '#000' }}>
+                          <span>{itemMes.input}</span>
+                        </TextUser>
+                        <p>You {itemMes.time}</p>
+                      </DivTextUser>
+                      <DivAvatarUser>
+                        <img
+                          src={itemMes.avatar.url}
+                          alt={itemMes.avatar.imageId}
+                        />
+                      </DivAvatarUser>
+                    </DivItemChat>
+                  ) : (
+                    <DivItemChatRes>
+                      <DivAvatar>
+                        <img
+                          src={itemMes.avatar.url}
+                          alt={itemMes.avatar.imageId}
+                        />
+                      </DivAvatar>
+                      <DivText>
+                        <TextUserResponse key={id} style={{ color: '#000' }}>
+                          {itemMes.input}
+                        </TextUserResponse>
+                        <p>
+                          Admin {`${itemMes.firstName} ${itemMes.lastName}`}{' '}
+                          {itemMes.time}
+                        </p>
+                      </DivText>
+                    </DivItemChatRes>
                   );
                 })}
             </ChatContent>

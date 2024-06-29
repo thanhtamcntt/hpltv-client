@@ -3,6 +3,12 @@ export const API_FETCH_ALL_COMMON_QUESTIONS =
 
 export const API_LOGIN = 'http://localhost:4000/user/auth/login';
 export const API_SIGNUP = 'http://localhost:4000/user/auth/signup';
+export const API_NEW_PASSWORD =
+  'http://localhost:4000/user/auth/reset-password';
+export const API_FORGOT_PASSWORD =
+  'http://localhost:4000/user/auth/forgot-password';
+export const API_VERIFY_TOKEN_RESET_PASSWORD =
+  'http://localhost:4000/user/auth/verify-token-reset-password';
 export const API_SERIES = 'http://localhost:4000/film/series';
 export const API_MOVIES = 'http://localhost:4000/film/movies';
 export const API_CATEGORY = 'http://localhost:4000/category';
@@ -53,3 +59,17 @@ export const API_GET_ALL_PACKAGE = 'http://localhost:4000/package';
 export const API_VERIFY_TOKEN = 'http://localhost:4000/auth/verify-token';
 export const API_CREATE_QUESTION_CUSTOMER =
   'http://localhost:4000/admin/customer-questions/create';
+
+export const API_UPDATE_MESSAGE = 'http://localhost:4000/admin/message/update';
+
+export const API_GET_ON_MESSAGE_USER =
+  'http://localhost:4000/message/get-message-user';
+
+export const API_UPDATE_OFF_MESSAGE =
+  'http://localhost:4000/admin/message/update-off';
+
+export const API_GET_NEW_MOVIES =
+  'http://localhost:4000/film/movies/get-new-movies';
+
+export const API_GET_ORDER_FROM_USER_ID =
+  'http://localhost:4000/order/get-order';

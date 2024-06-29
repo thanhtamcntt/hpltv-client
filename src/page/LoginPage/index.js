@@ -28,12 +28,20 @@ function LoginPage() {
     messageApi.open({
       type: 'success',
       content: 'Login success.',
+      duration: 1,
+    });
+  };
+  const error = () => {
+    messageApi.open({
+      type: 'error',
+      content:
+        'Your account has been locked, please contact customer service for assistance!!',
+      duration: 2.5,
     });
   };
 
   const onFinish = async (values) => {
     setTextError();
-    console.log('Success:', values.email);
     const response = await fetch(API_LOGIN, {
       method: 'POST',
       body: JSON.stringify({
@@ -47,12 +55,16 @@ function LoginPage() {
     const responseJson = await response.json();
     console.log(responseJson);
     if (responseJson.success) {
-      await localStorage.setItem('tokenUser', responseJson.token);
-      if (localStorage.getItem('tokenUser')) {
-        success();
-        setTimeout(() => {
-          navigate('/choose-payment');
-        }, 1000);
+      if (responseJson.isBanned) {
+        error();
+      } else {
+        await localStorage.setItem('tokenUser', responseJson.token);
+        if (localStorage.getItem('tokenUser')) {
+          success();
+          setTimeout(() => {
+            navigate('/choose-payment');
+          }, 1000);
+        }
       }
     } else {
       setTextError(responseJson.message);
@@ -116,16 +128,13 @@ function LoginPage() {
                   New to ShowHub? <Link to="/auth/signup">Sign up</Link>
                 </Text>
                 <Text>
-                  <Link to="/auth/signup">Forgot password ?</Link>
+                  <Link to="/auth/forgot-password">Forgot password ?</Link>
                 </Text>
               </DivLink>
             </Form>
           </DivForm>
         </DivContent>
       </DivContainer>
-      <DivFooter>
-        <Footer />
-      </DivFooter>
     </DivAuth>
   );
 }

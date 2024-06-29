@@ -30,25 +30,25 @@ export const TextBanner = styled.h2`
   margin: 0;
   font-size: 44px;
   text-transform: uppercase;
-  color: var(--white);
+  color: var(--white-bg);
 `;
 
 export const TextTitle = styled.h1`
   margin: 0;
-  color: var(--white);
+  color: var(--white-bg);
   font-size: 44px;
 `;
 
 export const TextContent = styled.p`
   margin: 0;
-  color: var(--white);
+  color: var(--white-bg);
   font-size: 24px;
   margin-top: 20px;
   font-weight: 500;
 `;
 export const TextContent2 = styled.p`
   margin: 0;
-  color: var(--white);
+  color: var(--white-bg);
   margin-top: 30px;
   font-size: 18px;
   font-weight: 400;
@@ -61,7 +61,7 @@ export const ButtonLogin = styled.button`
   font-weight: 700;
   border-radius: 5px;
   background-color: red;
-  color: var(--white);
+  color: var(--white-bg);
   cursor: pointer;
 
   &:hover {
@@ -70,7 +70,7 @@ export const ButtonLogin = styled.button`
 
   & a {
     padding: 14px 30px;
-    color: var(--white);
+    color: var(--white-bg);
     text-decoration: none;
   }
 `;

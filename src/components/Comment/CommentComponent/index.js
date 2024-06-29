@@ -32,6 +32,7 @@ function CommentComponent(props) {
     Promise.all([dispatch(fetchAllComment())]);
   }, [dispatch]);
 
+  //get comment user
   useEffect(() => {
     if (comment) {
       let data = [];
@@ -51,7 +52,7 @@ function CommentComponent(props) {
         content: value,
         moviesId: filmId,
       },
-      userInfo: userInfo
+      userInfo: userInfo,
     };
     await dispatch(createComment(data));
 
