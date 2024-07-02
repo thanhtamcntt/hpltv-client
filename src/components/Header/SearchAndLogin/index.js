@@ -14,6 +14,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import InputSearchLayout from '../../InputSearch/InputSearch';
 import { Dropdown } from 'antd';
 import { CheckLoginContext } from '../../../contexts/LoginContext';
+import { API_LOGOUT } from '../../../configs/apis';
 
 function HeaderSearchLogin() {
   const { userInfo } = useContext(CheckLoginContext);
@@ -27,7 +28,16 @@ function HeaderSearchLogin() {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    if (localStorage.getItem('tokenUser')) {
+    const response = await fetch(API_LOGOUT, {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
+        'Content-type': 'application/json',
+      },
+    });
+    const responseJson = await response.json();
+
+    if (responseJson.success && localStorage.getItem('tokenUser')) {
       localStorage.removeItem('tokenUser');
       navigate('/landing-page');
     }

@@ -5,6 +5,7 @@ import {
   DivContent,
   DivTitle,
   Title,
+  Title1,
   RowContent,
   ColContent,
   DivForm,
@@ -15,6 +16,9 @@ import {
   InfoQuestion,
   TitleQuestion,
   DescriptionQuestion,
+  ListCenter,
+  ItemCenter,
+  TitleCenter,
 } from './styles';
 import contactImage from '../../assets/images/contact_us.jpg';
 import { Button, Form, Input, message } from 'antd';
@@ -24,13 +28,16 @@ import { useContext, useEffect, useState } from 'react';
 import { API_FETCH_ALL_COMMON_QUESTIONS } from '../../configs/apis';
 import { API_CREATE_QUESTION_CUSTOMER } from '../../configs/apis';
 import { CheckLoginContext } from '../../contexts/LoginContext';
-import { io } from 'socket.io-client';
+import {
+  EnvironmentOutlined,
+  MailOutlined,
+  PhoneOutlined,
+} from '@ant-design/icons';
 
 function ContactPage() {
   const [questions, setQuestions] = useState();
   const [openQuestions, setOpenQuestions] = useState({});
   const [messageApi, contextHolder] = message.useMessage();
-  const [socket, setSocket] = useState();
 
   const { userInfo } = useContext(CheckLoginContext);
 
@@ -57,8 +64,6 @@ function ContactPage() {
       setQuestions(responseJson.data);
     };
     fetchAllCommonQuestions();
-    const socket = io('http://localhost:4000');
-    setSocket(socket);
   }, []);
 
   const handleOpenDescription = (id) => {
@@ -97,10 +102,6 @@ function ContactPage() {
     console.log('Failed:', errorInfo);
   };
 
-  const handleSocket = () => {
-    socket.emit('msg', '123');
-  };
-
   return (
     <DivContact>
       {contextHolder}
@@ -110,81 +111,135 @@ function ContactPage() {
       <Container>
         <DivContent>
           <DivTitle>
-            <Title>Let’s Start a Conversation</Title>
+            <Title>Contact Us</Title>
+            <Title1>Have any question? We'd love to hear from you</Title1>
           </DivTitle>
           <RowContent>
-            <ColContent span={12}>
-              <TitleLeft>Some frequently asked questions</TitleLeft>
-              <DivListQuestion>
-                {questions &&
-                  questions.map((item, id) => {
-                    return (
-                      <InfoQuestion key={id}>
-                        <TitleQuestion
-                          onClick={() => handleOpenDescription(item._id)}>
-                          {item.title}
-                        </TitleQuestion>
-                        {openQuestions[item._id] && (
-                          <DescriptionQuestion>
-                            {item.description}
-                          </DescriptionQuestion>
-                        )}
-                      </InfoQuestion>
-                    );
-                  })}
-              </DivListQuestion>
+            <ColContent span={8}>
+              <div>
+                <div>
+                  <TitleLeft>Some frequently asked questions</TitleLeft>
+                  <DivListQuestion>
+                    {questions &&
+                      questions.map((item, id) => {
+                        return (
+                          <InfoQuestion key={id}>
+                            <TitleQuestion
+                              onClick={() => handleOpenDescription(item._id)}>
+                              {item.title}
+                            </TitleQuestion>
+                            {openQuestions[item._id] && (
+                              <DescriptionQuestion>
+                                {item.description}
+                              </DescriptionQuestion>
+                            )}
+                          </InfoQuestion>
+                        );
+                      })}
+                  </DivListQuestion>
+                </div>
+              </div>
             </ColContent>
-            <ColContent span={12}>
-              <TitleRight>Please note: all fields are required.</TitleRight>
-              <DivForm>
-                <Form
-                  form={form}
-                  name={'contactForm'}
-                  labelCol={{
-                    span: 24,
-                  }}
-                  wrapperCol={{
-                    span: 24,
-                  }}
-                  style={{
-                    textAlign: 'center',
-                  }}
-                  onFinish={onFinish}
-                  onFinishFailed={onFinishFailed}
-                  layout="vertical"
-                  autoComplete="off">
-                  <InputItem
-                    label="Title"
-                    name="title"
-                    message="Please input your title!"
-                    input={<Input />}
-                  />
-                  <InputItem
-                    label="Comment"
-                    name="comment"
-                    message="Please input your comment!"
-                    input={
-                      <TextArea
-                        maxLength={200}
-                        // onChange={onChange}
-                        placeholder="Enter comments"
-                        style={{
-                          height: 100,
-                          resize: 'none',
-                        }}
-                      />
-                    }
-                  />
-                  <Form.Item
+            <ColContent span={8}>
+              <div>
+                <div>
+                  <TitleCenter>Contact Info</TitleCenter>
+                  <ListCenter>
+                    <ItemCenter>
+                      <div>
+                        <PhoneOutlined />
+                      </div>
+                      <div>
+                        <p>Telephone</p>
+                        <p>
+                          <a href="tel:+84967936728">0967936728</a>
+                        </p>
+                      </div>
+                    </ItemCenter>
+                    <ItemCenter>
+                      <div>
+                        <MailOutlined />
+                      </div>
+                      <div>
+                        <p>Email</p>
+                        <p>
+                          <a href="mailto:hoangphuocloc.phurieng@gmail.com">
+                            hoangphuocloc.phurieng@gmail.com
+                          </a>
+                        </p>
+                      </div>
+                    </ItemCenter>
+                    <ItemCenter>
+                      <div>
+                        <EnvironmentOutlined />
+                      </div>
+                      <div>
+                        <p>Address</p>
+                        <p>
+                          <address>
+                            00 Le Trong Tan Street, Tay Thanh Ward, Tan Phu
+                            District, Ho Chi Minh City
+                          </address>
+                        </p>
+                      </div>
+                    </ItemCenter>
+                  </ListCenter>
+                </div>
+              </div>
+            </ColContent>
+            <ColContent span={8}>
+              <div>
+                <TitleRight>Ask a question</TitleRight>
+                <DivForm>
+                  <Form
+                    form={form}
+                    name={'contactForm'}
+                    labelCol={{
+                      span: 24,
+                    }}
                     wrapperCol={{
                       span: 24,
-                    }}>
-                    <Button type="primary" htmlType="submit">
-                      SEND MESSAGE
-                    </Button>
-                  </Form.Item>
-                </Form>
-              </DivForm>
+                    }}
+                    style={{
+                      textAlign: 'center',
+                    }}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
+                    layout="vertical"
+                    autoComplete="off">
+                    <InputItem
+                      label="Title"
+                      name="title"
+                      message="Please input your title!"
+                      input={<Input />}
+                    />
+                    <InputItem
+                      label="Comment"
+                      name="comment"
+                      message="Please input your comment!"
+                      input={
+                        <TextArea
+                          maxLength={200}
+                          // onChange={onChange}
+                          placeholder="Enter comments"
+                          style={{
+                            height: 100,
+                            resize: 'none',
+                          }}
+                        />
+                      }
+                    />
+                    <Form.Item
+                      wrapperCol={{
+                        span: 24,
+                      }}>
+                      <Button type="primary" htmlType="submit">
+                        SEND MESSAGE
+                      </Button>
+                    </Form.Item>
+                  </Form>
+                </DivForm>
+              </div>
             </ColContent>
           </RowContent>
         </DivContent>

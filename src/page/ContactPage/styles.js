@@ -27,13 +27,39 @@ export const DivTitle = styled.div`
 `;
 export const Title = styled.h2`
   font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 10px;
 `;
+export const Title1 = styled.p``;
 
 export const RowContent = styled(Row)``;
 
-export const ColContent = styled(Col)``;
+export const ColContent = styled(Col)`
+  &:first-child {
+    & > div {
+      background-color: #9d4d2a;
+      width: 96%;
+      margin: 0 auto;
+    }
+  }
+  &:nth-child(2) {
+    & > div {
+      background-color: #1677ff;
+      width: 96%;
+      margin: 0 auto;
+    }
+  }
+  &:last-child {
+    & > div {
+      background-color: #0abe41;
+      width: 96%;
+      margin: 0 auto;
+    }
+  }
+`;
 
 export const DivForm = styled.div`
+  padding: 0 1rem 1rem 1rem;
   & label {
     color: var(--white-bg) !important;
   }
@@ -56,17 +82,18 @@ export const DivForm = styled.div`
 export const TitleLeft = styled.h2`
   text-align: left;
   color: var(--white-bg);
-  margin-bottom: 1rem;
+  padding: 1rem;
 `;
-export const TitleRight = styled.h3`
+
+export const TitleRight = styled.h2`
   text-align: left;
   color: var(--white-bg);
-  margin-bottom: 1rem;
+  padding: 1rem;
 `;
 
 export const DivListQuestion = styled.div`
   text-align: left;
-  margin-right: 4rem;
+  padding: 0 3rem 1rem 1rem;
   color: var(--white-bg);
 `;
 export const InfoQuestion = styled.div`
@@ -78,9 +105,50 @@ export const TitleQuestion = styled.p`
   &:hover {
     text-decoration: underline;
     cursor: pointer;
-    color: #0870fc;
   }
 `;
 export const DescriptionQuestion = styled.p`
   color: #ffdc00;
+`;
+
+export const TitleCenter = styled.h2`
+  text-align: left;
+  color: var(--white-bg);
+  padding: 1rem;
+`;
+
+export const ListCenter = styled.ul`
+  text-align: left;
+  padding: 0 2rem 1rem 1rem;
+`;
+export const ItemCenter = styled.li`
+  display: flex;
+  color: var(--white-bg);
+  margin-bottom: 1rem;
+  & > div:first-child {
+    & span {
+      background-color: var(--white-bg);
+      color: var(--color-icon);
+      padding: 8px;
+      border-radius: 50%;
+      font-size: 2rem;
+    }
+  }
+
+  & > div:last-child {
+    margin-left: 10px;
+    & p {
+      line-height: 1.6rem;
+      font-size: 16px;
+
+      &:first-child {
+        font-weight: 500;
+      }
+    }
+
+    & a {
+      color: var(--white-bg);
+      text-decoration: underline;
+    }
+  }
 `;

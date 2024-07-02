@@ -1,9 +1,18 @@
+import { API_LOGOUT } from '../../configs/apis';
 import LogoImage from '../Common/ImageBanner';
 import { ContentPaymentHeader, LogoHeader, BtnActionLogout } from './styles';
 
 function HeaderPaymentComponent() {
   const handleLogout = async () => {
-    if (localStorage.getItem('tokenUser')) {
+    const response = await fetch(API_LOGOUT, {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
+        'Content-type': 'application/json',
+      },
+    });
+    const responseJson = await response.json();
+    if (responseJson.success && localStorage.getItem('tokenUser')) {
       await localStorage.removeItem('tokenUser');
       const tokenUser = await localStorage.getItem('tokenUser');
       if (tokenUser === null) {

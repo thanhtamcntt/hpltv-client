@@ -29,6 +29,7 @@ import { io } from 'socket.io-client';
 import { v4 as uuidv4 } from 'uuid';
 import ForgotPasswordPage from './page/ForgotPasswordPage';
 import ResetPasswordPage from './page/ResetPasswordPage';
+import AuthPage from './page/AuthPage';
 
 const newSocket = io('http://localhost:4000/user');
 
@@ -133,7 +134,6 @@ function App() {
       newSocket.emit('receiveRoom', data);
     }, 300);
   };
-
   useEffect(() => {
     if (isState === 2) {
       setSocket(newSocket);
@@ -155,6 +155,7 @@ function App() {
       };
     }
   }, [isState, message]);
+  console.log(isLogin);
 
   if (isLogin === undefined || userInfo === undefined) {
     return (
@@ -165,7 +166,7 @@ function App() {
   }
   return (
     <div className="App">
-      {isLogin !== 0 && (
+      {isLogin !== 0 && isLogin !== -1 && (
         <>
           <ModalCustomerSupport
             isModal={isModal}
@@ -209,9 +210,20 @@ function App() {
             path="/checkout"
             element={<CheckoutFormPage login={false} />}
           />
+
           <Route
             path="*"
             element={<Navigate to={'/choose-payment'} replace={true} />}
+          />
+        </Routes>
+      ) : isLogin === 0 ? (
+        <Routes>
+          <Route path="/two-factor-authentication" element={<AuthPage />} />
+          <Route
+            path="*"
+            element={
+              <Navigate to={'/two-factor-authentication'} replace={true} />
+            }
           />
         </Routes>
       ) : (
@@ -226,6 +238,7 @@ function App() {
             path="/auth/forgot-password"
             element={<ForgotPasswordPage />}
           />
+
           <Route path="/landing-page" element={<LandingPage />} />
           <Route
             path="*"

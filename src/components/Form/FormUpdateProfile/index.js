@@ -12,29 +12,37 @@ function FormUpdateProfile(props) {
   const [loading, setLoading] = useState(false);
 
   const onFinish = async (values) => {
+    console.log(props.type);
     if (props.type === 'edit') {
-      if (
-        validator.isEmail(values.email) &&
-        validator.isMobilePhone(values.phoneNumber)
-      ) {
+      if (!validator.isEmail(values.email)) {
+        props.error('Incorrect email format!!');
+        return;
+      }
+      if (!validator.isMobilePhone(values.phoneNumber)) {
+        props.error('Incorrect phone number format!!');
+        return;
+      }
+      const response = await fetch(API_UPDATE_PROFILE, {
+        method: 'PATCH',
+        body: JSON.stringify(values),
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
+        },
+      });
+      const json = await response.json();
+      console.log(json);
+      if (json.success) {
         setLoading(true);
-        const response = await fetch(API_UPDATE_PROFILE, {
-          method: 'PATCH',
-          body: JSON.stringify(values),
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
-          },
-        });
-        const json = await response.json();
-        console.log(json);
-        if (json.success) {
+        setTimeout(() => {
+          props.success('Update profile successful.');
           updateUserInfo(json.token);
           setLoading(false);
-        }
+        }, 1000);
+      } else {
+        props.error(json.message);
       }
     } else {
-      setLoading(true);
       console.log('Success:', values);
       const response = await fetch(API_CHANGE_PASSWORD, {
         method: 'PATCH',
@@ -47,8 +55,14 @@ function FormUpdateProfile(props) {
       const json = await response.json();
       console.log(json);
       if (json.success) {
-        updateUserInfo(json.token);
-        setLoading(false);
+        setLoading(true);
+        setTimeout(() => {
+          props.success('Change password successful.');
+          updateUserInfo(json.token);
+          setLoading(false);
+        }, 1000);
+      } else {
+        props.error(json.message);
       }
     }
   };

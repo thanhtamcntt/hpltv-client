@@ -9,8 +9,8 @@
   --bg-app: linear-gradient(
     150deg,
     rgb(0 72 163) 10%,
-    #001f61 60%,
-    #0b2c73 180%
+    #002a83 60%,
+    #0f3b9b 180%
   );
   --white: #dcdcdc;
   --white-bg: #fff;
@@ -37,6 +37,7 @@
   --bg-header-navbar: #fbc50c;
   --bg-comment: #0073b9;
   --success: #3ca30b;
+  --color-icon: #0073b9;
 }
 
 .App {
@@ -72,6 +73,14 @@ input {
 
 button {
   border: none;
+}
+
+/* message */
+
+.ant-message-notice-content {
+  margin-top: 85px;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 /* header */

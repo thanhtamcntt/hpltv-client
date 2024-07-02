@@ -14,8 +14,7 @@ import {
 } from './styles';
 import ItemForm from '../../components/Common/ItemForm';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Form, Input, message, notification } from 'antd';
-import Footer from '../../components/Footer';
+import { Button, Form, Input, message } from 'antd';
 import LogoImage from '../../components/Common/ImageBanner';
 import { API_LOGIN } from '../../configs/apis';
 
@@ -62,7 +61,7 @@ function LoginPage() {
         if (localStorage.getItem('tokenUser')) {
           success();
           setTimeout(() => {
-            navigate('/choose-payment');
+            navigate('/two-factor-authentication');
           }, 1000);
         }
       }

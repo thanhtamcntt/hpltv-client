@@ -2,6 +2,8 @@ export const API_FETCH_ALL_COMMON_QUESTIONS =
   'http://localhost:4000/common-questions';
 
 export const API_LOGIN = 'http://localhost:4000/user/auth/login';
+export const API_VERIFY_LOGIN = 'http://localhost:4000/user/auth/verify-login';
+export const API_LOGOUT = 'http://localhost:4000/user/auth/logout';
 export const API_SIGNUP = 'http://localhost:4000/user/auth/signup';
 export const API_NEW_PASSWORD =
   'http://localhost:4000/user/auth/reset-password';

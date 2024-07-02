@@ -41,20 +41,27 @@ function LoginContext({ children }) {
         },
       });
       const json = await response.json();
+      console.log(json);
 
       if (json.success === true) {
+        console.log(json);
         setUserInfo(json.userInfo);
-        getOrder(json.userInfo.userId);
+        if (json.isAuth) {
+          console.log('user');
+          getOrder(json.userInfo.userId);
+        } else {
+          setIsLogin(0);
+        }
       } else {
         setUserInfo('');
-        setIsLogin(0);
+        setIsLogin(-1);
       }
     };
     if (localStorage.getItem('tokenUser')) {
       fetchUserInfo();
     } else {
       setUserInfo('');
-      setIsLogin(0);
+      setIsLogin(-1);
     }
   }, [pathname]);
 
