@@ -75,3 +75,5 @@ export const API_GET_NEW_MOVIES =
 
 export const API_GET_ORDER_FROM_USER_ID =
   'http://localhost:4000/order/get-order';
+
+export const API_GET_ALL_COUNTRY = 'http://localhost:4000/country';

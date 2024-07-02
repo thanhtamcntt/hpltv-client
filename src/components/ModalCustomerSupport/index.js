@@ -89,17 +89,7 @@ function ModalCustomerSupport({
   const handleChat = () => {
     setIsState(1);
     setMessage([]);
-  };
-
-  const handleHome = () => {
-    setIsState(0);
-  };
-
-  const onFinish = async (values) => {
-    handleChatCustomer(values);
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    handleChatCustomer();
   };
 
   const handleSubmitChat = async (e) => {
@@ -166,11 +156,6 @@ function ModalCustomerSupport({
       )}
       {isState !== 2 ? (
         <DivContainer>
-          {isState === 1 && (
-            <BtnLog onClick={handleHome}>
-              <ArrowLeftOutlined />
-            </BtnLog>
-          )}
           <Title>SHOWHUB</Title>
           {isState === 0 && (
             <DivChat>
@@ -180,51 +165,6 @@ function ModalCustomerSupport({
               </button>
             </DivChat>
           )}
-          {isState === 1 && (
-            <DivChat>
-              <p>Welcome to SHOWHUB! Top quality movie viewing website!</p>
-              <DivForm>
-                <Form
-                  name="chatForm"
-                  labelCol={{
-                    span: 24,
-                  }}
-                  wrapperCol={{
-                    span: 24,
-                  }}
-                  onFinish={onFinish}
-                  onFinishFailed={onFinishFailed}
-                  autoComplete="off">
-                  <ItemForm
-                    label="Issues needing support:"
-                    name="issues"
-                    message="Please input your issues!"
-                    input={<Input />}
-                  />
-                  <Form.Item
-                    className="btn-login"
-                    wrapperCol={{
-                      span: 24,
-                    }}>
-                    <button htmlType="submit">Start chat</button>
-                  </Form.Item>
-                </Form>
-              </DivForm>
-            </DivChat>
-          )}
-
-          <DivFooter>
-            <ButtonFooter
-              onClick={handleHome}
-              handle={isState === 0 ? true : false}>
-              <HomeOutlined /> <p>Home</p>
-            </ButtonFooter>
-            <ButtonFooter
-              onClick={handleChat}
-              handle={isState === 1 ? true : false}>
-              <MessageOutlined /> <p>Chat</p>
-            </ButtonFooter>
-          </DivFooter>
         </DivContainer>
       ) : (
         <DivContainerChat>

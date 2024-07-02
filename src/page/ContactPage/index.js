@@ -36,7 +36,7 @@ import {
 
 function ContactPage() {
   const [questions, setQuestions] = useState();
-  const [openQuestions, setOpenQuestions] = useState({});
+  const [openQuestions, setOpenQuestions] = useState();
   const [messageApi, contextHolder] = message.useMessage();
 
   const { userInfo } = useContext(CheckLoginContext);
@@ -67,8 +67,15 @@ function ContactPage() {
   }, []);
 
   const handleOpenDescription = (id) => {
-    setOpenQuestions((prev) => ({ ...prev, [id]: !prev[id] }));
+    setOpenQuestions((prev) => {
+      if (prev === id) {
+        return '';
+      } else {
+        return id;
+      }
+    });
   };
+  // setOpenQuestions((prev) => console.log(prev));
 
   const onFinish = async (values) => {
     console.log(values);
@@ -128,7 +135,7 @@ function ContactPage() {
                               onClick={() => handleOpenDescription(item._id)}>
                               {item.title}
                             </TitleQuestion>
-                            {openQuestions[item._id] && (
+                            {openQuestions === item._id && (
                               <DescriptionQuestion>
                                 {item.description}
                               </DescriptionQuestion>

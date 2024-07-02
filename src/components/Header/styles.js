@@ -8,7 +8,6 @@ export const ContainerHeader = styled.div`
 export const DivHeader = styled.div`
   width: 100%;
   background-color: var(--bg-header-2);
-  opacity: 0.9;
   padding: var(--pd) 0;
   position: fixed;
   top: 0;

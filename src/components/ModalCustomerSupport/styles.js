@@ -40,7 +40,7 @@ export const DivContainer = styled.div`
 
 export const Title = styled.h2`
   font-size: 36px;
-  margin: 0 !important;
+  margin: 40px 0 20px !important;
 `;
 
 export const DivChat = styled.div`

@@ -117,7 +117,7 @@ function App() {
     setIsState(0);
   };
 
-  const handleChatCustomer = async (values) => {
+  const handleChatCustomer = async () => {
     setIsState(2);
     setTimeout(() => {
       const id = uuidv4();
@@ -127,7 +127,6 @@ function App() {
         userId: userInfo.userId,
         firstName: userInfo.firstName,
         lastName: userInfo.lastName,
-        issues: values.issues,
         userInfo: userInfo,
       };
       newSocket.emit('joinRoom', data);
