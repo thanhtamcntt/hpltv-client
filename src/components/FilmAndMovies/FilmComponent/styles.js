@@ -15,6 +15,14 @@ export const DivFilm = styled.div`
       font-size: 20px;
     }
   }
+  @media (max-width: 991px) {
+    padding: 0;
+    & button {
+      width: 140px;
+      height: 40px;
+      font-size: 16px;
+    }
+  }
   @media (max-width: 767px) {
     padding: 0 10px;
     & button {
@@ -31,6 +39,10 @@ export const ImageFilm = styled.img`
   height: 300px;
   @media (max-width: 991px) {
     width: 185px;
+    height: 275px;
+  }
+  @media (max-width: 400px) {
+    width: 160px;
     height: 275px;
   }
 `;

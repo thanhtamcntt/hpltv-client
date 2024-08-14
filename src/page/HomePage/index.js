@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Content from '../../components/Content';
 import { DivHomePage, DivLoading } from './styles';
 import { useDispatch, useSelector } from 'react-redux';

@@ -52,10 +52,6 @@ function HeaderSearchLogin() {
       key: 'myFavoriteMovies',
       label: <Link to="/my-favorite-movies">My Favorite Movies</Link>,
     },
-    // {
-    //   key: 'packageUpgrade',
-    //   label: <Link to="/package-upgrade">Package Upgrade</Link>,
-    // },
     {
       key: 'logout',
       label: <ButtonLogout onClick={handleLogout}>Log out</ButtonLogout>,

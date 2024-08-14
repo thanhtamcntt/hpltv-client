@@ -9,7 +9,7 @@ function LoginContext({ children }) {
   const [isUpdateUser, setIsUpdateUser] = useState(false);
   const [isLogin, setIsLogin] = useState(undefined);
 
-  const { pathname } = useLocation();
+  const location = useLocation();
 
   const getOrder = async (userId) => {
     const data = {
@@ -41,19 +41,16 @@ function LoginContext({ children }) {
         },
       });
       const json = await response.json();
-      console.log(json);
 
       if (json.success === true) {
-        console.log(json);
         setUserInfo(json.userInfo);
         if (json.isAuth) {
-          console.log('user');
           getOrder(json.userInfo.userId);
         } else {
           setIsLogin(0);
         }
       } else {
-        setUserInfo('');
+        setUserInfo();
         setIsLogin(-1);
       }
     };
@@ -63,7 +60,7 @@ function LoginContext({ children }) {
       setUserInfo('');
       setIsLogin(-1);
     }
-  }, [pathname]);
+  }, [location]);
 
   useEffect(() => {
     setIsUpdateUser(false);

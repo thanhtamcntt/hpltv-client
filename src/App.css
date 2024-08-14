@@ -7,10 +7,10 @@
 :root {
   --black: #000;
   --bg-app: linear-gradient(
-    150deg,
-    rgb(0 72 163) 10%,
-    #002a83 60%,
-    #0f3b9b 180%
+    to right,
+    rgba(2, 80, 165, 1),
+    rgba(4, 115, 200, 1) 60%,
+    rgba(3, 90, 166, 1) 100%
   );
   --white: #dcdcdc;
   --white-bg: #fff;
@@ -47,6 +47,7 @@
   flex-direction: column;
   align-items: center;
   background: var(--bg-app);
+  position: relative;
 }
 
 @font-face {
@@ -189,6 +190,10 @@ button {
   background: var(--bg-profile) !important;
 }
 
+.loading-chat {
+  margin-top: 40%;
+}
+
 /*payment */
 
 .choose-service-package-shadow {
@@ -312,6 +317,11 @@ button {
   margin-bottom: 12px !important;
 }
 
+/* series */
+.episode-current {
+  background-color: #1c79ff !important;
+}
+
 /* error */
 .item-form-input .ant-form-item-explain-error {
   margin-top: 5px;
@@ -320,7 +330,7 @@ button {
 /* content slick */
 .btn-slider-left {
   opacity: 0;
-  left: -50px !important;
+  left: 0px !important;
   transition: all 0.35s linear;
 }
 
@@ -330,7 +340,7 @@ button {
 
 .btn-slider-right {
   opacity: 0;
-  right: -50px !important;
+  right: 0px !important;
   transition: all 0.35s linear;
 }
 
@@ -341,7 +351,7 @@ button {
 
 .container-data-slider:hover .btn-slider-left {
   opacity: 1;
-  left: 0 !important;
+  left: 10px !important;
 }
 .container-data-slider:hover .btn-slider-left-banner {
   opacity: 1;
@@ -349,11 +359,104 @@ button {
 
 .container-data-slider:hover .btn-slider-right {
   opacity: 1;
-  right: 0 !important;
+  right: 10px !important;
 }
 
 .container-data-slider:hover .btn-slider-right-banner {
   opacity: 1;
+}
+
+@media (max-width: 867px) {
+  .btn-slider-left {
+    opacity: 0;
+    left: 0px !important;
+    transition: all 0.35s linear;
+  }
+
+  .btn-slider-left-banner {
+    transition: all 0.35s linear;
+  }
+
+  .btn-slider-right {
+    opacity: 0;
+    right: 0px !important;
+    transition: all 0.35s linear;
+  }
+
+  .container-data-slider:hover .btn-slider-left {
+    opacity: 1;
+    left: 0px !important;
+  }
+  .container-data-slider:hover .btn-slider-left-banner {
+    opacity: 1;
+  }
+
+  .container-data-slider:hover .btn-slider-right {
+    opacity: 1;
+    right: 0px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .btn-slider-left {
+    opacity: 0;
+    left: 20px !important;
+    transition: all 0.35s linear;
+  }
+
+  .btn-slider-left-banner {
+    transition: all 0.35s linear;
+  }
+
+  .btn-slider-right {
+    opacity: 0;
+    right: 20px !important;
+    transition: all 0.35s linear;
+  }
+
+  .container-data-slider:hover .btn-slider-left {
+    opacity: 1;
+    left: 20px !important;
+  }
+  .container-data-slider:hover .btn-slider-left-banner {
+    opacity: 1;
+  }
+
+  .container-data-slider:hover .btn-slider-right {
+    opacity: 1;
+    right: 20px !important;
+  }
+}
+
+@media (max-width: 867px) {
+  .btn-slider-left {
+    opacity: 0;
+    left: 10px !important;
+    transition: all 0.35s linear;
+  }
+
+  .btn-slider-left-banner {
+    transition: all 0.35s linear;
+  }
+
+  .btn-slider-right {
+    opacity: 0;
+    right: 10px !important;
+    transition: all 0.35s linear;
+  }
+
+  .container-data-slider:hover .btn-slider-left {
+    opacity: 1;
+    left: 10px !important;
+  }
+  .container-data-slider:hover .btn-slider-left-banner {
+    opacity: 1;
+  }
+
+  .container-data-slider:hover .btn-slider-right {
+    opacity: 1;
+    right: 10px !important;
+  }
 }
 
 /* star */

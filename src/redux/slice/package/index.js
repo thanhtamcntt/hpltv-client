@@ -17,12 +17,10 @@ export const PackageSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchAllPackage.fulfilled, (state, action) => {
-      // console.log(action.payload.data);
       state.loading = false;
       state.data = [...action.payload.data];
     });
     builder.addCase(fetchAllPackage.rejected, (state, action) => {
-      // console.log(action.payload);
       state.loading = false;
       state.error = action.payload.message;
     });

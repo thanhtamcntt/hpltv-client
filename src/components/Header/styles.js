@@ -79,3 +79,27 @@ export const ItemNav = styled.li`
     padding: 10px 10px;
   }
 `;
+
+// mobile
+
+export const DivContainerMobile = styled.div`
+  background-color: transparent;
+  margin-bottom: calc(32px + var(--pd) * 2);
+`;
+
+export const DivHeaderMobile = styled.div`
+  background-color: transparent;
+  margin-bottom: 100px;
+  position: fixed;
+
+  width: 100%;
+  background-color: var(--bg-header-2);
+  padding: 10px 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+`;

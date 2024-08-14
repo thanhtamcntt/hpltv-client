@@ -38,7 +38,6 @@ export const CommentSlice = createSlice({
     });
     builder.addCase(createComment.fulfilled, (state, action) => {
       state.loading = false;
-      console.log(action.payload);
       const newComment = {
         ...action.payload.data.data,
         userId: {
@@ -58,7 +57,6 @@ export const CommentSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(createCommentReply.fulfilled, (state, action) => {
-      console.log('action: ', action.payload);
       state.loading = false;
       const newComment = {
         ...action.payload.data.data,
@@ -80,7 +78,6 @@ export const CommentSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(deleteComment.fulfilled, (state, action) => {
-      console.log('action: ', action.payload);
       state.loading = false;
       state.data = state.data.filter((data) => data._id !== action.payload);
     });
@@ -94,7 +91,6 @@ export const CommentSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(updateComment.fulfilled, (state, action) => {
-      console.log('action: ', action.payload);
       state.loading = false;
       state.data.map((data) => {
         if (data._id === action.payload.data._id) {

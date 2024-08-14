@@ -1,5 +1,5 @@
 import { Col, Row } from 'antd';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const PaymentContainer = styled.div`
   width: 100%;
@@ -13,6 +13,17 @@ export const ServicePack = styled.div`
   max-width: 1280px;
   width: 100%;
   margin: 0 auto;
+  @media (max-width: 1300px) {
+    width: calc(100% - 20px);
+    padding: 36px 0%;
+  }
+  @media (max-width: 1300px) {
+    padding: 36px 2%;
+  }
+  @media (max-width: 1300px) {
+    width: calc(100% - 40px);
+    padding: 36px 0%;
+  }
 `;
 
 export const TitleService = styled.h2`
@@ -26,7 +37,11 @@ export const DivPackage = styled.div``;
 
 export const RowPack = styled(Row)``;
 
-export const ColPack = styled(Col)``;
+export const ColPack = styled(Col)`
+  @media (max-width: 991px) {
+    margin-bottom: 1rem;
+  }
+`;
 
 export const DivNotification = styled(Col)`
   margin: 24px 10px;
@@ -57,6 +72,19 @@ export const ButtonContinue = styled.button`
 
   &:hover {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  }
+
+  ${(props) =>
+    props.block &&
+    css`
+      background: rgba(229, 9, 20, 0.5) !important;
+      cursor: not-allowed;
+      pointer-events: none;
+    `};
+
+  @media (max-width: 575px) {
+    padding: 14px 30%;
+    width: 100%;
   }
 `;
 

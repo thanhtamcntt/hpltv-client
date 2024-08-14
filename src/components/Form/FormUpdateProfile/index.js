@@ -12,7 +12,6 @@ function FormUpdateProfile(props) {
   const [loading, setLoading] = useState(false);
 
   const onFinish = async (values) => {
-    console.log(props.type);
     if (props.type === 'edit') {
       if (!validator.isEmail(values.email)) {
         props.error('Incorrect email format!!');
@@ -31,7 +30,6 @@ function FormUpdateProfile(props) {
         },
       });
       const json = await response.json();
-      console.log(json);
       if (json.success) {
         setLoading(true);
         setTimeout(() => {
@@ -43,7 +41,6 @@ function FormUpdateProfile(props) {
         props.error(json.message);
       }
     } else {
-      console.log('Success:', values);
       const response = await fetch(API_CHANGE_PASSWORD, {
         method: 'PATCH',
         body: JSON.stringify(values),
@@ -53,7 +50,6 @@ function FormUpdateProfile(props) {
         },
       });
       const json = await response.json();
-      console.log(json);
       if (json.success) {
         setLoading(true);
         setTimeout(() => {
@@ -66,9 +62,7 @@ function FormUpdateProfile(props) {
       }
     }
   };
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+  const onFinishFailed = (errorInfo) => {};
 
   if (loading) {
     return (

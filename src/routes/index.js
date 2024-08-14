@@ -7,7 +7,6 @@ import SeriesPage from '../page/SeriesPage';
 import ResultPage from '../page/ResultPage';
 import DetailFilmPage from '../page/DetailFilmPage';
 import ProfilePage from '../page/ProfilePage';
-import FilmForSeriesPage from '../page/FilmForSeriesPage';
 import MyFavoritePage from '../page/MyFavoritePage';
 import PaymentPage from '../page/PaymentPage';
 import OptionCheckoutPage from '../page/OptionCheckoutPage';
@@ -15,6 +14,7 @@ import PaySuccessPage from '../page/PaySuccessPage';
 import CheckoutFormPage from '../page/CheckoutFormPage';
 import ContactPage from '../page/ContactPage';
 import TermAndConditionPage from '../page/TermAndConditionPage';
+import DetailSeriesPage from '../page/DetailSeriesPage';
 
 function Router() {
   return (
@@ -39,11 +39,20 @@ function Router() {
         path="/film/:filmId"
         element={<DetailFilmPage watching={false} />}
       />
-      <Route path="/series/:seriesId" element={<FilmForSeriesPage />} />
+      <Route
+        path="/watching-series/:seriesId/:number/"
+        element={<DetailSeriesPage watching={true} exact />}
+      />
+
+      <Route
+        path="/series/:seriesId"
+        element={<DetailSeriesPage watching={false} />}
+      />
       <Route
         path="/film/watching-movies/:filmId"
         element={<DetailFilmPage watching={true} />}
       />
+
       <Route path="/contact" element={<ContactPage />} />
       <Route path="/terms-and-conditions" element={<TermAndConditionPage />} />
       <Route path="*" element={<Navigate to="/" replace={true} />} />

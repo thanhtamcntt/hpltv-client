@@ -11,6 +11,9 @@ export const DivProfile = styled.div`
   width: 100%;
   max-width: 800px;
   position: relative;
+  @media (max-width: 850px) {
+    max-width: calc(100% - 20px);
+  }
 `;
 
 export const DivContent = styled.div`
@@ -35,6 +38,14 @@ export const DivContentLeft = styled.div`
   width: 90%;
   padding: 20px 10px 40px;
   color: var(--white);
+  @media (max-width: 767px) {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 400px;
+  }
+  @media (max-width: 450px) {
+    padding: 20px 0px 40px;
+  }
 `;
 
 export const DivNameUser = styled.div`
@@ -49,6 +60,9 @@ export const NameUser = styled.h2`
 export const DivInfo = styled.div`
   margin-top: 30px;
   color: var(--white-bg);
+  @media (max-width: 767px) {
+    margin-left: 15%;
+  }
 `;
 
 export const Text = styled.p`
@@ -94,4 +108,17 @@ export const DivContentRight = styled.div`
   background-color: var(--bg-profile);
   padding: 30px 20px;
   width: 90%;
+  @media (max-width: 767px) {
+    width: 100%;
+    margin: 1rem auto;
+    max-width: 400px;
+    padding: 30px 10px;
+  }
+  @media (max-width: 450px) {
+    padding: 30px 0px;
+
+    & > div {
+      padding: 0px 15px;
+    }
+  }
 `;

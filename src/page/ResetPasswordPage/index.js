@@ -71,7 +71,6 @@ function ResetPasswordPage() {
       },
     });
     const responseJson = await response.json();
-    console.log(responseJson);
     if (responseJson.success) {
       success();
       setTimeout(() => {
@@ -82,9 +81,7 @@ function ResetPasswordPage() {
     }
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+  const onFinishFailed = (errorInfo) => {};
 
   const handleFocus = () => {
     setTextError();

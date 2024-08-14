@@ -3,6 +3,9 @@ import styled from 'styled-components';
 export const DivCheckout = styled.div`
   width: 100%;
   margin: 0 auto;
+  @media (max-width: 1250px) {
+    width: calc(100% - 20px);
+  }
 `;
 
 export const DivHeader = styled.div`
@@ -25,6 +28,31 @@ export const DivContainer = styled.div`
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   justify-content: space-between;
+  @media (max-width: 676px) {
+    flex-direction: column;
+    align-items: center;
+
+    & > div,
+    & > form {
+      width: 60% !important;
+      margin: 0 auto 1rem;
+    }
+  }
+
+  @media (max-width: 575px) {
+    & > div,
+    & > form {
+      width: 80% !important;
+      margin: 0 auto 1rem;
+    }
+  }
+  @media (max-width: 575px) {
+    & > div,
+    & > form {
+      width: 70% !important;
+      margin: 0 auto 1rem;
+    }
+  }
 `;
 
 export const DivInfo = styled.div`

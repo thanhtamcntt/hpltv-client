@@ -29,7 +29,7 @@ import {
 } from '../../redux/action/home/movies';
 import FilmMost from '../../components/FilmAndMovies/FilmMost';
 import { fetchMoviesSameMovies } from '../../redux/action/film/SameMovies';
-import { fetchAllOrder } from '../../redux/action/order';
+import { fetchAllOrder, fetchOrderFromUserId } from '../../redux/action/order';
 import { fetchAllPackage } from '../../redux/action/package';
 import FilmSameComponent from '../../components/FilmAndMovies/FilmSameComponent';
 import CommentComponent from '../../components/Comment/CommentComponent';
@@ -71,10 +71,10 @@ const DetailFilmPage = (props) => {
       dispatch(fetchMoviesMostRating()),
       dispatch(fetchMoviesSameMovies(filmId)),
       dispatch(fetchAllCategory()),
-      dispatch(fetchAllOrder()),
+      dispatch(fetchOrderFromUserId(userInfo.userId)),
       dispatch(fetchAllPackage()),
     ]);
-  }, [dispatch, filmId]);
+  }, [dispatch, filmId, userInfo, props.watching]);
 
   //get name category
   useEffect(() => {
@@ -84,12 +84,14 @@ const DetailFilmPage = (props) => {
         if (item._id === filmId) {
           objectData.film = item;
           for (let cate of category.data) {
-            if (item.listCategoryId.includes(cate._id))
+            if (
+              item.listCategoryId.some((itemCate) => itemCate._id === cate._id)
+            ) {
               objectData.category.push(cate.name);
+            }
           }
         }
       }
-      objectData.category = objectData.category.slice(1);
       setData(objectData);
     }
   }, [movies, category, filmId]);
@@ -103,7 +105,7 @@ const DetailFilmPage = (props) => {
     ) {
       setIsLike(true);
     }
-  }, [data]);
+  }, [data, userInfo]);
 
   //set rating user
   useEffect(() => {
@@ -111,28 +113,26 @@ const DetailFilmPage = (props) => {
     setDataValueUserRating(0);
     if (data && data.film) {
       data.film.listUserIdRating.some((item) => {
-        console.log(item.toString(), userInfo.userId.toString());
         if (item.userId.toString() === userInfo.userId.toString()) {
           setDataValueUserRating(item.valueRating);
           setIsRating(true);
         }
       });
     }
-  }, [data]);
+  }, [data, userInfo]);
 
   // check package user
   useEffect(() => {
     setIsWatching(true);
-    if (data && data.film) {
-      order.data.some((item) => {
-        if (item.userId.toString() === userInfo.userId.toString()) {
-          if (data.film.listPackageIdBand.includes(item.packageId._id)) {
-            setIsWatching(false);
-            return true;
-          }
-        }
-        return false;
-      });
+    if (data?.film?.listPackageIdBand && order?.data[0]?.packageId) {
+      console.log(order);
+
+      const packageId = order.data[0].packageId._id;
+      const listPackageIds = data.film.listPackageIdBand;
+      console.log(listPackageIds);
+      if (listPackageIds.includes(packageId)) {
+        setIsWatching(false);
+      }
     }
   }, [data, order]);
 
@@ -166,7 +166,6 @@ const DetailFilmPage = (props) => {
   };
 
   const handleRatingMovies = async (value) => {
-    console.log('rating: ', value);
     const data = {
       filmId: filmId,
       userId: userInfo.userId,
@@ -198,11 +197,11 @@ const DetailFilmPage = (props) => {
   return (
     <DivContainer>
       <RowDetail>
-        <ColDetail span={17}>
+        <ColDetail span={17} lg={16}>
           <RowLeft>
             {props.watching === false ? (
               <>
-                <ColLeft span={10}>
+                <ColLeft span={10} lg={12} md={9} sm={12} xs={20}>
                   <ImageFilm src={data.film.imageUrl.url} />
                   <DivWatchButton>
                     <ButtonWatch onClick={handleWatchingMovies}>
@@ -210,7 +209,7 @@ const DetailFilmPage = (props) => {
                     </ButtonWatch>
                   </DivWatchButton>
                 </ColLeft>
-                <ColRight span={14}>
+                <ColRight span={14} lg={12} md={15} sm={12} xs={24}>
                   <InfoMovies data={data} />
                 </ColRight>
                 <DivContent>
@@ -227,20 +226,31 @@ const DetailFilmPage = (props) => {
                   handleRatingMovies={handleRatingMovies}
                   isRating={isRating}
                   dataValueUserRating={dataValueUserRating}
+                  type={'movies'}
                 />
               </>
             )}
             <DivFilmSame>
-              <FilmSameComponent listFilm={sameMovies.data} filmId={filmId} />
+              <FilmSameComponent
+                listFilm={sameMovies.data}
+                filmId={filmId}
+                slide={
+                  window.innerWidth > 797 && window.innerWidth <= 991
+                    ? 4
+                    : window.innerWidth > 610
+                    ? 3
+                    : 2
+                }
+              />
             </DivFilmSame>
             <DivComment>
               <DivContentComment>
-                {props.watching && <CommentComponent />}
+                {props.watching && <CommentComponent type="movies" />}
               </DivContentComment>
             </DivComment>
           </RowLeft>
         </ColDetail>
-        <ColDetail span={7} right={'right'}>
+        <ColDetail span={7} lg={8} xs={24} right={'right'}>
           <FilmMost
             title={'Newly updated movie'}
             film={mostNew.data}

@@ -7,14 +7,17 @@ export const DivFooter = styled.div`
   background: var(--bg-app);
   padding: 50px 0 20px;
   text-align: center;
-  @media (max-width: 575px) {
-    padding: 10px 0 20px;
+  @media (max-width: 991px) {
+    padding: 0;
   }
 `;
 
 export const DivContentFooter = styled.div`
   max-width: 1200px;
   margin: 10px auto;
+  @media (max-width: 991px) {
+    margin: 0 auto;
+  }
 `;
 
 export const RowFooter = styled(Row)``;
@@ -24,27 +27,59 @@ export const ColFooterTop = styled(Col)`
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+
+  @media (max-width: 991px) {
+    padding: 20px 40px;
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 1px solid white;
+
+    & img {
+      width: 600px;
+      height: 200px;
+    }
+  }
+
+  @media (max-width: 991px) {
+    & img {
+      width: 400px;
+      height: 130px;
+    }
+  }
+
   @media (max-width: 575px) {
     border-bottom: 1px solid white;
-    padding: 10px 0;
+    padding: 25px 10px;
+    display: flex;
+    justify-content: center;
+    & img {
+      width: 90%;
+      height: 100px;
+    }
   }
 `;
 
 export const ColFooterMiddle = styled(Col)`
   padding: 0 1rem;
 
+  @media (max-width: 991px) {
+    padding: 20px 40px;
+    border-bottom: 1px solid white;
+  }
+
   @media (max-width: 575px) {
     border-bottom: 1px solid white;
-    padding: 10px 0;
+    padding: 20px 0;
   }
 `;
 
 export const ColFooterBot = styled(Col)`
   padding: 0 1rem;
-
+  @media (max-width: 991px) {
+    padding: 20px 40px;
+  }
   @media (max-width: 575px) {
-    border-bottom: 1px solid white;
-    padding: 10px 0;
+    padding: 20px 0;
   }
 `;
 
@@ -58,12 +93,31 @@ export const Text = styled.p`
     text-decoration: underline;
     color: var(--border-color-sp);
   }
+
+  @media (max-width: 575px) {
+    font-size: 16px;
+    margin: 0 16px 10px;
+    line-height: 1.4;
+    font-weight: 400;
+  }
+
+  @media (max-width: 575px) {
+    font-size: 16px;
+    margin: 0 16px 10px;
+    line-height: 1.4;
+    font-weight: 400;
+  }
 `;
 
 export const DivContentSocial = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-bottom: 25px;
+
+  @media (max-width: 575px) {
+    justify-content: center;
+    margin-bottom: 10px;
+  }
 `;
 
 export const DivSocial = styled.a`
@@ -80,6 +134,10 @@ export const DivContentSupport = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-bottom: 20px;
+  @media (max-width: 575px) {
+    justify-content: center;
+    margin-bottom: 10px;
+  }
 `;
 
 export const DivSupport = styled.div`
@@ -112,6 +170,9 @@ export const DivTextDownload = styled.div`
   font-size: 16px;
   color: var(--white);
   margin-bottom: 10px;
+  @media (max-width: 575px) {
+    text-align: center;
+  }
 `;
 
 export const DivDownload = styled.div`
@@ -119,5 +180,8 @@ export const DivDownload = styled.div`
   & img {
     margin-left: 10px;
     cursor: pointer;
+  }
+  @media (max-width: 575px) {
+    text-align: center;
   }
 `;

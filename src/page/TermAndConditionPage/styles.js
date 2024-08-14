@@ -9,10 +9,20 @@ export const DivBanner = styled.div`
 export const BannerContact = styled.img`
   width: 100%;
   height: 370px;
+  @media (max-width: 767px) {
+    height: 300px;
+  }
+  @media (max-width: 575px) {
+    height: 220px;
+  }
+`;
+
+export const Content = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 export const DivContent = styled.div`
-  margin: 0 auto;
   width: 100%;
   max-width: 1200px;
   margin-bottom: 5rem;
@@ -24,6 +34,10 @@ export const DivContent = styled.div`
     &:hover {
       text-decoration: underline;
     }
+  }
+
+  @media (max-width: 1250px) {
+    margin: 0 2rem;
   }
 `;
 

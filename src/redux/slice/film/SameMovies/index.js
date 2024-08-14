@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchMoviesSameMovies } from '../../../action/film/SameMovies';
+import {
+  fetchMoviesSameMovies,
+  fetchSeriesSameSeries,
+} from '../../../action/film/SameMovies';
 
 const initialState = {
   data: [],
@@ -17,12 +20,30 @@ export const SameMoviesSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchMoviesSameMovies.fulfilled, (state, action) => {
-      // console.log(action.payload);
       state.loading = false;
       state.data = [...action.payload.data];
     });
     builder.addCase(fetchMoviesSameMovies.rejected, (state, action) => {
-      // console.log(action);
+      state.loading = false;
+      state.error = action.payload.message;
+    });
+  },
+});
+
+export const SameSeriesSlice = createSlice({
+  name: 'SameSeriesSlice',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    // fetch all series
+    builder.addCase(fetchSeriesSameSeries.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchSeriesSameSeries.fulfilled, (state, action) => {
+      state.loading = false;
+      state.data = [...action.payload.data];
+    });
+    builder.addCase(fetchSeriesSameSeries.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload.message;
     });

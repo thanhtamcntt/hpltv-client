@@ -45,7 +45,6 @@ function SignupPage() {
   };
 
   const onFinish = async (values) => {
-    console.log('Success:', values);
     const response = await fetch(API_SIGNUP, {
       method: 'POST',
       body: JSON.stringify({
@@ -54,8 +53,6 @@ function SignupPage() {
         email: values.email,
         phoneNumber: values.phoneNumber,
         sex: values.sex,
-        // password: values.password,
-        // confirmPassword: values.confirmPassword,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -73,9 +70,7 @@ function SignupPage() {
     }
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+  const onFinishFailed = (errorInfo) => {};
 
   const handleFocus = () => {
     setTextError();

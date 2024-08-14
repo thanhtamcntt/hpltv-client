@@ -27,7 +27,8 @@ function CommentComponent(props) {
   const dispatch = useDispatch();
 
   const comment = useSelector((state) => state.commentSlice);
-  const { filmId } = useParams();
+  const { filmId, seriesId } = useParams();
+
   useEffect(() => {
     Promise.all([dispatch(fetchAllComment())]);
   }, [dispatch]);
@@ -37,7 +38,7 @@ function CommentComponent(props) {
     if (comment) {
       let data = [];
       for (let item of comment.data) {
-        if (item.moviesId === filmId) {
+        if (item.moviesId === filmId || item.moviesId === seriesId) {
           data.push(item);
         }
       }
@@ -50,7 +51,7 @@ function CommentComponent(props) {
       data: {
         userId: userInfo.userId,
         content: value,
-        moviesId: filmId,
+        moviesId: props.type === 'movies' ? filmId : seriesId,
       },
       userInfo: userInfo,
     };

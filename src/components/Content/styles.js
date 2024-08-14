@@ -13,6 +13,9 @@ export const DivTitle = styled.div`
   position: relative;
   z-index: 100;
   color: var(--white);
+  @media (max-width: 1250px) {
+    margin: 0 10px;
+  }
 `;
 
 export const TextTitle = styled.h2`
@@ -25,12 +28,10 @@ export const TextTitle = styled.h2`
 
   @media (max-width: 767px) {
     font-size: 18px;
-    max-width: 20%;
   }
 
   @media (max-width: 575px) {
     font-size: 16px;
-    max-width: 28%;
   }
 `;
 
@@ -44,15 +45,16 @@ export const BorderText = styled.div`
 export const DivContentFilm = styled.div`
   overflow: hidden;
   margin-top: 12px;
+  position: relative;
 `;
 
 export const ButtonSlick = styled.button`
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-200%);
   cursor: pointer;
-  left: ${(props) => !props.next && '0'};
-  right: ${(props) => props.next && '0'};
+  left: ${(props) => !props.next && '20px'};
+  right: ${(props) => props.next && '20px'};
   z-index: 100;
   border: none;
   width: 40px;
@@ -65,5 +67,26 @@ export const ButtonSlick = styled.button`
   }
   &:hover {
     background-color: #0066b3;
+  }
+`;
+
+export const DivCarousel = styled.div`
+  @media (max-width: 991px) {
+    margin: 0 3rem;
+  }
+  @media (max-width: 867px) {
+    margin: 0 0.2rem;
+  }
+  @media (max-width: 767px) {
+    margin: 0 2.5rem;
+  }
+  @media (max-width: 667px) {
+    margin: 0 0.4rem;
+  }
+  @media (max-width: 575px) {
+    margin: 0 3rem;
+  }
+  @media (max-width: 490px) {
+    margin: 0;
   }
 `;

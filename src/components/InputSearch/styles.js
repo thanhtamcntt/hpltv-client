@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
 
-export const DivSearch = styled.form`
+export const DivSearch = styled.div`
   position: relative;
 `;
 
@@ -26,11 +26,23 @@ export const InputSearch = styled.input`
   }
 
   @media (min-width: 768px) and (max-width: 991px) {
-    width: 75%;
+    width: 72%;
   }
 
-  @media (min-width: 576px) and (max-width: 767px) {
-    width: 70%;
+  @media (min-width: 670px) and (max-width: 767px) {
+    width: 86%;
+  }
+  @media (min-width: 576px) and (max-width: 669px) {
+    width: 84%;
+  }
+  @media (max-width: 575px) {
+    width: 80%;
+  }
+  @media (max-width: 470px) {
+    width: 78%;
+  }
+  @media (max-width: 410px) {
+    width: 75%;
   }
 `;
 

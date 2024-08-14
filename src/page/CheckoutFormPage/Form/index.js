@@ -10,7 +10,6 @@ import { API_ADD_DATA_PACKAGE_PAYMENT } from '../../../configs/apis';
 import { CheckLoginContext } from '../../../contexts/LoginContext';
 
 const CheckoutForm = (props) => {
-  console.log(props);
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
@@ -44,7 +43,6 @@ const CheckoutForm = (props) => {
     });
 
     if (error) {
-      console.log(error);
       setErrorMessage(error.message);
     } else {
       const addPayment = async () => {

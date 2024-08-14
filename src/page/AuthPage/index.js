@@ -7,18 +7,31 @@ import {
   DivDetail,
   ButtonVerify,
   DivHeader,
+  DivResend,
 } from './styles.js';
 import { Form, Input, message } from 'antd';
 import HeaderPaymentComponent from '../../components/HeaderPaymentComponent/index.js';
-import { API_VERIFY_LOGIN } from '../../configs/apis.js';
+import { API_RESEND_CODE, API_VERIFY_LOGIN } from '../../configs/apis.js';
 import { useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
 import { CheckLoginContext } from '../../contexts/LoginContext/index.js';
-import { useContext } from 'react';
 
 function AuthPage() {
+  const [count, setCount] = useState(0);
   const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
-  const { setIsLogin } = useContext(CheckLoginContext);
+
+  const { userInfo } = useContext(CheckLoginContext);
+
+  useEffect(() => {
+    let timer;
+    if (count - 1 >= 0) {
+      timer = setTimeout(() => {
+        setCount((prevCount) => prevCount - 1);
+      }, 1000);
+    }
+    return () => clearTimeout(timer);
+  }, [count]);
 
   const success = () => {
     messageApi.open({
@@ -27,10 +40,10 @@ function AuthPage() {
       duration: 1,
     });
   };
-  const error = () => {
+  const error = (msg) => {
     messageApi.open({
       type: 'error',
-      content: 'Confirmation code is incorrect!!',
+      content: msg ? msg : 'Confirmation code is incorrect!!',
       duration: 2.5,
     });
   };
@@ -56,9 +69,28 @@ function AuthPage() {
       error();
     }
   };
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+  const onFinishFailed = (errorInfo) => {};
+
+  const handleSetSendRequest = async () => {
+    const data = {
+      email: userInfo.email,
+    };
+    const response = await fetch(API_RESEND_CODE, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
+      },
+    });
+    const json = await response.json();
+    if (json.success) {
+      setCount(60);
+    } else {
+      error('Not enough time to request again!!');
+    }
   };
+
   return (
     <>
       {contextHolder}
@@ -108,6 +140,18 @@ function AuthPage() {
                   </ButtonVerify>
                 </Form.Item>
               </Form>
+              <DivResend>
+                {count > 0 ? (
+                  <p>Submit your request later {count}</p>
+                ) : (
+                  <p>
+                    Haven't received the code?
+                    <button onClick={handleSetSendRequest}>
+                      Request resend
+                    </button>
+                  </p>
+                )}
+              </DivResend>
             </DivDetail>
           </DivInformation>
         </AuthContent>

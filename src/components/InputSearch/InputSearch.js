@@ -31,6 +31,7 @@ function InputSearchLayout(props) {
   useEffect(() => {
     dispatch(fetchAllMovies());
   }, [dispatch]);
+
   useEffect(() => {
     if (movies) {
       let arrayData = [];
@@ -64,8 +65,13 @@ function InputSearchLayout(props) {
     setSearchKey(e.target.value);
   };
 
+  const handleInputClick = (event) => {
+    // Ngăn chặn sự kiện bong bóng lên ButtonLeft
+    event.stopPropagation();
+  };
+
   return (
-    <DivSearch>
+    <DivSearch onClick={handleInputClick}>
       <FormSearch onSubmit={handleSearchFilm}>
         <InputSearch
           name="search"

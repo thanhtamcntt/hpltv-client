@@ -31,6 +31,9 @@ export const ColItem = styled(Col)`
 export const ImageItem = styled.img`
   width: 80%;
   height: 60px;
+  @media (max-width: 991px) {
+    width: 60px;
+  }
 `;
 
 export const TextFilm = styled.p`

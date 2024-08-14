@@ -22,12 +22,10 @@ export const MoviesSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchAllMovies.fulfilled, (state, action) => {
-      // console.log(action.payload);
       state.loading = false;
       state.data = [...action.payload.data];
     });
     builder.addCase(fetchAllMovies.rejected, (state, action) => {
-      // console.log(action);
       state.loading = false;
       state.error = action.payload.message;
     });
@@ -37,7 +35,6 @@ export const MoviesSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchMoviesFeature.fulfilled, (state, action) => {
-      // console.log(action.payload);
       state.loading = false;
       state.data = [...action.payload.data];
     });
@@ -51,7 +48,6 @@ export const MoviesSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(handleLikeMovies.fulfilled, (state, action) => {
-      console.log(action.payload);
       state.loading = false;
       const updatedData = action.payload.data;
       state.data = state.data.map((item) =>
@@ -68,7 +64,6 @@ export const MoviesSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(handleRatingMoviesAction.fulfilled, (state, action) => {
-      console.log(action.payload.data);
       state.loading = false;
       const updatedData = action.payload.data;
       state.data = state.data.map((item) =>

@@ -67,8 +67,9 @@ const MyFavoritePage = () => {
 
   return (
     <DivFilm>
-      <Title>Your favorite movie and series list</Title>
       <DivContent>
+        <Title>Your favorite movie and series list</Title>
+
         <RowPage justify="start">
           {data &&
             data.map((item, id) => {

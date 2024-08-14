@@ -34,7 +34,6 @@ function ForgotPasswordPage() {
   };
 
   const onFinish = async (values) => {
-    console.log(values.email);
     const response = await fetch(API_FORGOT_PASSWORD, {
       method: 'POST',
       body: JSON.stringify({
@@ -45,7 +44,6 @@ function ForgotPasswordPage() {
       },
     });
     const responseJson = await response.json();
-    console.log(responseJson);
 
     if (responseJson.success) {
       success();
@@ -57,9 +55,7 @@ function ForgotPasswordPage() {
     }
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+  const onFinishFailed = (errorInfo) => {};
 
   useEffect(() => {
     form.setFieldsValue({

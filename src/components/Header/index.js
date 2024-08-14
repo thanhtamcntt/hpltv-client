@@ -9,6 +9,8 @@ import {
   Navbar,
   ItemNav,
   ListNav,
+  DivHeaderMobile,
+  DivContainerMobile,
 } from './styles';
 import HeaderNavBar from './Navbar';
 import HeaderSearchLogin from './SearchAndLogin';
@@ -32,16 +34,16 @@ function Header() {
   }, [width]);
 
   return (
-    <ContainerHeader>
-      <DivHeader>
-        <ContentHeader>
-          {width >= 992 ? (
-            <>
+    <>
+      {width >= 768 ? (
+        <ContainerHeader>
+          <DivHeader>
+            <ContentHeader>
               <RowHeader>
-                <ColLeft span={14}>
+                <ColLeft span={14} sm={10} lg={13} xl={14}>
                   <HeaderNavBar />
                 </ColLeft>
-                <ColRight span={10}>
+                <ColRight span={10} sm={14} lg={11} xl={10}>
                   <HeaderSearchLogin />
                 </ColRight>
               </RowHeader>
@@ -93,15 +95,17 @@ function Header() {
                   </ItemNav>
                 </ListNav>
               </Navbar>
-            </>
-          ) : (
-            <RowHeader>
-              <HeaderMobile />
-            </RowHeader>
-          )}
-        </ContentHeader>
-      </DivHeader>
-    </ContainerHeader>
+            </ContentHeader>
+          </DivHeader>
+        </ContainerHeader>
+      ) : (
+        <DivContainerMobile>
+          <DivHeaderMobile>
+            <HeaderMobile />
+          </DivHeaderMobile>
+        </DivContainerMobile>
+      )}
+    </>
   );
 }
 
