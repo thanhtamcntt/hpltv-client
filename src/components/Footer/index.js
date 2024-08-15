@@ -34,10 +34,11 @@ function Footer() {
               District, Ho Chi Minh City.
             </Text>
             <Text>
-              Phone/Fax: 024.35.678.190 - Email: <span>abc@gmail.com</span>
+              Phone/Fax: +84967936728 - Email:{' '}
+              <span>hoangphuocloc.phurieng@gmail.com</span>
             </Text>
             <Text>
-              Business Registration Certificate Number: 0100686209 issued by
+              Business Registration Certificate Number: XXXXXXXXX issued by
               Hanoi Department of Planning and Investment for the first time on
               September 20, 2010, registered for the 10th change on March 10,
               2021

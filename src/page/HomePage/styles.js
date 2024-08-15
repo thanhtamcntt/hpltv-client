@@ -14,26 +14,6 @@ export const DivLoading = styled.div`
   }
 `;
 
-export const DivBanner = styled.div`
-  max-width: 100%;
-  margin: 0 auto 100px;
-  position: relative;
-
-  & video {
-    width: 100% !important;
-    position: relative;
-  }
-
-  @media (max-width: 1250px) {
-    max-width: calc(100% - 40px);
-  }
-
-  @media (max-width: 767px) {
-    padding: 20px 0 50px;
-    border-radius: 20px 20px 200px 20px;
-  }
-`;
-
 export const DivInfo = styled.div`
   text-align: left;
   color: var(--white-bg);

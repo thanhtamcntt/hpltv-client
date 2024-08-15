@@ -6,6 +6,7 @@ import {
   Navigate,
   Route,
   Routes,
+  json,
   useLocation,
   useNavigate,
 } from 'react-router-dom';
@@ -30,6 +31,8 @@ import { v4 as uuidv4 } from 'uuid';
 import ForgotPasswordPage from './page/ForgotPasswordPage';
 import ResetPasswordPage from './page/ResetPasswordPage';
 import AuthPage from './page/AuthPage';
+import { API_CREATE_MESSAGE } from './configs/apis';
+import FooterMobile from './components/FooterMobile';
 
 const newSocket = io('http://localhost:4000/user');
 
@@ -40,8 +43,11 @@ function App() {
   const [message, setMessage] = useState([]);
   const [roomId, setRoomId] = useState();
   const [visible, setVisible] = useState(false);
+  const [file, setFile] = useState();
+  const [imagePreview, setImagePreview] = useState();
 
   const { pathname } = useLocation();
+  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -58,25 +64,29 @@ function App() {
     const arr = window.location.pathname.split('/');
     const idFilm = arr[arr.length - 1];
     if (window.location.pathname.startsWith('/film/')) {
-      for (let item of movies.data) {
-        if (item._id === idFilm) {
-          check = true;
-          break;
+      if (movies.data.length > 0) {
+        for (let item of movies.data) {
+          if (item._id === idFilm) {
+            check = true;
+            break;
+          }
         }
-      }
-      if (!check) {
-        navigate('/');
+        if (!check) {
+          navigate('/');
+        }
       }
     } else if (window.location.pathname.startsWith('/series/')) {
       const idFilm = arr[arr.length - 1];
-      for (let item of series.data) {
-        if (item._id === idFilm) {
-          check = true;
-          break;
+      if (series.data.length > 0) {
+        for (let item of series.data) {
+          if (item._id === idFilm) {
+            check = true;
+            break;
+          }
         }
-      }
-      if (!check) {
-        navigate('/');
+        if (!check) {
+          navigate('/');
+        }
       }
     }
   }, [pathname, series, movies, navigate]);
@@ -86,20 +96,24 @@ function App() {
   }, [pathname]);
 
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      const tokenDecoded = jwtDecode(localStorage.getItem('token'));
+    if (localStorage.getItem('tokenUser')) {
+      const tokenDecoded = jwtDecode(localStorage.getItem('tokenUser'));
       const dateExpiresIn = new Date(tokenDecoded.exp);
       const currentDate = new Date();
+
       if (currentDate > dateExpiresIn) {
         localStorage.clear();
-        const tokenUser = localStorage.getItem('token');
-        if (tokenUser === null) {
-          window.location.reload();
-        }
+        navigate('/login');
       }
     }
-  }, [new Date() + 60 * 1000]);
+  }, [location, navigate]);
 
+  const scrollToBottom = () => {
+    const scrollContainer = document.querySelector('.chat-content-scroll');
+    if (scrollContainer) {
+      scrollContainer.scrollTop = scrollContainer.scrollHeight;
+    }
+  };
   // socket chat
   const handleOpenCustomerSupport = () => {
     setIsModal((prev) => !prev);
@@ -117,7 +131,7 @@ function App() {
     setIsState(0);
   };
 
-  const handleChatCustomer = async (values) => {
+  const handleChatCustomer = async () => {
     setIsState(2);
     setTimeout(() => {
       const id = uuidv4();
@@ -125,15 +139,36 @@ function App() {
       const data = {
         roomId: id,
         userId: userInfo.userId,
+        adminId: '',
         firstName: userInfo.firstName,
         lastName: userInfo.lastName,
-        issues: values.issues,
         userInfo: userInfo,
       };
-      newSocket.emit('joinRoom', data);
-      newSocket.emit('receiveRoom', data);
+      const dataPost = {
+        roomId: id,
+        participants: {
+          userId: userInfo.userId,
+        },
+      };
+
+      const addMessage = async () => {
+        const response = await fetch(API_CREATE_MESSAGE, {
+          method: 'POST',
+          body: JSON.stringify(dataPost),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        const json = await response.json();
+        if (json.success) {
+          newSocket.emit('joinRoom', data);
+          newSocket.emit('receiveRoom', data);
+        }
+      };
+      addMessage();
     }, 300);
   };
+
   useEffect(() => {
     if (isState === 2) {
       setSocket(newSocket);
@@ -141,6 +176,7 @@ function App() {
       newSocket.on('chatCustomer', (data) => {
         console.log(data);
         setMessage((prev) => [...prev, data]);
+        scrollToBottom();
       });
 
       newSocket.on('forceLeave', (roomId) => {
@@ -148,14 +184,14 @@ function App() {
         setVisible(true);
         setMessage([]);
         setRoomId();
+        setFile();
+        setImagePreview();
       });
       return () => {
         newSocket.off('chatCustomer');
-        // newSocket.disconnect();
       };
     }
   }, [isState, message]);
-  console.log(isLogin);
 
   if (isLogin === undefined || userInfo === undefined) {
     return (
@@ -175,6 +211,7 @@ function App() {
             isState={isState}
             setIsState={setIsState}
             socket={socket}
+            socketConnect={newSocket}
             handleChatCustomer={handleChatCustomer}
             setMessage={setMessage}
             message={message}
@@ -182,10 +219,20 @@ function App() {
             setRoomId={setRoomId}
             visible={visible}
             handleOutRoom={handleOutRoom}
+            setImagePreview={setImagePreview}
+            imagePreview={imagePreview}
+            setFile={setFile}
+            file={file}
           />
           <ButtonCustomerSupport onClick={handleOpenCustomerSupport}>
             <CustomerServiceOutlined />
           </ButtonCustomerSupport>
+        </>
+      )}
+
+      {isLogin === 2 && window.innerWidth < 768 && (
+        <>
+          <FooterMobile />
         </>
       )}
       {isLogin === 2 ? (

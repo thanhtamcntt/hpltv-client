@@ -52,7 +52,6 @@ function LoginPage() {
       },
     });
     const responseJson = await response.json();
-    console.log(responseJson);
     if (responseJson.success) {
       if (responseJson.isBanned) {
         error();
@@ -69,9 +68,7 @@ function LoginPage() {
       setTextError(responseJson.message);
     }
   };
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+  const onFinishFailed = (errorInfo) => {};
 
   const handleFocus = () => {
     setTextError();

@@ -8,6 +8,12 @@ export const DivBanner = styled.div``;
 export const BannerContact = styled.img`
   width: 100%;
   height: 370px;
+  @media (max-width: 767px) {
+    height: 300px;
+  }
+  @media (max-width: 575px) {
+    height: 220px;
+  }
 `;
 
 export const Container = styled.div`
@@ -32,9 +38,14 @@ export const Title = styled.h2`
 `;
 export const Title1 = styled.p``;
 
-export const RowContent = styled(Row)``;
+export const RowContent = styled(Row)`
+  @media (max-width: 991px) {
+    margin: 0 1rem;
+  }
+`;
 
 export const ColContent = styled(Col)`
+  margin-bottom: 1.4rem;
   &:first-child {
     & > div {
       background-color: #9d4d2a;
@@ -76,6 +87,12 @@ export const DivForm = styled.div`
   }
   .ant-form-item-explain-error {
     margin-top: 4px;
+  }
+
+  @media (max-width: 600px) {
+    & form {
+      width: 100% !important;
+    }
   }
 `;
 
@@ -119,7 +136,7 @@ export const TitleCenter = styled.h2`
 
 export const ListCenter = styled.ul`
   text-align: left;
-  padding: 0 2rem 1rem 1rem;
+  padding: 0 2rem 2rem 1rem;
 `;
 export const ItemCenter = styled.li`
   display: flex;
@@ -149,6 +166,11 @@ export const ItemCenter = styled.li`
     & a {
       color: var(--white-bg);
       text-decoration: underline;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      word-break: break-all;
+      white-space: normal;
+      display: block;
     }
   }
 `;

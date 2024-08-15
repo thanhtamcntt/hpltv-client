@@ -5,6 +5,9 @@ export const DivAuth = styled.div`
   width: 100%;
   height: 100vh;
   background-image: url(${bgLogin});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
 
 export const DivContainer = styled.div`
@@ -14,10 +17,18 @@ export const DivContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media (max-width: 767px) {
+    width: 100%;
+    max-width: calc(100% - 20px);
+  }
 `;
 
 export const DivContent = styled.div`
   width: 600px;
+  @media (max-width: 767px) {
+    width: 90%;
+    max-width: 600px;
+  }
 `;
 
 export const TextContent = styled.p`
@@ -69,6 +80,9 @@ export const DivFooter = styled.div``;
 export const DivBanner = styled.div`
   position: relative;
   z-index: 100;
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 `;
 export const TextBanner = styled.h2`
   text-align: left;
@@ -76,6 +90,19 @@ export const TextBanner = styled.h2`
   margin: 0;
   font-size: 44px;
   text-transform: uppercase;
+
+  @media (max-width: 767px) {
+    text-align: center;
+    padding: 2rem 0;
+
+    & img {
+      width: 80% !important;
+      max-width: 400px;
+      height: 70px !important;
+    }
+  }
+  @media (max-width: 575px) {
+  }
 `;
 
 export const DivLink = styled.div`

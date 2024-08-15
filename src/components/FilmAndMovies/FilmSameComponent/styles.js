@@ -25,6 +25,22 @@ export const TextTitle = styled.h2`
 
 export const DivContentFilm = styled.div`
   overflow: hidden;
+  margin: 0 auto;
+  @media (max-width: 797px) {
+    width: 90%;
+  }
+  @media (max-width: 680px) {
+    width: 100%;
+  }
+  @media (max-width: 608px) {
+    width: 85%;
+  }
+  @media (max-width: 560px) {
+    width: 90%;
+  }
+  @media (max-width: 510px) {
+    width: 100%;
+  }
 `;
 
 export const ButtonSlick = styled.button`

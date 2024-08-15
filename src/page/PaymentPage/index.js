@@ -27,7 +27,7 @@ function PaymentPage(props) {
   const [dataChoosePayment, setDataChoosePayment] = useState();
   const [data, setData] = useState();
   const [dataDisabled, setDataDisabled] = useState();
-  console.log(props.login);
+  const [isBlock, setIsBlock] = useState(false);
   const { userInfo } = useContext(CheckLoginContext);
 
   const navigate = useNavigate();
@@ -43,24 +43,40 @@ function PaymentPage(props) {
   }, []);
 
   useEffect(() => {
+    setIsBlock(false);
     const fetchPaymentDisabled = async () => {
       const response = await fetch(API_GET_ALL_PAYMENT_DATA);
       const dataJson = await response.json();
 
-      const responseOrder = await fetch(API_GET_ALL_ORDER, {
-        headers: {
-          Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
+      const responsePackageMax = await fetch(
+        API_GET_ALL_PAYMENT_DATA + '/package-max',
+      );
+      const dataJsonPackageMax = await responsePackageMax.json();
+      console.log(dataJsonPackageMax.packageId);
+
+      const responseOrder = await fetch(
+        API_GET_ALL_ORDER + '/' + userInfo.userId,
+        {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('tokenUser'),
+          },
         },
-      });
+      );
       const dataJsonOrder = await responseOrder.json();
+
       let dataDisabledObj = [];
-      dataJsonOrder.data.map((order, id) => {
-        if (order.userId === userInfo.userId) {
-          dataJson.data.map((item, id) => {
-            if (item._id.toString() >= order.packageId._id.toString()) {
-              dataDisabledObj.push(item._id);
-            }
-          });
+
+      dataJson.data.map((item, id) => {
+        if (
+          item._id.toString() >= dataJsonOrder.data.packageId._id.toString()
+        ) {
+          dataDisabledObj.push(item._id);
+        }
+        if (
+          dataJsonPackageMax.packageId.toString() ===
+          dataJsonOrder.data.packageId._id.toString()
+        ) {
+          setIsBlock(true);
         }
       });
       setDataDisabled(dataDisabledObj);
@@ -68,7 +84,7 @@ function PaymentPage(props) {
     if (props.login) {
       fetchPaymentDisabled();
     }
-  }, [props.login]);
+  }, [props.login, userInfo]);
 
   const handleCLickContinue = async () => {
     await localStorage.setItem(
@@ -78,7 +94,7 @@ function PaymentPage(props) {
     navigate('/option-checkout');
   };
 
-  if (!dataChoosePayment) {
+  if (!dataChoosePayment || isBlock === undefined) {
     return <LoadingPage />;
   }
   return (
@@ -97,7 +113,7 @@ function PaymentPage(props) {
             {data &&
               data.map((item, id) => {
                 return (
-                  <ColPack span={6} key={id}>
+                  <ColPack span={6} lg={6} md={8} sm={12} xs={24} key={id}>
                     <PackageComponent
                       item={item}
                       dataChoosePayment={dataChoosePayment}
@@ -124,7 +140,10 @@ function PaymentPage(props) {
           </p>
         </DivNotification>
         <DivActionContinue>
-          <ButtonContinue onClick={handleCLickContinue}>
+          <ButtonContinue
+            onClick={handleCLickContinue}
+            disabled={isBlock ? true : false}
+            block={isBlock}>
             Continue
           </ButtonContinue>
         </DivActionContinue>

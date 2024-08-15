@@ -9,8 +9,11 @@ export const TitleVideo = styled.h2`
 
 export const DivVideo = styled.div`
   width: 100%;
-  & iframe {
-    border-radius: 20px;
+  & div {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
   }
 `;
 
@@ -68,5 +71,32 @@ export const RatingAction = styled.div`
   & label {
     font-size: 16px;
     color: var(--black);
+  }
+`;
+
+export const DivListEpisode = styled.div`
+  margin-top: 30px;
+  text-align: left;
+
+  & p {
+    font-size: 18px;
+  }
+
+  & > div {
+    margin-top: 5px;
+  }
+  & button {
+    margin-top: 5px;
+    margin-right: 10px;
+    padding: 7px 14px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: rgb(215 176 40);
+    color: var(--white-bg);
+    cursor: pointer;
+
+    &:hover {
+      background-color: #1c79ff !important;
+    }
   }
 `;

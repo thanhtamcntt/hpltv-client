@@ -3,6 +3,9 @@ import styled from 'styled-components';
 export const PaymentContainer = styled.div`
   width: 100%;
   color: var(--white-bg);
+  @media (max-width: 1300px) {
+    width: calc(100% - 20px);
+  }
 `;
 export const PaymentHeader = styled.div`
   border-bottom: 1px solid #e6e6e6;
@@ -85,6 +88,11 @@ export const ButtonCheckout = styled.button`
     margin-left: 16px;
     width: 45px;
     height: 25px;
+  }
+
+  @media (max-width: 575px) {
+    padding: 26px 30%;
+    width: 100%;
   }
 `;
 

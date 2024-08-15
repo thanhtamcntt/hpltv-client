@@ -13,6 +13,13 @@ export const AuthContent = styled.div`
   border-radius: 10px;
   box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  @media (max-width: 767px) {
+    margin: 20vh auto 0;
+  }
+  @media (max-width: 430px) {
+    width: 100%;
+    max-width: calc(100% - 20px);
+  }
 `;
 
 export const DivHeader = styled.div`
@@ -33,10 +40,22 @@ export const DivInformation = styled.div`
 export const Title = styled.h2`
   margin: 0;
   font-size: 30px;
+  @media (max-width: 767px) {
+    font-size: 26px;
+  }
+  @media (max-width: 575px) {
+    font-size: 22px;
+  }
 `;
 
 export const Text = styled.p`
   margin: 1rem 0;
+  @media (max-width: 767px) {
+    font-size: 15px;
+  }
+  @media (max-width: 575px) {
+    font-size: 14px;
+  }
 `;
 export const DivDetail = styled.div`
   margin: 20px 0;
@@ -53,6 +72,12 @@ export const DivDetail = styled.div`
   & > form > div {
     margin-bottom: 12px !important;
   }
+
+  & > form {
+    @media (max-width: 767px) {
+      width: 100%;
+    }
+  }
 `;
 
 export const ButtonVerify = styled.button`
@@ -66,5 +91,21 @@ export const ButtonVerify = styled.button`
   transition: all 0.3s linear;
   &:hover {
     background-color: #65fb1e;
+  }
+`;
+
+export const DivResend = styled.div`
+  text-align: right;
+  font-weight: 400;
+  font-size: 14px;
+
+  & button {
+    background-color: transparent;
+    font-weight: 500;
+    text-decoration: underline;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;

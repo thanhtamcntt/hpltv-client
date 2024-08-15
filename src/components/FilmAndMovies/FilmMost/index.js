@@ -45,7 +45,7 @@ function FilmMost(props) {
             return (
               <Item key={id}>
                 <RowItem>
-                  <ColItem span={5}>
+                  <ColItem span={5} lg={5} md={3} sm={4} xs={5}>
                     <Link
                       to={
                         props.type === 'series'

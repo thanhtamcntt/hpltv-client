@@ -10,14 +10,14 @@ export const DivBanner = styled.div`
     position: relative;
   }
 
-  @media (max-width: 1250px) {
-    max-width: calc(100% - 40px);
-  }
+  // @media (max-width: 1250px) {
+  //   max-width: calc(100% - 40px);
+  // }
 
-  @media (max-width: 767px) {
-    padding: 20px 0 50px;
-    border-radius: 20px 20px 200px 20px;
-  }
+  // @media (max-width: 767px) {
+  //   padding: 20px 0 50px;
+  //   border-radius: 20px 20px 200px 20px;
+  // }
 `;
 
 export const DivInfo = styled.div`
@@ -26,6 +26,15 @@ export const DivInfo = styled.div`
   max-width: 1200px;
   margin: 1rem auto 0;
   display: flex;
+
+  @media (max-width: 1250px) {
+    max-width: calc(100% - 40px);
+  }
+
+  @media (max-width: 767px) {
+    padding: 20px 0 50px;
+    border-radius: 20px 20px 200px 20px;
+  }
 `;
 
 export const LeftInfo = styled.div``;
@@ -37,6 +46,10 @@ export const RightInfo = styled.div`
 export const Title = styled.h2`
   margin-bottom: 10px;
   letter-spacing: 0.05em;
+  @media (max-width: 767px) {
+    font-size: 20px;
+    margin-right: 20px;
+  }
 `;
 
 export const Category = styled.p`
@@ -48,6 +61,15 @@ export const Category = styled.p`
     padding: 4px 8px;
     font-weight: 500;
   }
+
+  @media (max-width: 767px) {
+    line-height: 2.2;
+    margin-right: 20px;
+    & span {
+      font-size: 13px;
+      font-weight: 500;
+    }
+  }
 `;
 
 export const Description = styled.p`
@@ -58,13 +80,18 @@ export const Description = styled.p`
   text-overflow: ellipsis;
   width: 50%;
   margin-bottom: 10px;
+
+  @media (max-width: 767px) {
+    width: 90%;
+  }
 `;
 
 export const DivAction = styled.div``;
 
 export const ButtonWatch = styled.button`
   background: var(--white-bg);
-  margin-right: 1rem;
+  margin-right: 0.6rem;
+  margin-bottom: 0.5rem;
   padding: 12px 24px;
   border-radius: 3px;
   font-size: 18px;
@@ -74,6 +101,18 @@ export const ButtonWatch = styled.button`
 
   &:hover {
     background: var(--white);
+  }
+
+  @media (max-width: 767px) {
+    font-size: 15px;
+    padding: 10px 20px;
+    min-width: 120px;
+  }
+
+  @media (max-width: 575px) {
+    font-size: 14px;
+    padding: 8px 12px;
+    min-width: 100px;
   }
 `;
 
@@ -91,6 +130,18 @@ export const ButtonDetail = styled.button`
   transition: all 0.3s linear;
   &:hover {
     background: rgba(0, 0, 0, 0.3);
+  }
+
+  @media (max-width: 767px) {
+    font-size: 15px;
+    padding: 10px 20px;
+    min-width: 120px;
+  }
+
+  @media (max-width: 575px) {
+    font-size: 14px;
+    padding: 8px 16px;
+    min-width: 100px;
   }
 `;
 

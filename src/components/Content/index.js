@@ -5,6 +5,7 @@ import {
   BorderText,
   DivContentFilm,
   ButtonSlick,
+  DivCarousel,
 } from './styles';
 import Film from '../FilmAndMovies/FilmComponent/index';
 import { useEffect, useState, useRef } from 'react';
@@ -60,24 +61,26 @@ function Content(props) {
               className="btn-slider-left">
               <LeftOutlined />
             </ButtonSlick>
-            <Carousel
-              dots={false}
-              autoplay={true}
-              ref={refContent}
-              slidesToShow={slide}>
-              {films &&
-                films.map((film, id) => {
-                  return (
-                    <Film
-                      key={id}
-                      title={film.title}
-                      image={film.imageUrl.url}
-                      idFilm={film._id}
-                      type={props.type}
-                    />
-                  );
-                })}
-            </Carousel>
+            <DivCarousel>
+              <Carousel
+                dots={false}
+                autoplay={true}
+                ref={refContent}
+                slidesToShow={slide}>
+                {films &&
+                  films.map((film, id) => {
+                    return (
+                      <Film
+                        key={id}
+                        title={film.title}
+                        image={film.imageUrl.url}
+                        idFilm={film._id}
+                        type={props.type}
+                      />
+                    );
+                  })}
+              </Carousel>
+            </DivCarousel>
             <ButtonSlick
               next="next"
               onClick={() => refContent.current.next()}

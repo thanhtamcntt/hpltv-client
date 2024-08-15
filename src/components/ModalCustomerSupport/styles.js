@@ -6,10 +6,11 @@ export const ModalCustomer = styled(Modal)`
   text-align: center;
   width: 400px !important;
   position: absolute;
+  right: 20px;
 
   & .ant-modal-content {
     height: 600px !important;
-
+    right: 60px;
     background: linear-gradient(
       160deg,
       rgb(72, 196, 58) -20%,
@@ -17,6 +18,7 @@ export const ModalCustomer = styled(Modal)`
       rgb(0, 0, 0) 180%
     );
   }
+
   & svg {
     color: var(--white-bg);
     font-size: 22px;
@@ -25,13 +27,109 @@ export const ModalCustomer = styled(Modal)`
   & .ant-modal-close {
     top: 10px !important;
   }
+
+  @media (max-width: 575px) {
+    width: 70% !important;
+    right: -20px !important;
+
+    & .ant-modal-content {
+      height: 530px !important;
+      right: 60px;
+      background: linear-gradient(
+        160deg,
+        rgb(72, 196, 58) -20%,
+        rgb(6, 54, 1) 35%,
+        rgb(0, 0, 0) 180%
+      );
+    }
+  }
+  @media (max-width: 490px) {
+    width: 80% !important;
+    right: -20px !important;
+  }
+  @media (max-width: 450px) {
+    width: 90% !important;
+    right: -40px !important;
+  }
+
+  @media (min-height: 750px) {
+    & .ant-modal-content {
+      height: 610px !important;
+    }
+  }
+  @media (min-height: 750px) {
+    & .ant-modal-content {
+      height: 670px !important;
+    }
+  }
+  @media (min-height: 750px) {
+    & .ant-modal-content {
+      height: 670px !important;
+    }
+  }
+  @media (min-height: 1000px) {
+    top: 20% !important;
+  }
+  @media (min-height: 1100px) {
+    top: 25% !important;
+  }
+  @media (min-height: 1200px) {
+    top: 30% !important;
+  }
+  @media (min-height: 1300px) {
+    top: 35% !important;
+  }
 `;
+
+export const DivError = styled.div`
+  position: absolute;
+  width: 88%;
+  margin-top: 70%;
+  z-index: 10050;
+  & p {
+    background-color: rgba(255, 0, 0, 1);
+    color: var(--white-bg);
+    width: 80%;
+    margin: 0 auto;
+    padding: 4px 6px;
+    font-weight: 500;
+  }
+`;
+
 export const BtnLog = styled.button`
   position: relative;
   top: -8px;
   left: -160px;
   cursor: pointer;
   background: transparent;
+  @media (max-width: 550px) {
+    top: -8px;
+    left: -150px;
+  }
+  @media (max-width: 530px) {
+    top: -8px;
+    left: -140px;
+  }
+  @media (max-width: 490px) {
+    top: -8px;
+    left: -150px;
+  }
+  @media (max-width: 450px) {
+    top: -8px;
+    left: -140px;
+  }
+  @media (max-width: 420px) {
+    top: -8px;
+    left: -130px;
+  }
+  @media (max-width: 385px) {
+    top: -8px;
+    left: -120px;
+  }
+  @media (max-width: 355px) {
+    top: -8px;
+    left: -110px;
+  }
 `;
 export const DivContainer = styled.div`
   position: relative;
@@ -39,6 +137,11 @@ export const DivContainer = styled.div`
 `;
 
 export const Title = styled.h2`
+  font-size: 36px;
+  margin: 40px 0 20px !important;
+`;
+
+export const TitleChatSHowHub = styled.h2`
   font-size: 36px;
   margin: 0 !important;
 `;
@@ -73,52 +176,6 @@ export const DivChat = styled.div`
   }
 `;
 
-export const DivFooter = styled.div`
-  width: 100%;
-  background-color: var(--bg-chat);
-  border-radius: 20px;
-  position: absolute;
-  bottom: 0;
-`;
-export const ButtonFooter = styled.button`
-  width: 50%;
-  padding: 0.8rem 0;
-  background: transparent;
-  color: ${(props) => (!props.handle ? '#7f7f7f' : 'var(--white-bg)')};
-  cursor: pointer;
-  & p {
-    margin-top: 4px;
-  }
-  & svg {
-    color: ${(props) => (!props.handle ? '#7f7f7f' : 'var(--white-bg)')};
-  }
-
-  &:hover {
-    color: var(--white-bg);
-    & svg {
-      color: var(--white-bg);
-    }
-  }
-`;
-
-export const DivForm = styled.div`
-  & label {
-    color: var(--white-bg) !important;
-  }
-
-  & button {
-    margin-top: 24px;
-  }
-
-  & input {
-    padding: 8px 10px;
-  }
-
-  & .ant-form-item {
-    margin-bottom: 1rem !important;
-  }
-`;
-
 export const DivContainerChat = styled.div`
   height: 100%;
 
@@ -129,11 +186,20 @@ export const DivContainerChat = styled.div`
 export const DivContentChat = styled.div`
   background: var(--white-bg);
   height: 100%;
+  @media (max-width: 575px) {
+    height: 400px;
+  }
+  @media (min-height: 750px) {
+    height: 490px;
+  }
+  @media (min-height: 820px) {
+    height: 550px;
+  }
 `;
 
 export const TitleChat = styled.h3`
   background: #212b30;
-  padding: 2px 0;
+  padding: 5px 0;
 `;
 
 export const ChatContent = styled.div`
@@ -148,6 +214,19 @@ export const ChatContent = styled.div`
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  @media (max-width: 575px) {
+    min-height: 315px;
+    max-height: 315px;
+  }
+  @media (min-height: 750px) {
+    min-height: 405px;
+    max-height: 405px;
+  }
+  @media (min-height: 820px) {
+    min-height: 465px;
+    max-height: 465px;
   }
 `;
 
@@ -230,7 +309,7 @@ export const TextUser = styled.p`
   text-align: right;
   max-width: 100%;
   float: right;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   & > p {
     font-size: 10px;
@@ -251,21 +330,43 @@ export const TextUserResponse = styled.p`
   max-width: 100%;
 
   float: left;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   & > p {
     font-size: 10px;
   }
 `;
 
-export const FormChat = styled.form`
+export const DivFile = styled.div`
+  max-width: 100%;
+  float: right;
+
+  & img,
+  & video {
+    max-width: 100%;
+    height: 100%;
+  }
+`;
+
+export const FormChat = styled.div`
   display: flex;
   align-items: center;
   border-top: 1px solid var(--black);
-
+  position: relative;
   & input {
-    width: 80%;
+    width: 60%;
     padding: 12px 10px;
+  }
+
+  @media (max-width: 575px) {
+    & input {
+      width: 55%;
+    }
+  }
+  @media (max-width: 450px) {
+    & input {
+      width: 50%;
+    }
   }
 `;
 
@@ -279,6 +380,110 @@ export const ButtonChat = styled.button`
   cursor: pointer;
   & svg {
     color: var(--black);
+  }
+`;
+
+export const BtnIcon = styled.button`
+  width: 10%;
+  display: flex;
+  cursor: pointer;
+  background: none;
+  align-items: center;
+  & svg {
+    color: var(--black);
+  }
+
+  @media (max-width: 575px) {
+    width: 12%;
+  }
+  @media (max-width: 450px) {
+    width: 14%;
+  }
+`;
+
+export const DivImage = styled.div`
+  position: absolute;
+  border: 1px solid #0924c8;
+  background: #0924c8;
+  padding: 4px;
+  max-width: 220px;
+  max-height: 180px;
+  right: 26%;
+  bottom: 65px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  & span {
+    margin-bottom: 4px;
+  }
+
+  & img {
+    max-width: 100%;
+    max-height: 138px;
+  }
+
+  @media (max-width: 575px) {
+    width: 12%;
+  }
+  @media (max-width: 450px) {
+    width: 14%;
+  }
+`;
+
+export const BtnExit = styled.button`
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+`;
+
+export const ArrowBottom = styled.div`
+  position: absolute;
+  bottom: -12px;
+  right: 7%;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 12px solid #0924c8;
+`;
+
+export const DivUpLoad = styled.div`
+  width: 10%;
+  display: flex;
+  background: none;
+  align-items: center;
+  cursor: pointer;
+  & button {
+    border: none;
+  }
+  & svg {
+    color: var(--black);
+  }
+`;
+
+export const LabelFile = styled.label`
+  width: 10%;
+  display: flex;
+  background: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  & svg {
+    color: var(--black);
+  }
+`;
+
+export const DivPicker = styled.div`
+  position: absolute;
+  top: -410px;
+  z-index: 10020;
+  & aside {
+    width: 300px !important;
+    height: 400px !important;
+    border: 1px solid #ccc;
   }
 `;
 

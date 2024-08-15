@@ -18,10 +18,7 @@ import { Spin } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { CheckLoginContext } from '../../contexts/LoginContext/index.js';
 import dayjs from 'dayjs';
-import {
-  API_ADD_DATA_PACKAGE_PAYMENT,
-  API_GET_PACKAGE_PAYMENT,
-} from '../../configs/apis.js';
+import { API_GET_PACKAGE_PAYMENT } from '../../configs/apis.js';
 
 function PaySuccessPage(props) {
   const [dataPaymentSuccess, setDataPaymentSuccess] = useState();

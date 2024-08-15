@@ -34,7 +34,6 @@ function ListComment({ dataComment }) {
   };
 
   const handleClickAction = (action, id) => {
-    console.log(action, id);
     if (action === 'DELETE') {
       dispatch(deleteComment(id));
     } else {

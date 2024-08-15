@@ -119,7 +119,6 @@ function ProfilePage() {
 
   const handleChangeAvatarUser = async (info) => {
     setLoading(true);
-    console.log(info.file);
     if (
       info.file.type !== 'image/jpeg' &&
       info.file.type !== 'image/jpg' &&
@@ -139,7 +138,6 @@ function ProfilePage() {
       },
     });
     const json = await response.json();
-    console.log('avatar', json);
     if (json.success) {
       updateUserInfo(json.token);
       setLoading(false);
@@ -164,7 +162,6 @@ function ProfilePage() {
         },
       });
       const json = await response.json();
-      console.log(json);
       if (json.success) {
         updateUserInfo(json.token);
         setLoading(false);
@@ -185,7 +182,7 @@ function ProfilePage() {
       <DivProfile>
         <DivContent>
           <RowContent>
-            <ColLeft span={10}>
+            <ColLeft span={10} lg={10} md={12} sm={24} xs={24}>
               <DivContentLeft>
                 <DivNameUser>
                   <NameUser>
@@ -222,7 +219,7 @@ function ProfilePage() {
                 </DivInfo>
               </DivContentLeft>
             </ColLeft>
-            <ColRight span={14}>
+            <ColRight span={14} lg={14} md={12} sm={24} xs={24}>
               <DivContentRight>
                 <Tabs defaultActiveKey="update" items={items} />
               </DivContentRight>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import {
   DivBanner,
   ButtonSlick,
@@ -21,7 +21,7 @@ import {
 import { Carousel, Tag } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
-function Banner({ dataVideo, isLoading, data }) {
+function Banner({ dataVideo, isLoading, data, type }) {
   const carouselRef = useRef(null);
   const videoRef = useRef([]);
   const [currentId, setCurrentId] = useState(0);
@@ -42,11 +42,19 @@ function Banner({ dataVideo, isLoading, data }) {
   };
 
   const handleWatchNow = (filmId) => {
-    navigate('/film/watching-movies/' + filmId);
+    if (type !== 'series') {
+      navigate('/film/watching-movies/' + filmId);
+    } else {
+      navigate('/watching-series/' + filmId + '/' + 1);
+    }
   };
 
   const handleDetail = (filmId) => {
-    navigate('/film/' + filmId);
+    if (type !== 'series') {
+      navigate('/film/' + filmId);
+    } else {
+      navigate('/series/' + filmId);
+    }
   };
 
   return (
@@ -62,7 +70,7 @@ function Banner({ dataVideo, isLoading, data }) {
         {dataVideo &&
           dataVideo.map((item, id) => {
             return (
-              <>
+              <Fragment key={id}>
                 <video
                   ref={(el) => (videoRef.current[id] = el)}
                   muted
@@ -72,7 +80,7 @@ function Banner({ dataVideo, isLoading, data }) {
                   key={id}>
                   <source src={item.videoUrl.url} type="video/mp4" />
                 </video>
-              </>
+              </Fragment>
             );
           })}
       </Carousel>
@@ -86,7 +94,11 @@ function Banner({ dataVideo, isLoading, data }) {
             {data &&
               data.length &&
               data[currentId].category.map((item, id) => {
-                return <Tag color="processing">{item} </Tag>;
+                return (
+                  <Tag color="processing" key={id}>
+                    {item}{' '}
+                  </Tag>
+                );
               })}
           </Category>
           <Description>

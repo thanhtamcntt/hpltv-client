@@ -7,6 +7,18 @@ export const RowComment = styled.div`
 export const ColLeftComment = styled.div`
   text-align: left;
   width: 8%;
+  @media (max-width: 710px) {
+    width: 10%;
+  }
+  @media (max-width: 576px) {
+    width: 12%;
+  }
+  @media (max-width: 480px) {
+    width: 14%;
+  }
+  @media (max-width: 430px) {
+    width: 16%;
+  }
 `;
 export const ColRightComment = styled.div`
   flex: 1;

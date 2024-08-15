@@ -36,7 +36,7 @@ import {
 
 function ContactPage() {
   const [questions, setQuestions] = useState();
-  const [openQuestions, setOpenQuestions] = useState({});
+  const [openQuestions, setOpenQuestions] = useState();
   const [messageApi, contextHolder] = message.useMessage();
 
   const { userInfo } = useContext(CheckLoginContext);
@@ -67,11 +67,16 @@ function ContactPage() {
   }, []);
 
   const handleOpenDescription = (id) => {
-    setOpenQuestions((prev) => ({ ...prev, [id]: !prev[id] }));
+    setOpenQuestions((prev) => {
+      if (prev === id) {
+        return '';
+      } else {
+        return id;
+      }
+    });
   };
 
   const onFinish = async (values) => {
-    console.log(values);
     const response = await fetch(API_CREATE_QUESTION_CUSTOMER, {
       method: 'POST',
       body: JSON.stringify({
@@ -85,7 +90,6 @@ function ContactPage() {
       },
     });
     const responseJson = await response.json();
-    console.log(responseJson);
     if (responseJson.success) {
       form.setFieldsValue({
         title: '',
@@ -98,9 +102,7 @@ function ContactPage() {
       error('The system is experiencing a problem. Please try again later!!');
     }
   };
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+  const onFinishFailed = (errorInfo) => {};
 
   return (
     <DivContact>
@@ -115,7 +117,7 @@ function ContactPage() {
             <Title1>Have any question? We'd love to hear from you</Title1>
           </DivTitle>
           <RowContent>
-            <ColContent span={8}>
+            <ColContent span={8} lg={8} md={12} sm={12} xs={24}>
               <div>
                 <div>
                   <TitleLeft>Some frequently asked questions</TitleLeft>
@@ -128,7 +130,7 @@ function ContactPage() {
                               onClick={() => handleOpenDescription(item._id)}>
                               {item.title}
                             </TitleQuestion>
-                            {openQuestions[item._id] && (
+                            {openQuestions === item._id && (
                               <DescriptionQuestion>
                                 {item.description}
                               </DescriptionQuestion>
@@ -140,7 +142,7 @@ function ContactPage() {
                 </div>
               </div>
             </ColContent>
-            <ColContent span={8}>
+            <ColContent span={8} lg={8} md={12} sm={12} xs={24}>
               <div>
                 <div>
                   <TitleCenter>Contact Info</TitleCenter>
@@ -187,7 +189,7 @@ function ContactPage() {
                 </div>
               </div>
             </ColContent>
-            <ColContent span={8}>
+            <ColContent span={8} lg={8} md={12} sm={24} xs={24}>
               <div>
                 <TitleRight>Ask a question</TitleRight>
                 <DivForm>

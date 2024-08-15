@@ -9,17 +9,17 @@ export const TextTitle = styled.h2`
 
 export const DivPage = styled.div``;
 
-export const DivAction = styled.div`
-  margin-top: 30px;
-`;
+export const DivAction = styled.div``;
 
 export const ListNav = styled.ul`
   display: flex;
   flex-direction: column;
+  margin-top: 30px;
 `;
 
 export const ItemNav = styled.li`
-  & a {
+  & a,
+  & button {
     color: var(--black);
     font-size: 24px;
     font-weight: 700;
@@ -29,6 +29,11 @@ export const ItemNav = styled.li`
     @media (min-width: 992px) and (max-width: 1199px) {
       font-size: 18px;
     }
+  }
+  & button {
+    width: 100%;
+    background: transparent;
+    cursor: pointer;
   }
   @media (max-width: 1200px) {
     padding: 10px 10px;

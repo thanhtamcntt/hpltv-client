@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchMoviesMostRating } from '../../../action/film/MostRating';
+import {
+  fetchMoviesMostRating,
+  fetchSeriesMostRating,
+} from '../../../action/film/MostRating';
 
 const initialState = {
   data: [],
@@ -17,12 +20,32 @@ export const MoviesMostRatingSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchMoviesMostRating.fulfilled, (state, action) => {
-      // console.log(action.payload);
       state.loading = false;
+      state.data = [];
       state.data = [...action.payload.data];
     });
     builder.addCase(fetchMoviesMostRating.rejected, (state, action) => {
-      // console.log(action);
+      state.loading = false;
+      state.error = action.payload.message;
+    });
+  },
+});
+
+export const SeriesMostRatingSlice = createSlice({
+  name: 'SeriesMostRatingSlice',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    // fetch all series
+    builder.addCase(fetchSeriesMostRating.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchSeriesMostRating.fulfilled, (state, action) => {
+      state.loading = false;
+      state.data = [];
+      state.data = [...action.payload.data];
+    });
+    builder.addCase(fetchSeriesMostRating.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload.message;
     });

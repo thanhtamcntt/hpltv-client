@@ -49,7 +49,7 @@ function FilmSameComponent(props) {
       setSlide(4);
     }
     if (width <= 1149 && width > 576) {
-      setSlide(3);
+      setSlide(props.slide);
     }
     if (width < 576) {
       setSlide(2);
@@ -83,7 +83,7 @@ function FilmSameComponent(props) {
                   title={film.title}
                   image={film.imageUrl.url}
                   idFilm={film._id}
-                  type="movies"
+                  type={props.type ? props.type : 'movies'}
                 />
               );
             })}

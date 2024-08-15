@@ -8,11 +8,6 @@ export const DivFilm = styled.div`
   min-height: 500px;
 `;
 
-export const Title = styled.h2`
-  text-align: left;
-  color: var(--white-bg);
-`;
-
 export const DivContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -24,8 +19,18 @@ export const DivContent = styled.div`
   }
 
   @media (max-width: 767px) {
-    max-width: 650px;
+    width: 100%;
+    max-width: calc(100% - 20px);
     margin: 0 auto;
+  }
+`;
+
+export const Title = styled.h2`
+  text-align: left;
+  color: var(--white-bg);
+  width: 100%;
+  @media (max-width: 991px) {
+    margin-left: 1rem;
   }
 `;
 
