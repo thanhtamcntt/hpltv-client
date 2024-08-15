@@ -29,7 +29,7 @@ import {
 } from '../../redux/action/home/movies';
 import FilmMost from '../../components/FilmAndMovies/FilmMost';
 import { fetchMoviesSameMovies } from '../../redux/action/film/SameMovies';
-import { fetchAllOrder, fetchOrderFromUserId } from '../../redux/action/order';
+import { fetchOrderFromUserId } from '../../redux/action/order';
 import { fetchAllPackage } from '../../redux/action/package';
 import FilmSameComponent from '../../components/FilmAndMovies/FilmSameComponent';
 import CommentComponent from '../../components/Comment/CommentComponent';
@@ -38,6 +38,7 @@ import VideoActionMovies from '../../components/FilmAndMovies/VideoActionMovies'
 import LoadingPage from '../LoadingPage';
 import { Modal } from 'antd';
 import { CheckLoginContext } from '../../contexts/LoginContext';
+import { Helmet } from 'react-helmet-async';
 
 const { confirm } = Modal;
 
@@ -125,11 +126,8 @@ const DetailFilmPage = (props) => {
   useEffect(() => {
     setIsWatching(true);
     if (data?.film?.listPackageIdBand && order?.data[0]?.packageId) {
-      console.log(order);
-
       const packageId = order.data[0].packageId._id;
       const listPackageIds = data.film.listPackageIdBand;
-      console.log(listPackageIds);
       if (listPackageIds.includes(packageId)) {
         setIsWatching(false);
       }
@@ -196,6 +194,10 @@ const DetailFilmPage = (props) => {
 
   return (
     <DivContainer>
+      <Helmet>
+        <title>Detail Film </title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <RowDetail>
         <ColDetail span={17} lg={16}>
           <RowLeft>

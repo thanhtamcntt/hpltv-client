@@ -9,6 +9,7 @@ import LoadingPage from '../LoadingPage';
 import Banner from '../../components/Banner';
 import SearchComponent from '../../components/Search';
 import fetchDataLook from '../../utils/fetdataLook';
+import { Helmet } from 'react-helmet-async';
 
 const SeriesPage = () => {
   const [data, setData] = useState();
@@ -99,6 +100,10 @@ const SeriesPage = () => {
 
   return (
     <DivFilm>
+      <Helmet>
+        <title>Series Showhub</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <Banner
         dataVideo={dataVideo}
         isLoading={isLoading}

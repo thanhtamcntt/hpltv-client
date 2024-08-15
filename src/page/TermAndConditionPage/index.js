@@ -8,10 +8,15 @@ import {
   Content,
 } from './styles';
 import image from '../../assets/images/term_and_condition.jpg';
+import { Helmet } from 'react-helmet-async';
 
 function TermAndConditionPage() {
   return (
     <DivContact>
+      <Helmet>
+        <title>Term And Condition</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <DivBanner>
         <BannerContact src={image} />
       </DivBanner>

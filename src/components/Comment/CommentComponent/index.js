@@ -44,7 +44,7 @@ function CommentComponent(props) {
       }
       setDataComment(data);
     }
-  }, [comment]);
+  }, [comment, filmId, seriesId]);
 
   const handleSendComment = async () => {
     const data = {

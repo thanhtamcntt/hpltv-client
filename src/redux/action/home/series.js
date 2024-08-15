@@ -44,7 +44,6 @@ export const handleLikeSeries = createAsyncThunk(
       },
     });
     const data = await response.json();
-    console.log(data);
 
     if (!data.success) {
       rejectWithValue(dataPost);
@@ -65,7 +64,6 @@ export const handleRatingSeriesAction = createAsyncThunk(
       },
     });
     const data = await response.json();
-    console.log(data);
     if (!data.success) {
       rejectWithValue(dataPost);
     }

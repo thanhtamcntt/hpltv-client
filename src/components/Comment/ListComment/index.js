@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { DivListComment, NoCommentTitle } from './styles';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import ReplyComment from '../ReplyCommentComponent';
 import ListCommentComponent from '../ListCommentComponent';
 import {

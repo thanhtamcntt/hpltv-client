@@ -10,6 +10,7 @@ import LoadingPage from '../LoadingPage';
 
 import { fetchAllCategory } from '../../redux/action/category/category';
 import Banner from '../../components/Banner';
+import { Helmet } from 'react-helmet-async';
 
 function HomePage() {
   const [dataVideo, setDataVideo] = useState();
@@ -63,9 +64,13 @@ function HomePage() {
   if (!dataVideo || !data) {
     return <LoadingPage />;
   }
-
   return (
     <DivHomePage>
+      <Helmet>
+        <title>Home</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+        <link rel="icon" href={process.env.REACT_APP_IMAGE_BANNER} />
+      </Helmet>
       <Banner dataVideo={dataVideo} isLoading={isLoading} data={data} />
       {movies && series ? (
         <>

@@ -15,6 +15,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import HeaderPaymentComponent from '../../components/HeaderPaymentComponent';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 function OptionCheckoutPage(props) {
   const [data, setData] = useState();
@@ -30,6 +31,10 @@ function OptionCheckoutPage(props) {
 
   return (
     <PaymentContainer>
+      <Helmet>
+        <title>Option Checkout</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       {!props.login && (
         <PaymentHeader>
           <HeaderPaymentComponent />

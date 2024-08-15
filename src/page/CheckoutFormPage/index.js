@@ -18,6 +18,7 @@ import { Spin } from 'antd';
 import HeaderPaymentComponent from '../../components/HeaderPaymentComponent';
 import Footer from '../../components/Footer';
 import { API_POST_PAYMENT } from '../../configs/apis';
+import { Helmet } from 'react-helmet-async';
 
 const stripePromise = loadStripe(process.env.REACT_APP_API_PUBLIC_KEY_STRIPE, {
   locale: 'en',
@@ -74,6 +75,10 @@ const CheckoutFormPage = (() => {
 
     return (
       <DivCheckout>
+        <Helmet>
+          <title>Checkout</title>
+          <link rel="canonical" href="https://www.tacobell.com/" />
+        </Helmet>
         {!props.login && (
           <DivHeader>
             <div>

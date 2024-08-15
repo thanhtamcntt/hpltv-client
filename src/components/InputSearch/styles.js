@@ -72,11 +72,17 @@ export const ListFilm = styled.ul`
   -ms-overflow-style: none;
 `;
 export const Item = styled.li`
-  padding: 0.8rem 0.5rem;
   transition: all 0.3s linear;
   &:hover {
     background-color: rgba(29, 45, 124, 0.7);
     cursor: pointer;
+  }
+
+  & > button {
+    background-color: rgba(29, 45, 124, 0.7);
+    cursor: pointer;
+    width: 100%;
+    padding: 0.8rem 0.5rem;
   }
 `;
 export const RowItem = styled(Row)``;
