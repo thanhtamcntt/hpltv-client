@@ -17,6 +17,7 @@ import { InfoCircleOutlined } from '@ant-design/icons';
 import SearchComponent from '../../components/Search';
 import fetchDataLook from '../../utils/fetdataLook';
 import { fetchAllSeries } from '../../redux/action/home/series';
+import { Helmet } from 'react-helmet-async';
 
 const ResultPage = (props) => {
   const [data, setData] = useState();
@@ -95,7 +96,6 @@ const ResultPage = (props) => {
               .toLowerCase()
               .includes(location?.state?.searchKey.toLowerCase())
           ) {
-            console.log('vaof dday');
             arrayData.push(item);
           }
         }
@@ -138,6 +138,10 @@ const ResultPage = (props) => {
 
   return (
     <DivFilm>
+      <Helmet>
+        <title>Result Film</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <DivContent>
         <Title>
           Keyword search results: "

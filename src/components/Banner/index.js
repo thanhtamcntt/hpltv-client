@@ -31,9 +31,7 @@ function Banner({ dataVideo, isLoading, data, type }) {
 
   useEffect(() => {
     if (!isLoading && dataVideo && videoRef.current[currentSlide]) {
-      videoRef.current[currentSlide].play().catch((error) => {
-        console.log('Error playing video:', error);
-      });
+      videoRef.current[currentSlide].play().catch((error) => {});
     }
   }, [isLoading, currentSlide, dataVideo]);
   const handleAfterChange = (current) => {

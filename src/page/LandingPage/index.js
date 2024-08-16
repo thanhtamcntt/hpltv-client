@@ -23,6 +23,7 @@ import imageInfo1 from '../../assets/images/laptop-landing.jpg';
 import imageInfo2 from '../../assets/images/tv-landing.jpg';
 import { RightOutlined } from '@ant-design/icons';
 import LogoImage from '../../components/Common/ImageBanner';
+import { Helmet } from 'react-helmet-async';
 
 function LandingPage() {
   useEffect(() => {
@@ -31,6 +32,10 @@ function LandingPage() {
   });
   return (
     <DivLandingPage>
+      <Helmet>
+        <title>Landing Page</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <DivActionAuth backgroundImage={banner1}>
         <DivContentAuth>
           <DivBanner>

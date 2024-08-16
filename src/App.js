@@ -6,7 +6,6 @@ import {
   Navigate,
   Route,
   Routes,
-  json,
   useLocation,
   useNavigate,
 } from 'react-router-dom';
@@ -98,7 +97,7 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem('tokenUser')) {
       const tokenDecoded = jwtDecode(localStorage.getItem('tokenUser'));
-      const dateExpiresIn = new Date(tokenDecoded.exp);
+      const dateExpiresIn = new Date(tokenDecoded.exp * 1000);
       const currentDate = new Date();
 
       if (currentDate > dateExpiresIn) {

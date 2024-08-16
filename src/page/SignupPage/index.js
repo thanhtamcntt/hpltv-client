@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   DivAuth,
   DivContent,
@@ -16,6 +16,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button, Form, Input, Select, message } from 'antd';
 import LogoImage from '../../components/Common/ImageBanner';
 import { API_SIGNUP } from '../../configs/apis';
+import { Helmet } from 'react-helmet-async';
 
 function SignupPage() {
   const [textError, setTextError] = useState();
@@ -78,6 +79,10 @@ function SignupPage() {
 
   return (
     <DivAuth>
+      <Helmet>
+        <title>Signup Showhub</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       {contextHolder}
       <DivContainer>
         <DivBanner>
@@ -140,18 +145,7 @@ function SignupPage() {
                   />
                 }
               />
-              {/* <ItemForm
-                label="Password"
-                name="password"
-                message="Please input your password!"
-                input={<Input.Password onFocus={handleFocus} />}
-              />
-              <ItemForm
-                label="Confirm Password"
-                name="confirmPassword"
-                message="Please input your confirm password!"
-                input={<Input.Password onFocus={handleFocus} />}
-              /> */}
+
               <Form.Item
                 className="btn-login"
                 wrapperCol={{

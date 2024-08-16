@@ -5,7 +5,6 @@ import {
   DivContainer,
   DivBanner,
   DivForm,
-  DivFooter,
   TextBanner,
   Text,
   DivLink,
@@ -17,6 +16,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button, Form, Input, message } from 'antd';
 import LogoImage from '../../components/Common/ImageBanner';
 import { API_LOGIN } from '../../configs/apis';
+import { Helmet } from 'react-helmet-async';
 
 function LoginPage() {
   const [textError, setTextError] = useState();
@@ -76,6 +76,10 @@ function LoginPage() {
 
   return (
     <DivAuth>
+      <Helmet>
+        <title>Login Showhub</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       {contextHolder}
       <DivContainer>
         <DivBanner>

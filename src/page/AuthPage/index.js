@@ -15,6 +15,7 @@ import { API_RESEND_CODE, API_VERIFY_LOGIN } from '../../configs/apis.js';
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { CheckLoginContext } from '../../contexts/LoginContext/index.js';
+import { Helmet } from 'react-helmet-async';
 
 function AuthPage() {
   const [count, setCount] = useState(0);
@@ -95,6 +96,10 @@ function AuthPage() {
     <>
       {contextHolder}
       <AuthContainer>
+        <Helmet>
+          <title>Auth Code</title>
+          <link rel="canonical" href="https://www.tacobell.com/" />
+        </Helmet>
         <DivHeader>
           <div>
             <HeaderPaymentComponent />

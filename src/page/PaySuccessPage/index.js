@@ -19,6 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import { CheckLoginContext } from '../../contexts/LoginContext/index.js';
 import dayjs from 'dayjs';
 import { API_GET_PACKAGE_PAYMENT } from '../../configs/apis.js';
+import { Helmet } from 'react-helmet-async';
 
 function PaySuccessPage(props) {
   const [dataPaymentSuccess, setDataPaymentSuccess] = useState();
@@ -47,7 +48,7 @@ function PaySuccessPage(props) {
       }
     };
     addPayment();
-  }, []);
+  }, [userInfo]);
 
   useEffect(() => {
     let timer;
@@ -82,6 +83,10 @@ function PaySuccessPage(props) {
   }
   return (
     <>
+      <Helmet>
+        <title>Pay Success</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <PaySuccessContainer>
         <PaySuccessContent>
           <DivIcon>

@@ -33,6 +33,7 @@ import {
   MailOutlined,
   PhoneOutlined,
 } from '@ant-design/icons';
+import { Helmet } from 'react-helmet-async';
 
 function ContactPage() {
   const [questions, setQuestions] = useState();
@@ -106,6 +107,10 @@ function ContactPage() {
 
   return (
     <DivContact>
+      <Helmet>
+        <title>Contact</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       {contextHolder}
       <DivBanner>
         <BannerContact src={contactImage} />

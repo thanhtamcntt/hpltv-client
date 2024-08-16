@@ -27,13 +27,10 @@ import { fetchAllCategory } from '../../redux/action/category/category';
 import { fetchSeriesMostView } from '../../redux/action/film/MostView';
 import { fetchSeriesMostNew } from '../../redux/action/film/MostNew';
 import { fetchSeriesMostRating } from '../../redux/action/film/MostRating';
-import {
-  handleLikeMovies,
-  handleRatingMoviesAction,
-} from '../../redux/action/home/movies';
+
 import FilmMost from '../../components/FilmAndMovies/FilmMost';
 import { fetchSeriesSameSeries } from '../../redux/action/film/SameMovies';
-import { fetchAllOrder, fetchOrderFromUserId } from '../../redux/action/order';
+import { fetchOrderFromUserId } from '../../redux/action/order';
 import { fetchAllPackage } from '../../redux/action/package';
 import FilmSameComponent from '../../components/FilmAndMovies/FilmSameComponent';
 import CommentComponent from '../../components/Comment/CommentComponent';
@@ -43,6 +40,7 @@ import LoadingPage from '../LoadingPage';
 import { Modal } from 'antd';
 import { CheckLoginContext } from '../../contexts/LoginContext';
 import { fetchAllFilmForSeries } from '../../redux/action/home/filmforseries';
+import { Helmet } from 'react-helmet-async';
 
 const { confirm } = Modal;
 
@@ -84,9 +82,7 @@ const DetailSeriesPage = (props) => {
           dispatch(fetchOrderFromUserId(userInfo.userId)),
           dispatch(fetchAllPackage()),
         ]);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
+      } catch (error) {}
     };
 
     fetchData();
@@ -134,7 +130,6 @@ const DetailSeriesPage = (props) => {
 
   //set like user
   useEffect(() => {
-    console.log(data, userInfo.userId);
     if (
       data &&
       data.film &&
@@ -146,7 +141,6 @@ const DetailSeriesPage = (props) => {
 
   //set rating user
   useEffect(() => {
-    console.log(data);
     setIsRating(false);
     setDataValueUserRating(0);
     if (dataSeries && dataSeries.film) {
@@ -162,11 +156,9 @@ const DetailSeriesPage = (props) => {
   // check package user
   useEffect(() => {
     setIsWatching(true);
-    console.log(order);
     if (data?.film?.listPackageIdBand && order?.data[0]?.packageId) {
       const packageId = order.data[0].packageId._id;
       const listPackageIds = data.film.listPackageIdBand;
-      console.log(listPackageIds);
       if (listPackageIds.includes(packageId)) {
         setIsWatching(false);
       }
@@ -234,6 +226,10 @@ const DetailSeriesPage = (props) => {
 
   return (
     <DivContainer>
+      <Helmet>
+        <title>Detail Series </title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <RowDetail>
         <ColDetail span={17} lg={16}>
           <RowLeft>

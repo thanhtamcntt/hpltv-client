@@ -22,6 +22,7 @@ import {
   API_GET_ALL_PAYMENT_DATA,
   API_GET_ALL_ORDER,
 } from '../../configs/apis';
+import { Helmet } from 'react-helmet-async';
 
 function PaymentPage(props) {
   const [dataChoosePayment, setDataChoosePayment] = useState();
@@ -52,7 +53,6 @@ function PaymentPage(props) {
         API_GET_ALL_PAYMENT_DATA + '/package-max',
       );
       const dataJsonPackageMax = await responsePackageMax.json();
-      console.log(dataJsonPackageMax.packageId);
 
       const responseOrder = await fetch(
         API_GET_ALL_ORDER + '/' + userInfo.userId,
@@ -99,6 +99,10 @@ function PaymentPage(props) {
   }
   return (
     <PaymentContainer>
+      <Helmet>
+        <title>Payment</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       {!props.login && (
         <PaymentHeader>
           <HeaderPaymentComponent />

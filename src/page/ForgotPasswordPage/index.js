@@ -19,6 +19,7 @@ import Footer from '../../components/Footer';
 import LogoImage from '../../components/Common/ImageBanner';
 import { API_FORGOT_PASSWORD } from '../../configs/apis';
 import { ArrowLeftOutlined } from '@ant-design/icons';
+import { Helmet } from 'react-helmet-async';
 
 function ForgotPasswordPage() {
   const [textError, setTextError] = useState();
@@ -69,6 +70,10 @@ function ForgotPasswordPage() {
 
   return (
     <DivAuth>
+      <Helmet>
+        <title>Forgot Password</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       {contextHolder}
       <DivContainer>
         <DivBanner>

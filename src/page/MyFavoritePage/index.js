@@ -5,6 +5,7 @@ import { fetchAllMovies } from '../../redux/action/home/movies';
 import Film from '../../components/FilmAndMovies/FilmComponent';
 import LoadingPage from '../LoadingPage';
 import { CheckLoginContext } from '../../contexts/LoginContext';
+import { Helmet } from 'react-helmet-async';
 
 const MyFavoritePage = () => {
   const [data, setData] = useState();
@@ -67,6 +68,10 @@ const MyFavoritePage = () => {
 
   return (
     <DivFilm>
+      <Helmet>
+        <title>Favorite Film</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <DivContent>
         <Title>Your favorite movie and series list</Title>
 

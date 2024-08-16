@@ -23,6 +23,7 @@ import LoadingPage from '../LoadingPage';
 import { CheckLoginContext } from '../../contexts/LoginContext';
 import { API_CHANGE_AVATAR, API_DELETE_AVATAR } from '../../configs/apis';
 import InfoPackage from '../../components/InfoPackage';
+import { Helmet } from 'react-helmet-async';
 
 function ProfilePage() {
   const [user, setUser] = useState();
@@ -178,6 +179,10 @@ function ProfilePage() {
 
   return (
     <DivContainer>
+      <Helmet>
+        <title>Profile</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       {contextHolder}
       <DivProfile>
         <DivContent>

@@ -5,7 +5,6 @@ import {
   DivContainer,
   DivBanner,
   DivForm,
-  DivFooter,
   TextBanner,
   TextContent,
   DivError,
@@ -13,13 +12,13 @@ import {
 import ItemForm from '../../components/Common/ItemForm';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button, Form, Input, message } from 'antd';
-import Footer from '../../components/Footer';
 import LogoImage from '../../components/Common/ImageBanner';
 import {
   API_NEW_PASSWORD,
   API_VERIFY_TOKEN_RESET_PASSWORD,
 } from '../../configs/apis';
 import LoadingPage from '../LoadingPage';
+import { Helmet } from 'react-helmet-async';
 
 function ResetPasswordPage() {
   const [textError, setTextError] = useState();
@@ -93,6 +92,10 @@ function ResetPasswordPage() {
 
   return (
     <DivAuth>
+      <Helmet>
+        <title>Reset Password</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       {contextHolder}
       <DivContainer>
         <DivBanner>

@@ -18,6 +18,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllMovies } from '../../redux/action/home/movies';
+import { fetchAllSeries } from '../../redux/action/home/series';
 
 function InputSearchLayout(props) {
   const [searchKey, setSearchKey] = useState('');
@@ -27,22 +28,40 @@ function InputSearchLayout(props) {
 
   const dispatch = useDispatch();
   const movies = useSelector((state) => state.moviesSlice);
+  const series = useSelector((state) => state.seriesSlice);
 
   useEffect(() => {
     dispatch(fetchAllMovies());
+    dispatch(fetchAllSeries());
   }, [dispatch]);
 
   useEffect(() => {
-    if (movies) {
+    if (movies && series) {
       let arrayData = [];
+      let count = 0;
+      let maxItems = searchKey === '' ? 15 : Infinity;
+
       for (let item of movies.data) {
-        if (item.title.toLowerCase().includes(searchKey.toLowerCase()))
-          arrayData.push(item);
+        if (item.title.toLowerCase().includes(searchKey.toLowerCase())) {
+          arrayData.push({ data: item, type: 'movies' });
+          count++;
+          if (count >= maxItems) break;
+        }
+      }
+      count = 0;
+      if (count < maxItems) {
+        for (let item of series.data) {
+          if (item.title.toLowerCase().includes(searchKey.toLowerCase())) {
+            arrayData.push({ data: item, type: 'series' });
+            count++;
+            if (count >= maxItems) break;
+          }
+        }
       }
 
       setFilms(arrayData);
     }
-  }, [searchKey, movies]);
+  }, [searchKey, movies, series]);
 
   const handleSearchFilm = (e) => {
     e.preventDefault();
@@ -70,6 +89,14 @@ function InputSearchLayout(props) {
     event.stopPropagation();
   };
 
+  const handleClickFilm = (type, filmId) => {
+    if (type === 'movies') {
+      navigate('/film/' + filmId);
+    } else {
+      navigate('/series/' + filmId);
+    }
+  };
+
   return (
     <DivSearch onClick={handleInputClick}>
       <FormSearch onSubmit={handleSearchFilm}>
@@ -92,31 +119,24 @@ function InputSearchLayout(props) {
               films.map((item, id) => {
                 return (
                   <Item key={id}>
-                    <RowItem>
-                      <ColItem span={5}>
-                        <Link
-                          to={
-                            props.type === 'series'
-                              ? '/series/' + item._id
-                              : '/film/' + item._id
-                          }>
-                          <ImageItem src={item.imageUrl.url} alt={item.title} />
-                        </Link>
-                      </ColItem>
-                      <ColItem span={19}>
-                        <Link
-                          to={
-                            props.type === 'series'
-                              ? '/series/' + item._id
-                              : '/film/' + item._id
-                          }>
-                          <TextFilm>{item.title}</TextFilm>
-                        </Link>
-                        <TextCountry>
-                          {item.country.join('-')}-{item.releaseDate}
-                        </TextCountry>
-                      </ColItem>
-                    </RowItem>
+                    <button
+                      onClick={() => handleClickFilm(item.type, item.data._id)}>
+                      <RowItem>
+                        <ColItem span={5}>
+                          <ImageItem
+                            src={item.data.imageUrl.url}
+                            alt={item.data.title}
+                          />
+                        </ColItem>
+                        <ColItem span={19}>
+                          <TextFilm>{item.data.title}</TextFilm>
+                          <TextCountry>
+                            {item.data.country.join('-')}-
+                            {item.data.releaseDate}
+                          </TextCountry>
+                        </ColItem>
+                      </RowItem>
+                    </button>
                   </Item>
                 );
               })

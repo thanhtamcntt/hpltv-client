@@ -6,8 +6,6 @@ import {
   deleteComment,
   updateComment,
 } from '../../action/comment/comment';
-import { useContext } from 'react';
-import { CheckLoginContext } from '../../../contexts/LoginContext';
 
 const initialState = {
   data: [],
